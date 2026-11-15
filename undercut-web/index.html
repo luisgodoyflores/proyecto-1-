@@ -120,23 +120,6 @@ section{padding-block:56px 8px}
 .specs b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:34px;font-variant-numeric:tabular-nums}
 .specs span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#ffd5d1}
 
-/* Undercut Box */
-.boxhead{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:end;margin-bottom:24px}
-.boxhead h2{font-size:clamp(34px,5.4vw,64px)}
-.boxhead h2 span{color:var(--rosso)}
-.boxhead p{margin:0;color:var(--muted);max-width:52ch}
-.boxes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.box{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
-.box .ph{aspect-ratio:4/5;background:#151515;position:relative}
-.box .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.box .in{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.box h3{font-size:20px}
-.box ul{margin:2px 0 6px;padding-left:18px;color:var(--muted);font-size:13px}
-.box .price{margin-top:auto}
-.box .add{position:static;align-self:flex-start;background:var(--rosso);color:var(--ivory);margin-top:6px}
-@media (max-width:1000px){.boxhead{grid-template-columns:1fr}.boxes{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.boxes{grid-template-columns:1fr}}
-
 /* Historia */
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
 .story .visual{background:var(--carbon);border-radius:4px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden}
@@ -190,14 +173,14 @@ footer .wrap{padding-block:44px 28px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="announce"><div class="wrap"><span>Despacho gratis sobre $59.990</span><span>Hasta 6 cuotas sin interés</span><span>Nuevo: Undercut Box, gana con la ayuda de tu box</span></div></div>
+<div class="announce"><div class="wrap"><span>Despacho gratis sobre $59.990</span><span>Hasta 6 cuotas sin interés</span><span>Grabado láser de iniciales sin costo</span></div></div>
 
 <header class="site">
   <div class="wrap">
     <button class="icon-btn menu-btn" aria-label="Abrir menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <a class="brand" href="#inicio" aria-label="Undercut, inicio" id="brandLogo"></a>
     <nav class="main" aria-label="Principal">
-      <a href="#nuevo" class="on">Nuevo</a><a href="#relojes">Relojes</a><a href="#categorias">Ropa</a><a href="#categorias">Cuero</a><a href="#box">Box</a><a href="#coleccion">Rosso 01</a><a href="#club">Club</a>
+      <a href="#nuevo" class="on">Nuevo</a><a href="#relojes">Relojes</a><a href="#categorias">Ropa</a><a href="#categorias">Cuero</a><a href="#coleccion">Rosso 01</a><a href="#club">Club</a>
     </nav>
     <div class="icons">
       <button class="icon-btn" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
@@ -211,8 +194,8 @@ footer .wrap{padding-block:44px 28px}
   <section class="hero" style="padding:0">
     <div class="wrap">
       <div>
-        <div class="mono kicker">Colección Rosso 01 · Relojes de carrera</div>
-        <h1>Gana la carrera <span>en boxes.</span></h1>
+        <div class="mono kicker">Undercut · Colección Rosso 01</div>
+        <h1>Gana con la ayuda <span>de tu box.</span></h1>
         <p>El undercut es la jugada de quien entra primero a boxes y sale adelante. Ropa, cuero y relojes para el hombre que se anticipa.</p>
         <div class="cta"><a class="btn" href="#relojes">Ver relojes →</a><a class="btn ghost" href="#categorias">Comprar ropa</a></div>
       </div>
@@ -265,14 +248,6 @@ footer .wrap{padding-block:44px 28px}
     </div>
   </section>
 
-  <section class="wrap" id="box">
-    <div class="boxhead">
-      <div><div class="mono" style="color:var(--rosso)">Undercut Box · Sets de regalo</div><h2 style="margin-top:10px">Gana con la ayuda <span>de tu box.</span></h2></div>
-      <p>En la carrera, el box te cambia los neumáticos y te devuelve a la pista más rápido. Nuestro box te equipa para el día: reloj, cuero y accesorios en una caja lista para regalar, con grabado de iniciales incluido.</p>
-    </div>
-    <div class="boxes" id="boxes"></div>
-  </section>
-
   <section class="wrap">
     <div class="story">
       <div class="visual" id="storyArt"></div>
@@ -310,7 +285,7 @@ footer .wrap{padding-block:44px 28px}
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div><div id="footLogo"></div><p style="max-width:34ch;margin:14px 0 0">Ropa, cuero y relojes inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
+      <div><div id="footLogo"></div><p style="margin:10px 0 0;font-family:'Exo 2',sans-serif;font-style:italic;font-weight:800;color:#f6f4ef;text-transform:uppercase;letter-spacing:.04em">Gana con la ayuda de tu box</p><p style="max-width:34ch;margin:10px 0 0">Ropa, cuero y relojes inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
       <div><h4>Tienda</h4><ul><li><a href="#relojes">Relojes</a></li><li><a href="#categorias">Polos y chaquetas</a></li><li><a href="#categorias">Cinturones y billeteras</a></li><li><a href="#categorias">Colleras y corbatas</a></li></ul></div>
       <div><h4>Ayuda</h4><ul><li><a href="#inicio">Seguimiento de pedido</a></li><li><a href="#inicio">Cambios y devoluciones</a></li><li><a href="#inicio">Guía de tallas</a></li><li><a href="#inicio">Garantía de relojes</a></li></ul></div>
       <div><h4>Undercut</h4><ul><li><a href="#inicio">Nuestra historia</a></li><li><a href="#club">Club Undercut</a></li><li><a href="#inicio">Tiendas</a></li><li><a href="#inicio">Ventas corporativas</a></li></ul></div>
@@ -408,15 +383,6 @@ document.getElementById('products').addEventListener('click',e=>{const b=e.targe
 
 document.getElementById('clubForm').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('email').value.trim();const m=document.getElementById('clubMsg');
   m.textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)?'Listo. Esta es una versión de prueba: el correo no se guarda.':'Escribe un correo válido, por ejemplo nombre@correo.cl.';});
-
-const BOXES=[
- {name:'Box Ejecutivo',img:'img/box-ejecutivo.png',items:['Reloj de esfera azul y correa de cuero','Billetera y portadocumentos','Lapicera metálica y gemelos'],price:449990},
- {name:'Box Piloto',img:'img/box-piloto.png',items:['Reloj de acero y termo de viaje','Correas intercambiables','Billetera, lentes y llavero'],price:389990},
- {name:'Box Ruta',img:'img/box-ruta.png',items:['Cuaderno de cuero y lapicera','Lentes de sol y reloj','Perfume y set de cuidado'],price:329990},
- {name:'Box Tech',img:'img/box-tech.png',items:['Audífonos y reloj inteligente','Botella térmica y batería portátil','Lentes y herramienta multiuso'],price:299990},
-];
-document.getElementById('boxes').innerHTML=BOXES.map(b=>`<article class="box"><div class="ph"><img src="${b.img}" alt="${b.name}: set de accesorios en caja de regalo"></div><div class="in"><h3>${b.name}</h3><ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul><div class="price"><b>${fmt(b.price)}</b></div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(b.price/6))}</div><button class="add" data-name="${b.name}">Agregar</button></div></article>`).join('');
-document.getElementById('boxes').addEventListener('click',e=>{const b=e.target.closest('.add');if(!b)return;cart++;document.getElementById('cartCount').textContent=cart;say(`${b.dataset.name} agregado al carro`);});
 
 /* Ilustración de la historia: el undercut en la pista */
 document.getElementById('storyArt').innerHTML=`<svg viewBox="0 0 400 300" role="img" aria-label="Esquema del undercut: el auto rojo entra a boxes antes y sale adelante">
