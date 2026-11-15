@@ -1,7 +1,7 @@
 # Visión de Negocio — Tienda de Moda Masculina inspirada en el Mundo Automotriz
 
 > Documento de trabajo · Noviembre 2026
-> Nombre de trabajo de la marca: **TORQUE** (alternativas en la sección 4)
+> Marca elegida: **PIT LANE** (ver `marca/pit-lane-lookbook.html`)
 
 ---
 
