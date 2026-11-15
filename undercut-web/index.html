@@ -42,6 +42,16 @@ header.site .wrap{display:flex;align-items:center;gap:28px;padding-block:14px}
 nav.main{display:flex;gap:24px;flex:1;font-family:var(--display);font-weight:700;font-size:13.5px;letter-spacing:.07em;text-transform:uppercase}
 nav.main a{text-decoration:none;padding-block:4px;border-bottom:2px solid transparent}
 nav.main a:hover,nav.main a[aria-current="page"]{border-color:var(--rosso)}
+nav.main a.sale,.mnav a.sale{color:#ff6b62}
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px 18px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin:10px 0 0;color:var(--muted)}
+.help{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.help div{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px}
+.help h3{font-size:20px;margin-bottom:8px}
+.help ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:4px}
+@media (max-width:700px){.help{grid-template-columns:1fr}}
 .icons{display:flex;gap:4px;align-items:center}
 .icon-btn{background:none;border:0;color:var(--ivory);width:40px;height:40px;display:grid;place-items:center;border-radius:50%;position:relative}
 .icon-btn:hover{background:#232323}
@@ -239,14 +249,14 @@ footer .wrap{padding-block:44px 28px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<div class="announce"><div class="wrap"><span>Despacho gratis sobre $59.990</span><span>Hasta 6 cuotas sin interés</span><span>Grabado láser de iniciales sin costo</span></div></div>
+<div class="announce"><div class="wrap"><span>Despacho gratis sobre $59.990</span><span>Hasta 6 cuotas sin interés</span><span>Devoluciones gratuitas</span><span>15% de descuento en tu primera compra</span></div></div>
 
 <header class="site">
   <div class="wrap">
     <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     <a class="brand" href="#inicio" aria-label="Undercut, inicio" data-logo="34"></a>
     <nav class="main" aria-label="Principal">
-      <a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#historia">Historia</a><a href="#tiendas">Tiendas</a>
+      <a href="#nuevo">Nuevo</a><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#sale" class="sale">Sale</a><a href="#box-spirit">Box Spirit</a><a href="#tiendas">Tiendas</a>
     </nav>
     <div class="icons">
       <button class="icon-btn" aria-label="Buscar" data-go="accesorios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
@@ -255,7 +265,7 @@ footer .wrap{padding-block:44px 28px}
     </div>
   </div>
 </header>
-<div class="mnav" id="mnav" hidden><div class="wrap"><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#historia">Historia</a><a href="#tiendas">Tiendas</a></div></div>
+<div class="mnav" id="mnav" hidden><div class="wrap"><a href="#nuevo">Nuevo</a><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#sale" class="sale">Sale</a><a href="#box-spirit">Box Spirit</a><a href="#tiendas">Tiendas</a></div></div>
 
 <main>
 <!-- INICIO -->
@@ -294,7 +304,7 @@ footer .wrap{padding-block:44px 28px}
   </section>
 
   <section class="wrap">
-    <div class="head"><h2>Mundo Undercut</h2><a href="#historia">Nuestra historia →</a></div>
+    <div class="head"><h2>Mundo Undercut</h2><a href="#box-spirit">Box Spirit →</a></div>
     <div class="world">
       <figure><div class="imgbox"><img src="img/reloj-gt-rosso.png" alt="Cronógrafo rojo y negro sobre base de exhibición"></div><figcaption><b>En el box</b>Así imaginamos la vitrina: acero, rojo de escudería y luz de taller.</figcaption></figure>
       <figure><div class="imgbox"><img src="img/reloj-duo.png" alt="Dos cronógrafos junto a un pistón en un taller"></div><figcaption><b>Del motor a la muñeca</b>Cada pieza nace de una pieza del auto: pistones, llantas, tableros.</figcaption></figure>
@@ -347,10 +357,55 @@ footer .wrap{padding-block:44px 28px}
   </section>
 </div>
 
-<!-- HISTORIA -->
-<div class="view" data-view="historia">
+<!-- NUEVO -->
+<div class="view" data-view="nuevo">
   <div class="cathead"><div class="wrap">
-    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Historia</div><h1>Gana con la ayuda de tu box</h1></div>
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Nuevo</div><h1>Lo nuevo</h1></div>
+    <p>Los últimos lanzamientos: la trilogía de relojes y las piezas nuevas de ropa y accesorios.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px"><div class="products" id="grid-nuevo"></div></section>
+</div>
+
+<!-- SALE -->
+<div class="view" data-view="sale">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Sale</div><h1 style="color:#ff6b62">Sale</h1></div>
+    <p>Precios rebajados por tiempo limitado. Mismo despacho gratis sobre $59.990 y devoluciones gratuitas.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px"><div class="products" id="grid-sale"></div></section>
+</div>
+
+<!-- AYUDA -->
+<div class="view" data-view="ayuda">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Ayuda</div><h1>Ayuda</h1></div>
+    <p>Despacho, formas de pago, cambios y cuidado de tus productos. Si no encuentras lo que buscas, escríbenos a contacto@undercut.cl.</p>
+  </div></div>
+  <section class="wrap">
+    <div class="head"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq">
+      <details open><summary>¿Cuánto demora el despacho?</summary><p>Entre 48 y 72 horas hábiles en Santiago y de 3 a 5 días en regiones. El despacho es gratis sobre $59.990.</p></details>
+      <details><summary>¿Las devoluciones tienen costo?</summary><p>No. Tienes 30 días para cambiar o devolver tu compra, en tienda o con retiro a domicilio, sin costo.</p></details>
+      <details><summary>¿Puedo grabar mis iniciales?</summary><p>Sí. El grabado láser de iniciales es gratis en billeteras, cinturones, llaveros y en la tapa de los relojes.</p></details>
+      <details><summary>¿Qué garantía tienen los relojes?</summary><p>Dos años contra defectos de fabricación. La garantía no cubre golpes, cristal roto ni desgaste de correas.</p></details>
+      <details><summary>¿Cómo elijo mi talla?</summary><p>Nuestros polos y poleras tienen calce regular. Si estás entre dos tallas, elige la mayor. Las chaquetas tienen calce entallado.</p></details>
+    </div>
+  </section>
+  <section class="wrap">
+    <div class="help">
+      <div><h3>Formas de pago</h3><ul><li>Tarjetas de crédito, hasta 6 cuotas sin interés</li><li>Tarjetas de débito y prepago</li><li>Transferencia bancaria</li></ul></div>
+      <div><h3>Políticas de despacho</h3><ul><li>Gratis sobre $59.990, a todo Chile</li><li>Retiro en tienda sin costo</li><li>Seguimiento del pedido por correo</li></ul></div>
+      <div><h3>Cambios y devoluciones</h3><ul><li>30 días desde la recepción</li><li>Producto sin uso y con etiquetas</li><li>Devolución gratuita en tienda o a domicilio</li></ul></div>
+      <div><h3>Cuidado de la ropa y el cuero</h3><ul><li>Lava los polos al revés, en agua fría</li><li>Hidrata el cuero cada 3 meses</li><li>Evita el agua salada en las correas de cuero</li></ul></div>
+    </div>
+    <p class="muted" style="font-size:13px;margin-top:20px">Términos y condiciones: precios en pesos chilenos con IVA incluido, válidos solo para compras online. Las promociones no son acumulables.</p>
+  </section>
+</div>
+
+<!-- BOX SPIRIT -->
+<div class="view" data-view="box-spirit">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Box Spirit</div><div class="mono" style="color:#ff8f86">Box Spirit</div><h1 style="margin-top:8px">Gana con la ayuda de tu box</h1></div>
     <p>Undercut nace en Santiago para el hombre que juega con estrategia: entra antes, cambia lo necesario y sale adelante.</p>
   </div></div>
   <section class="wrap">
@@ -392,7 +447,7 @@ footer .wrap{padding-block:44px 28px}
 
 <section class="club" id="club" style="padding:0">
   <div class="wrap">
-    <div><h2>Únete al Club Undercut</h2><p>10% de descuento en tu primera compra, acceso anticipado a ediciones limitadas e invitaciones a track days.</p></div>
+    <div><h2>Únete al Club Undercut</h2><p>15% de descuento en tu primera compra, acceso anticipado a ediciones limitadas e invitaciones a track days.</p></div>
     <form id="clubForm" novalidate>
       <label for="email" class="mono" style="flex-basis:100%;color:#9a9a96">Tu correo</label>
       <input id="email" type="email" placeholder="nombre@correo.cl" autocomplete="email">
@@ -408,8 +463,8 @@ footer .wrap{padding-block:44px 28px}
     <div class="fcols">
       <div><div data-logo="30"></div><p class="tagline">Gana con la ayuda de tu box</p><p style="max-width:34ch;margin:10px 0 0">Relojes, ropa y cuero inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
       <div><h4>Tienda</h4><ul><li><a href="#relojes">Relojes</a></li><li><a href="#ropa">Ropa</a></li><li><a href="#accesorios">Accesorios</a></li></ul></div>
-      <div><h4>Ayuda</h4><ul><li><a href="#tiendas">Seguimiento de pedido</a></li><li><a href="#tiendas">Cambios y devoluciones</a></li><li><a href="#ropa">Guía de tallas</a></li><li><a href="#relojes">Garantía de relojes</a></li></ul></div>
-      <div><h4>Undercut</h4><ul><li><a href="#historia">Historia</a></li><li><a href="#tiendas">Tiendas</a></li><li><a href="#club">Club Undercut</a></li></ul></div>
+      <div><h4>Ayuda</h4><ul><li><a href="#ayuda">Preguntas frecuentes</a></li><li><a href="#ayuda">Formas de pago</a></li><li><a href="#ayuda">Políticas de despacho</a></li><li><a href="#ayuda">Cambios y devoluciones</a></li><li><a href="#ayuda">Cuidado de la ropa</a></li><li><a href="#ayuda">Términos y condiciones</a></li></ul></div>
+      <div><h4>Undercut</h4><ul><li><a href="#box-spirit">Box Spirit</a></li><li><a href="#sale">Sale</a></li><li><a href="#tiendas">Tiendas</a></li><li><a href="#club">Club Undercut</a></li></ul></div>
     </div>
     <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Renders conceptuales · fotos preliminares generadas con Canva</span></div>
   </div>
@@ -508,7 +563,7 @@ const ub=(x,y,s,a,b,c)=>`<g transform="translate(${x} ${y}) scale(${s})">${badge
 const ART={
 polo:(c=R,tip=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M95 60L125 48Q150 62 175 48L205 60L250 95L232 130L210 118V260Q150 268 90 260V118L68 130L50 95Z" fill="${c}"/><path d="M90 118V260Q100 262 112 263V130Z" fill="#000" opacity=".14"/><path d="M56 99L73 125M244 99L227 125" stroke="${tip}" stroke-width="4"/><path d="M61 96L78 122M239 96L222 122" stroke="${W}" stroke-width="2"/><rect x="144" y="66" width="12" height="46" fill="#000" opacity=".2"/><circle cx="150" cy="80" r="2.6" fill="${W}"/><circle cx="150" cy="96" r="2.6" fill="${W}"/><path d="M121 46L140 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/><path d="M179 46L160 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/>${ub(172,88,.26,c===R?K:R,W,c===R?R:K)}</svg>`,
 jacket:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 55L128 45H172L200 55L235 80L262 235L236 242L212 130V262H88V130L64 242L38 235L65 80Z" fill="#1d1d1d"/><path d="M74 84L50 238M226 84L250 238" stroke="${R}" stroke-width="8"/><path d="M83 86L59 240M217 86L241 240" stroke="${W}" stroke-width="2.5"/><rect x="88" y="138" width="124" height="16" fill="${R}"/><path d="M128 45H172L170 28H130Z" fill="#2a2a2a" stroke="${R}" stroke-width="2"/><path d="M150 28V262" stroke="#9ea3a6" stroke-width="2.5"/>${ub(166,66,.32,R,W,K)}</svg>`,
-tee:(c='#c6c9c3',ink=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L125 45Q150 52 175 45L202 55L250 92L230 126L210 114V262H90V114L70 126L50 92Z" fill="${c}"/><path d="M125 45Q150 52 175 45" fill="none" stroke="#000" stroke-opacity=".2" stroke-width="4"/>${ub(124,74,.52,R,W,K)}<text x="150" y="168" text-anchor="middle" ${EXO} font-size="26" textLength="110" lengthAdjust="spacingAndGlyphs" fill="${ink}">UNDERCUT</text><path d="M95 178H205" stroke="${ink}" stroke-width="2"/><path d="M150 178L156 184H200" fill="none" stroke="${R}" stroke-width="2"/><text x="150" y="200" text-anchor="middle" ${MONO} font-size="7.5" letter-spacing="1.5" fill="${ink}">GANA CON LA AYUDA DE TU BOX</text></svg>`,
+tee:(c='#c6c9c3',ink=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L125 45Q150 52 175 45L202 55L250 92L230 126L210 114V262H90V114L70 126L50 92Z" fill="${c}"/><path d="M125 45Q150 52 175 45" fill="none" stroke="#000" stroke-opacity=".2" stroke-width="4"/>${ub(124,74,.52,R,W,K)}<text x="150" y="168" text-anchor="middle" ${EXO} font-size="26" textLength="110" lengthAdjust="spacingAndGlyphs" fill="${ink}">UNDERCUT</text><path d="M95 178H205" stroke="${ink}" stroke-width="2"/><path d="M150 178L156 184H200" fill="none" stroke="${R}" stroke-width="2"/><text x="150" y="200" text-anchor="middle" ${MONO} font-size="7" textLength="104" lengthAdjust="spacingAndGlyphs" fill="${ink}">GANA CON LA AYUDA DE TU BOX</text></svg>`,
 shirt:()=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L128 44L150 60L172 44L202 55L248 210L228 216L210 120V262H90V120L72 216L52 210Z" fill="#eef0f3"/><path d="M128 44L140 74L150 60L160 74L172 44" fill="#fff" stroke="#c9ced6"/><path d="M150 60V262" stroke="#c9ced6" stroke-width="2"/>${[90,120,150,180,210,240].map(y=>`<circle cx="154" cy="${y}" r="2" fill="#9aa3ad"/>`).join('')}<rect x="52" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(-16 62 208)"/><circle cx="62" cy="208" r="4" fill="${R}"/><rect x="228" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(16 238 208)"/><circle cx="238" cy="208" r="4" fill="${R}"/><text x="186" y="104" text-anchor="middle" ${EXO} font-size="9" fill="${R}">UC</text></svg>`,
 hoodie:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 62Q150 20 200 62L238 86L262 236L236 242L212 136V262H88V136L64 242L38 236L62 86Z" fill="${R}"/><path d="M118 60Q150 92 182 60Q170 40 150 38Q130 40 118 60Z" fill="${RD}"/><path d="M140 80V118M160 80V118" stroke="${W}" stroke-width="2"/><rect x="110" y="196" width="80" height="40" rx="6" fill="#000" opacity=".12"/>${ub(130,128,.4,K,W,R)}</svg>`,
 cap:()=>`<svg viewBox="0 0 300 300">${sh(150,232,96)}<path d="M74 176Q72 86 150 80Q228 86 226 176Z" fill="${K}"/><path d="M110 90Q100 130 104 176M190 90Q200 130 196 176" stroke="#2c2c2c" stroke-width="2" fill="none"/><circle cx="150" cy="82" r="6" fill="${R}"/><path d="M56 180Q150 150 244 180Q150 222 56 180Z" fill="#1f1f1f"/><path d="M60 180Q150 152 240 180" fill="none" stroke="${R}" stroke-width="3"/>${ub(124,100,.52,R,W,K)}</svg>`,
@@ -527,19 +582,19 @@ case:()=>`<svg viewBox="0 0 300 300">${sh(150,246,110)}<rect x="40" y="90" width
 /* ---------- Catálogo ---------- */
 const PRODUCTS=[
  {id:'polo-rosso',c:'ropa',t:'Polos',name:'Polo Rosso',sub:'Piqué de algodón · insignia bordada',price:49990,art:()=>ART.polo(R,K),badge:'Nuevo'},
- {id:'polo-carbono',c:'ropa',t:'Polos',name:'Polo Carbono',sub:'Piqué de algodón · ribete rojo',price:49990,art:()=>ART.polo('#1c1c1c',R)},
+ {id:'polo-carbono',c:'ropa',t:'Polos',name:'Polo Carbono',sub:'Piqué de algodón · ribete rojo',price:39990,old:49990,art:()=>ART.polo('#1c1c1c',R)},
  {id:'chaqueta-box',c:'ropa',t:'Chaquetas',name:'Chaqueta Box',sub:'Nylon técnico · franjas rojas',price:159990,old:189990,art:()=>ART.jacket()},
  {id:'poleron-pit',c:'ropa',t:'Polerones',name:'Polerón Pit Crew',sub:'Algodón perchado · capucha',price:69990,art:()=>ART.hoodie(),badge:'Nuevo'},
  {id:'camisa-gt',c:'ropa',t:'Camisas',name:'Camisa Gran Turismo',sub:'Popelina · puño para colleras',price:64990,art:()=>ART.shirt()},
  {id:'polera-taller',c:'ropa',t:'Poleras',name:'Polera Taller',sub:'Algodón orgánico · estampado frontal',price:29990,art:()=>ART.tee()},
- {id:'polera-negra',c:'ropa',t:'Poleras',name:'Polera Box Negra',sub:'Algodón orgánico · bajada de marca',price:29990,art:()=>ART.tee('#1c1c1c',W)},
- {id:'jockey',c:'ropa',t:'Jockeys',name:'Jockey Pista',sub:'Seis paneles · insignia 3D',price:24990,art:()=>ART.cap()},
+ {id:'polera-negra',c:'ropa',t:'Poleras',name:'Polera Box Negra',sub:'Algodón orgánico · bajada de marca',price:22990,old:29990,art:()=>ART.tee('#1c1c1c',W)},
+ {id:'jockey',c:'ropa',t:'Jockeys',name:'Jockey Pista',sub:'Seis paneles · insignia 3D',price:19990,old:24990,art:()=>ART.cap()},
  {id:'cinturon',c:'accesorios',t:'Cuero',name:'Cinturón Box',sub:'Cuero coñac · hebilla de seguridad',price:59990,art:()=>ART.belt(),badge:'Más vendido'},
- {id:'billetera',c:'accesorios',t:'Cuero',name:'Billetera Diamante',sub:'Cuero negro · bloqueo RFID',price:49990,art:()=>ART.wallet()},
+ {id:'billetera',c:'accesorios',t:'Cuero',name:'Billetera Diamante',sub:'Cuero negro · bloqueo RFID',price:39990,old:49990,art:()=>ART.wallet()},
  {id:'weekender',c:'accesorios',t:'Bolsos',name:'Weekender Gran Turismo',sub:'Cuero coñac · franja de carrera',price:219990,art:()=>ART.bag()},
  {id:'neceser',c:'accesorios',t:'Bolsos',name:'Neceser Pit Lane',sub:'Tela espiga · franja tricolor',price:54990,art:()=>ART.pouch(),badge:'Nuevo'},
  {id:'colleras',c:'accesorios',t:'Joyería',name:'Colleras Llanta y Emblema',sub:'Acero 316L y esmalte',price:44990,art:()=>ART.cuff()},
- {id:'corbata',c:'accesorios',t:'Seda',name:'Corbata Circuito',sub:'Seda 7,5 cm',price:39990,art:()=>ART.tie()},
+ {id:'corbata',c:'accesorios',t:'Seda',name:'Corbata Circuito',sub:'Seda 7,5 cm',price:29990,old:39990,art:()=>ART.tie()},
  {id:'lapicera',c:'accesorios',t:'Escritura',name:'Lapicera Rosso',sub:'Laca roja guilloché · estuche',price:89990,art:()=>ART.pen(),badge:'Nuevo'},
  {id:'llavero',c:'accesorios',t:'Cuero',name:'Llavero Insignia',sub:'Cuero negro · argolla cromada',price:19990,art:()=>ART.key()},
  {id:'correas',c:'accesorios',t:'Relojería',name:'Set de correas rally',sub:'Tres correas de cuero perforado · 20 mm',price:59990,art:()=>ART.strap()},
@@ -592,6 +647,10 @@ document.querySelectorAll('[data-grid]').forEach(box=>{const c=box.dataset.grid;
   box.innerHTML=types.map(t=>`<button class="tab" type="button" aria-pressed="${t==='Todo'}" data-t="${t}">${t}</button>`).join('');
   box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state[c].t=b.dataset.t;box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderGrid(c);});renderGrid(c);});
 document.querySelectorAll('[data-sort]').forEach(s=>s.addEventListener('change',()=>{state[s.dataset.sort].sort=s.value;renderGrid(s.dataset.sort);}));
+
+/* Nuevo y Sale */
+document.getElementById('grid-nuevo').innerHTML=PRODUCTS.filter(p=>p.badge==='Nuevo'||p.watch).map(card).join('');
+document.getElementById('grid-sale').innerHTML=PRODUCTS.filter(p=>p.old).map(card).join('');
 
 /* Historia */
 document.getElementById('storyArt').innerHTML=`<svg viewBox="0 0 400 300" role="img" aria-label="Esquema del undercut: el auto rojo entra a boxes antes y sale adelante"><path d="M30 210H370" stroke="#3a3a3a" stroke-width="34" stroke-linecap="round"/><path d="M30 210H370" stroke="#555" stroke-width="2" stroke-dasharray="10 10"/><path d="M90 210C120 210 130 250 160 250H260C290 250 300 210 330 210" fill="none" stroke="${R}" stroke-width="5"/><text x="210" y="276" text-anchor="middle" ${MONO} font-size="11" fill="#9a9a96" letter-spacing="2">PIT LANE</text><g transform="translate(300 196)"><rect width="44" height="22" rx="6" fill="${R}"/><rect x="34" y="4" width="10" height="14" fill="${W}"/></g><g transform="translate(200 196)"><rect width="44" height="22" rx="6" fill="#8a8a86"/></g><text x="322" y="182" text-anchor="middle" ${EXO} font-size="14" fill="${W}">P1</text><text x="222" y="182" text-anchor="middle" ${EXO} font-size="14" fill="#8a8a86">P2</text><text x="30" y="60" ${EXO} font-size="34" fill="${W}">UNDER<tspan fill="${R}">CUT</tspan></text><text x="30" y="88" ${MONO} font-size="9.5" fill="#9a9a96" letter-spacing="1">GANA CON LA AYUDA DE TU BOX</text>${ub(320,26,.5,R,W,K)}</svg>`;
