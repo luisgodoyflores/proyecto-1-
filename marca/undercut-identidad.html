@@ -92,6 +92,11 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
   </section>
 
   <section class="wrap">
+    <div class="head"><h2>Versión clásica</h2><p>Para etiquetas de cuero, cajas de regalo y ediciones especiales: burdeos sobre crema, con las franjas caladas.</p></div>
+    <div class="tile"><div class="art" id="vClassic" style="background:#ece3d3;padding:56px 28px"></div><div class="cap"><b>Burdeos clásico</b><span>Burdeos #6B1D17 sobre crema #ECE3D3. Las dos franjas y las tomas de aire dejan ver el fondo.</span></div></div>
+  </section>
+
+  <section class="wrap">
     <div class="head"><h2>Reglas de uso</h2><p>Para que el logo se vea igual en una etiqueta bordada y en la fachada de la tienda.</p></div>
     <div class="rules">
       <div class="tile"><div class="art ivory" id="rArea"></div><div class="cap"><b>Área de protección</b><span>Deja libre alrededor del logo el alto de la letra "U". Nada de texto ni imágenes dentro de esa zona.</span></div></div>
@@ -135,11 +140,11 @@ let uid=0;
 let carN=0;function car(body,a2,a3){const accent=a3===undefined?a2:a3;const id='cm'+(carN++);
  const sp=(cx)=>{let s='';for(let i=0;i<20;i++){const a=i*18*Math.PI/180;s+=`<path d="M${(cx+4*Math.cos(a)).toFixed(2)} ${(70+4*Math.sin(a)).toFixed(2)}L${(cx+9.6*Math.cos(a)).toFixed(2)} ${(70+9.6*Math.sin(a)).toFixed(2)}" stroke="#000" stroke-width=".9"/>`;}return s;};
  const wm=(cx)=>`<circle cx="${cx}" cy="70" r="15.5" fill="#000"/><circle cx="${cx}" cy="70" r="13.2" fill="#fff"/><circle cx="${cx}" cy="70" r="10.2" fill="none" stroke="#000" stroke-width="1.1"/>${sp(cx)}<circle cx="${cx}" cy="70" r="3" fill="#000"/>`;
- let louv='';for(let i=0;i<4;i++)louv+=`<path d="M${152+i*7} 53.5l3.6 0l-1.6 6l-3.6 0Z" fill="#000"/>`;
- return `<defs><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="100"><rect width="200" height="100" fill="#fff"/><path d="M36 63.2H150" stroke="#000" stroke-width="2.2"/><path d="M58 67.6H144" stroke="#000" stroke-width="4.4"/><path d="M66 49.5C100 49 126 49.3 147 50.6" fill="none" stroke="#000" stroke-width="1.6"/><circle cx="138" cy="57.5" r="6.4" fill="#000"/><text x="138" y="60.6" text-anchor="middle" font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900" font-size="8.6" fill="#fff">1</text>${louv}<ellipse cx="191" cy="61" rx="1.8" ry="3.6" fill="#000"/><circle cx="14" cy="60" r="2.4" fill="#000"/><circle cx="21" cy="55" r="2" fill="#000"/>${wm(44)}${wm(160)}</mask></defs>
+ let louv='';for(let i=0;i<4;i++)louv+=`<circle cx="${151+i*8}" cy="56.5" r="2.7" fill="#000"/>`;
+ return `<defs><mask id="${id}" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="100"><rect width="200" height="100" fill="#fff"/><path d="M58 62.6H146" stroke="#000" stroke-width="2.6"/><path d="M58 67.6H146" stroke="#000" stroke-width="2.6"/><path d="M66 49.5C100 49 126 49.3 147 50.6" fill="none" stroke="#000" stroke-width="1.6"/><circle cx="138" cy="57.5" r="6.4" fill="#000"/><text x="138" y="60.6" text-anchor="middle" font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900" font-size="8.6" fill="#fff">1</text>${louv}<ellipse cx="191" cy="61" rx="1.8" ry="3.6" fill="#000"/><circle cx="14" cy="60" r="2.4" fill="#000"/><circle cx="21" cy="55" r="2" fill="#000"/>${wm(44)}${wm(160)}</mask></defs>
  <ellipse cx="100" cy="85.5" rx="90" ry="2.4" fill="${body}" opacity=".2"/>
  <g mask="url(#${id})" fill="${body}"><path d="M6 62C6 53 15 47.5 30 45.5L48 44C49 37 52 33 57 32.5C61 32.2 63 34 63.5 37.5L64.5 44.5L86 45C92 45.5 94 52 99 55.5C104 59 112 58 116 53.5C119 50 120 46.5 124 45L127 44.5C128 40.5 130 39 132.5 40L134 45.5L170 47C186 48 197 54 197 62.5C197 68.5 191 72 181 72L24 72C13 72 6 68.5 6 62Z"/><circle cx="44" cy="70" r="15.5"/><circle cx="160" cy="70" r="15.5"/><path d="M112 53L121 40.5M117.6 38.4L124.4 42.6" stroke="${body}" stroke-width="2.6" stroke-linecap="round"/></g>
- <path d="M60 67.6H142" stroke="${accent}" stroke-width="2.8"/>`;}
+ <path d="M60 67.6H144" stroke="${accent}" stroke-width="2.6"/>`;}
 /* Logotipo (400 x 80): letras cortadas por debajo + línea del undercut */
 function logotype(fg,accent){const id='cut'+(uid++);
   return `<defs><mask id="${id}"><rect x="-20" y="0" width="440" height="80" fill="#fff"/><rect x="-20" y="45" width="440" height="4.2" fill="#000"/></mask></defs>
@@ -161,6 +166,7 @@ document.getElementById('cV').innerHTML=vertical(K,R);
 document.getElementById('v1').innerHTML=horizontal(K,R,false);
 document.getElementById('v2').innerHTML=horizontal(W,R,false);
 document.getElementById('v3').innerHTML=horizontal(W,K,false);
+document.getElementById('vClassic').innerHTML=`<svg viewBox="0 0 640 240" role="img" aria-label="Versión clásica burdeos"><g transform="translate(120 -58) scale(2)">${car('#6b1d17','#ece3d3')}</g><g transform="translate(120 128)">${logotype('#6b1d17','#6b1d17')}</g><text x="320" y="232" text-anchor="middle" ${MONO} font-weight="500" font-size="11" letter-spacing="4" fill="#6b1d17">AVANZA CON LA AYUDA DE TU BOX</text></svg>`;
 
 /* Reglas */
 document.getElementById('rArea').innerHTML=`<svg viewBox="0 0 760 220" role="img" aria-label="Área de protección del logo"><rect x="60" y="30" width="640" height="160" fill="none" stroke="${R}" stroke-dasharray="6 5"/><g transform="translate(120 62) scale(.81)">${horizontal(K,R,false).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}</g><text x="60" y="22" ${MONO} font-size="12" fill="${R}">X = alto de la U</text><path d="M60 30V62M64 62H56M64 30H56" stroke="${R}"/></svg>`;
