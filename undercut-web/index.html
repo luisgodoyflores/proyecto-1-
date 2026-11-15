@@ -146,6 +146,15 @@ section{padding-block:56px 8px}
 .pdp-hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:40px 48px}
 .pdp-art{background:radial-gradient(70% 60% at 50% 42%,#2e2e2e,#0f0f0f 70%);border-radius:4px;padding:24px;display:grid;place-items:center}
 .pdp-art svg{width:min(460px,100%);height:auto}
+.pdp-art{min-height:420px}
+.pdp-art img{width:100%;max-height:600px;object-fit:contain;border-radius:3px;display:block}
+.thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.thumbs button{width:64px;height:64px;padding:0;border:1px solid #3a3a3a;border-radius:3px;overflow:hidden;background:#1a1a1a}
+.thumbs button img,.thumbs button svg{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs button[aria-pressed="true"]{border-color:var(--rosso);box-shadow:0 0 0 1px var(--rosso)}
+.prod .ph img,.tri .art img{width:100%;height:100%;object-fit:cover;display:block}
+.tri .art{aspect-ratio:4/5;overflow:hidden;border-radius:3px;background:#111}
+.hero-art img{width:100%;display:block;border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,.6)}
 .pdp-info h1{font-size:clamp(40px,5.6vw,72px);margin:8px 0 12px}
 .pdp-info .lead{color:#cfcfca;font-size:17px;max-width:46ch;margin:0 0 20px}
 .swatches{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
@@ -172,8 +181,8 @@ th{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;t
 /* Mundo / historia */
 .world{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .world figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.world .imgbox{aspect-ratio:1/1;background:#111;display:grid;place-items:center}
-.world img{width:200px;max-width:100%;height:auto;display:block;border-radius:2px}
+.world .imgbox{aspect-ratio:1/1;background:#111;overflow:hidden}
+.world img{width:100%;height:100%;object-fit:cover;display:block}
 .world figcaption{padding:14px 16px;font-size:14px;color:var(--muted)}
 .world figcaption b{display:block;color:var(--fg);font-size:15px}
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
@@ -306,9 +315,9 @@ footer .wrap{padding-block:44px 28px}
   <section class="wrap">
     <div class="head"><h2>Mundo Undercut</h2><a href="#box-spirit">Box Spirit →</a></div>
     <div class="world">
-      <figure><div class="imgbox"><img src="img/reloj-gt-rosso.png" alt="Cronógrafo rojo y negro sobre base de exhibición"></div><figcaption><b>En el box</b>Así imaginamos la vitrina: acero, rojo de escudería y luz de taller.</figcaption></figure>
-      <figure><div class="imgbox"><img src="img/reloj-duo.png" alt="Dos cronógrafos junto a un pistón en un taller"></div><figcaption><b>Del motor a la muñeca</b>Cada pieza nace de una pieza del auto: pistones, llantas, tableros.</figcaption></figure>
-      <figure><div class="imgbox"><img src="img/reloj-carbono.png" alt="Cronógrafo negro con detalles rojos"></div><figcaption><b>Carbono</b>El negro de la fibra de carbono y el rojo de la bandera de boxes.</figcaption></figure>
+      <figure><div class="imgbox"><img src="img/pole-4.jpg" alt="Pole Chrono en la muñeca" loading="lazy"></div><figcaption><b>Pole Chrono en la muñeca</b>40 mm que se ven bien con camisa y con chaqueta de piloto.</figcaption></figure>
+      <figure><div class="imgbox"><img src="img/paddock-5.jpg" alt="Fondo de zafiro del Paddock GT mostrando el movimiento automático" loading="lazy"></div><figcaption><b>El motor a la vista</b>Fondo de zafiro para ver el movimiento automático, como el motor de un auto.</figcaption></figure>
+      <figure><div class="imgbox"><img src="img/box-6.jpg" alt="Correa de cuero perforado del Box Square con costura roja" loading="lazy"></div><figcaption><b>Guante de piloto</b>Correa de cuero perforado con costura roja, como el guante de un piloto.</figcaption></figure>
     </div>
   </section>
 </div>
@@ -466,7 +475,7 @@ footer .wrap{padding-block:44px 28px}
       <div><h4>Ayuda</h4><ul><li><a href="#ayuda">Preguntas frecuentes</a></li><li><a href="#ayuda">Formas de pago</a></li><li><a href="#ayuda">Políticas de despacho</a></li><li><a href="#ayuda">Cambios y devoluciones</a></li><li><a href="#ayuda">Cuidado de la ropa</a></li><li><a href="#ayuda">Términos y condiciones</a></li></ul></div>
       <div><h4>Undercut</h4><ul><li><a href="#box-spirit">Box Spirit</a></li><li><a href="#sale">Sale</a></li><li><a href="#tiendas">Tiendas</a></li><li><a href="#club">Club Undercut</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Renders conceptuales · fotos preliminares generadas con Canva</span></div>
+    <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Fotos de relojes generadas con Canva a partir de los diseños Undercut</span></div>
   </div>
 </footer>
 
@@ -556,6 +565,9 @@ const WATCHES={
   specs:[['Caja','39 × 39 mm · acero cepillado · 13,8 mm'],['Esfera','Con franja de carrera, contadores en vertical'],['Movimiento','Automático cronógrafo'],['Funciones','Horas, minutos, cronógrafo 30 min, segundero pequeño'],['Cristal','Zafiro plano antirreflejo'],['Correa','Cuero perforado, costura de color, hebilla desplegable']],
   v:[{n:'Carbono',dot:'#1a1a1a',dial:'#141414',stripe:R,ink:'#ecebe6',sub:'#d8dadc',subInk:'#151515',strap:'#151515',stitch:R},{n:'Rosso',dot:R,dial:'#b8070f',stripe:'#151515',ink:W,sub:'#151515',subInk:'#ecebe6',strap:'#151515',stitch:W},{n:'Azul de pista',dot:'#1d3d6e',dial:'#173764',stripe:R,ink:'#eef1f6',sub:'#e3e6ea',subInk:'#152038',strap:'#14223a',stitch:'#cfd6e2'}]},
 };
+WATCHES.pole.photos=['pole-1','pole-2','pole-3','pole-4'];
+WATCHES.paddock.photos=['paddock-1','paddock-3','paddock-2','paddock-4','paddock-6','paddock-5'];
+WATCHES.box.photos=['box-2','box-1','box-3','box-4','box-5','box-6'];
 
 /* ---------- Ilustraciones de ropa y accesorios ---------- */
 const sh=(cx,cy,rx)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="8" fill="#000" opacity=".14"/>`;
@@ -604,15 +616,15 @@ Object.values(WATCHES).forEach(w=>PRODUCTS.push({id:w.view,c:'relojes',t:'Reloje
 const byId=id=>PRODUCTS.find(p=>p.id===id);
 
 function card(p){const off=p.old?Math.round((1-p.price/p.old)*100):0;
-  const art=p.watch?p.watch.fn(p.watch.v[0]):p.art();
+  const art=p.watch?`<img src="img/${p.watch.photos[0]}.jpg" alt="${p.name}" loading="lazy">`:p.art();
   return `<article class="prod"><div class="ph ${p.tall?'tall':''}">${p.watch?`<a href="#${p.watch.view}" aria-label="Ver ${p.name}" style="display:contents">${art}</a>`:art}${p.badge?`<span class="badge">${p.badge}</span>`:off?`<span class="badge">−${off}%</span>`:''}<button class="add" data-id="${p.id}">Agregar</button></div>
   <div><div class="name">${p.name}</div><div class="sub">${p.sub}</div></div><div class="price"><b>${fmt(p.price)}</b>${p.old?`<s>${fmt(p.old)}</s><em>−${off}%</em>`:''}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(p.price/6))}</div></article>`;}
 
-function triCard(w,dark=true){return `<a href="#${w.view}"><div class="art">${w.fn(w.v[0])}</div><em>${w.ref} · ${w.kind}</em><b>${w.name}</b><span>${fmt(w.price)} · ${w.v.length} colores</span></a>`;}
+function triCard(w,dark=true){return `<a href="#${w.view}"><div class="art"><img src="img/${w.photos[0]}.jpg" alt="${w.name}" loading="lazy"></div><em>${w.ref} · ${w.kind}</em><b>${w.name}</b><span>${fmt(w.price)} · ${w.v.length} colores</span></a>`;}
 
 /* Inicio */
-document.getElementById('heroArt').innerHTML=pole(WATCHES.pole.v[2]);
-const CATS=[{n:'Relojes',c:'3 modelos',href:'relojes',bg:'radial-gradient(90% 70% at 50% 40%,#2a2a2a,#0d0d0d)',art:paddock(WATCHES.paddock.v[0])},
+document.getElementById('heroArt').innerHTML='<img src="img/pole-2.jpg" alt="Reloj Undercut Pole Chrono sobre cuero negro">';
+const CATS=[{n:'Relojes',c:'3 modelos',href:'relojes',bg:'radial-gradient(90% 70% at 50% 40%,#2a2a2a,#0d0d0d)',art:'<img src="img/paddock-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover">'},
  {n:'Ropa',c:'8 productos',href:'ropa',bg:'linear-gradient(160deg,#e9e7e2,#cfccc5)',art:ART.jacket()},
  {n:'Accesorios',c:'10 productos',href:'accesorios',bg:`linear-gradient(160deg,${R},${RD})`,art:ART.cuff()}];
 document.getElementById('cats').innerHTML=CATS.map(c=>`<a class="cat" href="#${c.href}" style="background:${c.bg}"><div class="art">${c.art}</div><div class="lbl"><b>${c.n}</b><span>${c.c}</span></div></a>`).join('');
@@ -627,14 +639,20 @@ document.getElementById('watchAcc').innerHTML=['correas','estuche','lapicera','c
 
 /* Fichas de reloj */
 document.querySelectorAll('[data-watch]').forEach(el=>{const w=WATCHES[el.dataset.watch];const others=Object.values(WATCHES).filter(o=>o!==w);
-  el.innerHTML=`<div class="pdp-hero"><div class="wrap"><div class="pdp-art" data-art></div><div class="pdp-info"><div class="crumbs"><a href="#inicio">Inicio</a> / <a href="#relojes">Relojes</a> / ${w.name}</div><div class="mono" style="color:#ff8f86">${w.ref} · ${w.kind}</div><h1>${w.name}</h1><p class="lead">${w.lead}</p>
+  el.innerHTML=`<div class="pdp-hero"><div class="wrap"><div style="min-width:0"><div class="pdp-art" data-art></div><div class="thumbs" data-thumbs role="group" aria-label="Fotos del reloj"></div></div><div class="pdp-info"><div class="crumbs"><a href="#inicio">Inicio</a> / <a href="#relojes">Relojes</a> / ${w.name}</div><div class="mono" style="color:#ff8f86">${w.ref} · ${w.kind}</div><h1>${w.name}</h1><p class="lead">${w.lead}</p>
   <div class="mono" style="color:#9a9a96">Color: <span data-vname>${w.v[0].n}</span></div><div class="swatches" role="group" aria-label="Elegir color">${w.v.map((v,i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}"><i style="background:${v.dot}"></i>${v.n}</button>`).join('')}</div>
   <div class="pdp-price">${fmt(w.price)}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(w.price/6))} · grabado de tapa incluido</div><div class="cta"><button class="btn" type="button" data-addw>Agregar al carro</button><a class="btn ghost" href="#tiendas">Probar en tienda</a></div></div></div></div>
   <section class="wrap"><div class="feat">${w.feat.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('')}</div></section>
   <section class="wrap"><div class="specs-grid"><div><div class="mono" style="color:var(--rosso)">El diseño</div><h2 style="font-size:clamp(28px,4vw,40px);margin:8px 0 14px">${w.name}</h2><p>${w.story}</p></div><table>${w.specs.map(s=>`<tr><th>${s[0]}</th><td>${s[1]}</td></tr>`).join('')}</table></div></section>
-  <section class="wrap"><div class="head"><h2>Otros relojes</h2></div><div class="others">${others.map(o=>`<a href="#${o.view}">${o.fn(o.v[0])}<div><b>${o.name}</b><span class="muted">${o.kind} · ${fmt(o.price)}</span></div></a>`).join('')}</div></section>`;
-  let cur=0;const art=el.querySelector('[data-art]');art.innerHTML=w.fn(w.v[0]);
-  el.querySelector('.swatches').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;el.querySelectorAll('.swatches button').forEach(x=>x.setAttribute('aria-pressed',x===b));art.innerHTML=w.fn(w.v[cur]);el.querySelector('[data-vname]').textContent=w.v[cur].n;});
+  <section class="wrap"><div class="head"><h2>Otros relojes</h2></div><div class="others">${others.map(o=>`<a href="#${o.view}"><img src="img/${o.photos[0]}.jpg" alt="" style="width:110px;height:90px;object-fit:cover;border-radius:3px;flex:none"><div><b>${o.name}</b><span class="muted">${o.kind} · ${fmt(o.price)}</span></div></a>`).join('')}</div></section>`;
+  let cur=0;const art=el.querySelector('[data-art]'),thumbs=el.querySelector('[data-thumbs]');
+  const mark=sel=>thumbs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',sel(b)));
+  const showPhoto=i=>{art.innerHTML=`<img src="img/${w.photos[i]}.jpg" alt="${w.name}, foto ${i+1}">`;mark(b=>b.dataset.p==String(i));};
+  const showRender=()=>{art.innerHTML=w.fn(w.v[cur]);thumbs.querySelector('[data-r]').innerHTML=w.fn(w.v[cur]);mark(b=>!!b.dataset.r);};
+  thumbs.innerHTML=w.photos.map((ph,i)=>`<button type="button" data-p="${i}" aria-label="Ver foto ${i+1}"><img src="img/${ph}.jpg" alt=""></button>`).join('')+`<button type="button" data-r="1" aria-label="Ver el reloj en el color elegido">${w.fn(w.v[0])}</button>`;
+  thumbs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;b.dataset.r?showRender():showPhoto(+b.dataset.p);});
+  showPhoto(0);
+  el.querySelector('.swatches').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;el.querySelectorAll('.swatches button').forEach(x=>x.setAttribute('aria-pressed',x===b));showRender();el.querySelector('[data-vname]').textContent=w.v[cur].n;});
   el.querySelector('[data-addw]').addEventListener('click',()=>addToCart(w.view,w.v[cur].n));
 });
 
