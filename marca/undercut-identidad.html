@@ -7,7 +7,7 @@
 /* Layout: manual de marca — héroe carbono con el logo principal, luego láminas: piezas, versiones, reglas, color, tipografía y aplicaciones */
 :root{
   --bg:#f3f2ef; --fg:#121212; --muted:#5f5e5a; --line:#dcdad5; --surface:#ffffff;
-  --rosso:#cc0a14; --carbon:#0f0f0f; --ivory:#f6f4ef; --silver:#c7cacc;
+  --rosso:#cc0a14; --carbon:#0f0f0f; --ivory:#f6f4ef; --silver:#c7cacc; --giallo:#fff200;
   --display:"Exo 2","Arial Black",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -37,8 +37,10 @@ section{padding-block:52px 8px}
 .tile .cap{padding:14px 18px;border-top:1px solid var(--line)}
 .tile .cap b{display:block;font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:17px}
 .tile .cap span{font-size:13.5px;color:var(--muted)}
-.ivory{background:var(--ivory)} .carbon{background:var(--carbon)} .rosso{background:var(--rosso)} .silver{background:var(--silver)}
-.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.ivory{background:var(--ivory)} .carbon{background:var(--carbon)} .rosso{background:var(--rosso)} .silver{background:var(--silver)} .giallo{background:var(--giallo)}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.note{margin-top:14px;border-left:4px solid var(--giallo);padding:6px 0 6px 14px;color:var(--muted);font-size:14px;max-width:80ch}
 .chip{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
 .chip i{display:block;height:96px}
 .chip div{padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
@@ -55,7 +57,7 @@ section{padding-block:52px 8px}
 .dont svg{width:100%;height:auto}
 .dont b{color:var(--rosso);font-family:var(--mono);font-size:11px;letter-spacing:.08em}
 footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
-@media (max-width:900px){.head{grid-template-columns:1fr}.g3,.type{grid-template-columns:1fr}.chips,.dont{grid-template-columns:repeat(2,minmax(0,1fr))}.g2,.rules{grid-template-columns:1fr}}
+@media (max-width:900px){.head{grid-template-columns:1fr}.g3,.type{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.chips,.dont{grid-template-columns:repeat(2,minmax(0,1fr))}.g2,.rules{grid-template-columns:1fr}}
 </style>
 
 <header class="hero"><div class="wrap">
@@ -83,11 +85,12 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
   </section>
 
   <section class="wrap">
-    <div class="head"><h2>Versiones de color</h2><p>Sobre fondos claros, oscuros y rojo. En rojo, la línea del undercut pasa a negro.</p></div>
-    <div class="grid g3">
+    <div class="head"><h2>Versiones de color</h2><p>Sobre fondos claros, oscuros, rojo y amarillo. En rojo, la línea del undercut pasa a negro.</p></div>
+    <div class="grid g4">
       <div class="tile"><div class="art ivory" id="v1"></div><div class="cap"><b>Positivo</b><span>Carbono y rojo sobre marfil.</span></div></div>
       <div class="tile"><div class="art carbon" id="v2"></div><div class="cap"><b>Negativo</b><span>Marfil y rojo sobre carbono.</span></div></div>
       <div class="tile"><div class="art rosso" id="v3"></div><div class="cap"><b>Sobre rojo</b><span>Marfil y carbono sobre rojo escudería.</span></div></div>
+      <div class="tile"><div class="art giallo" id="v4"></div><div class="cap"><b>Sobre amarillo</b><span>Carbono y rojo sobre Giallo Pole. Solo para piezas especiales.</span></div></div>
     </div>
   </section>
 
@@ -106,13 +109,15 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
   </section>
 
   <section class="wrap">
-    <div class="head"><h2>Color</h2><p>El rojo manda; carbono y plata lo acompañan; el marfil reemplaza al blanco puro.</p></div>
+    <div class="head"><h2>Color</h2><p>El rojo manda; carbono y plata lo acompañan; el marfil reemplaza al blanco puro. El amarillo es el acento de la pole.</p></div>
     <div class="chips">
       <div class="chip"><i class="rosso"></i><div><b>Rosso Box</b>#CC0A14 · Pantone 485 C aprox.</div></div>
       <div class="chip"><i class="carbon"></i><div><b>Carbono</b>#0F0F0F</div></div>
       <div class="chip"><i class="silver"></i><div><b>Plata cromo</b>#C7CACC</div></div>
       <div class="chip"><i class="ivory" style="border-bottom:1px solid var(--line)"></i><div><b>Marfil</b>#F6F4EF</div></div>
+      <div class="chip"><i class="giallo"></i><div><b>Giallo Pole</b>#FFF200 · acento</div></div>
     </div>
+    <p class="note"><b>Uso del amarillo.</b> Es un color de acento: hasta un 10% de cada pieza. Va en detalles como la aguja del cronógrafo, costuras, el número 1 del isotipo, etiquetas de edición limitada o el fondo de una pieza especial. No combines amarillo de fondo con un escudo o insignia en rojo y negro: esa mezcla recuerda la identidad de Ferrari y podría generar problemas de marca.</p>
   </section>
 
   <section class="wrap">
@@ -166,6 +171,7 @@ document.getElementById('cV').innerHTML=vertical(K,R);
 document.getElementById('v1').innerHTML=horizontal(K,R,false);
 document.getElementById('v2').innerHTML=horizontal(W,R,false);
 document.getElementById('v3').innerHTML=horizontal(W,K,false);
+document.getElementById('v4').innerHTML=horizontal(K,R,false);
 document.getElementById('vClassic').innerHTML=`<svg viewBox="0 0 640 240" role="img" aria-label="Versión clásica burdeos"><g transform="translate(120 -58) scale(2)">${car('#6b1d17','#ece3d3')}</g><g transform="translate(120 128)">${logotype('#6b1d17','#6b1d17')}</g><text x="320" y="232" text-anchor="middle" ${MONO} font-weight="500" font-size="11" letter-spacing="4" fill="#6b1d17">AVANZA CON LA AYUDA DE TU BOX</text></svg>`;
 
 /* Reglas */
