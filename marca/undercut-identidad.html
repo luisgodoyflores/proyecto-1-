@@ -1,0 +1,173 @@
+<title>Undercut Identidad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: manual de marca — héroe carbono con el logo principal, luego láminas: piezas, versiones, reglas, color, tipografía y aplicaciones */
+:root{
+  --bg:#f3f2ef; --fg:#121212; --muted:#5f5e5a; --line:#dcdad5; --surface:#ffffff;
+  --rosso:#cc0a14; --carbon:#0f0f0f; --ivory:#f6f4ef; --silver:#c7cacc;
+  --display:"Exo 2","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0d0d0d;--fg:#ecebe8;--muted:#a3a29d;--line:#292928;--surface:#161616;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0d0d;--fg:#ecebe8;--muted:#a3a29d;--line:#292928;--surface:#161616;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;margin:0;line-height:1.02;text-wrap:balance}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hero{background:var(--carbon);color:var(--ivory)}
+.hero .wrap{padding-block:64px 56px;display:grid;gap:28px;justify-items:center;text-align:center}
+.hero .mono{color:#9a9a96}
+.hero .logo{width:min(760px,100%)}
+.hero p{max-width:60ch;color:#c4c4bf;margin:0}
+section{padding-block:52px 8px}
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:end;border-bottom:2px solid var(--fg);padding-bottom:12px;margin-bottom:22px}
+.head h2{font-size:clamp(28px,4vw,42px)}
+.head p{margin:0;color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tile{border-radius:6px;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;background:var(--surface);min-width:0}
+.tile .art{display:grid;place-items:center;padding:36px 28px;min-height:220px}
+.tile .art svg{width:100%;max-width:440px;height:auto}
+.tile .cap{padding:14px 18px;border-top:1px solid var(--line)}
+.tile .cap b{display:block;font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:17px}
+.tile .cap span{font-size:13.5px;color:var(--muted)}
+.ivory{background:var(--ivory)} .carbon{background:var(--carbon)} .rosso{background:var(--rosso)} .silver{background:var(--silver)}
+.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.chip{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.chip i{display:block;height:96px}
+.chip div{padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.chip b{display:block;font-family:var(--body);font-size:15px;color:var(--fg)}
+.type{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.type>div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px}
+.type .s1{font-family:var(--display);font-style:italic;font-weight:900;font-size:44px;line-height:1;text-transform:uppercase}
+.type .s2{font-family:var(--body);font-size:22px}
+.type .s3{font-family:var(--mono);font-size:16px;letter-spacing:.12em;text-transform:uppercase}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.rules .tile .art{min-height:260px}
+.dont{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.dont div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:8px;place-items:center;text-align:center;font-size:13px;color:var(--muted)}
+.dont svg{width:100%;height:auto}
+.dont b{color:var(--rosso);font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+@media (max-width:900px){.head{grid-template-columns:1fr}.g3,.type{grid-template-columns:1fr}.chips,.dont{grid-template-columns:repeat(2,minmax(0,1fr))}.g2,.rules{grid-template-columns:1fr}}
+</style>
+
+<header class="hero"><div class="wrap">
+  <div class="mono">Undercut · Manual de identidad · v3</div>
+  <div class="logo" id="heroLogo"></div>
+  <p>El logotipo se corta por debajo: una franja horizontal atraviesa las letras, como el auto que se abre de la pista hacia boxes. Abajo corre la línea roja del undercut, que baja y vuelve a subir adelante.</p>
+</div></header>
+
+<main>
+  <section class="wrap">
+    <div class="head"><h2>Las piezas</h2><p>Isotipo, logotipo y bajada. Pueden usarse juntos o por separado según el espacio.</p></div>
+    <div class="grid g3">
+      <div class="tile"><div class="art ivory" id="pIso"></div><div class="cap"><b>Isotipo</b><span>Deportivo de tres cuartos en trazos. Para bordados, grabados, avatar y favicon.</span></div></div>
+      <div class="tile"><div class="art ivory" id="pLogo"></div><div class="cap"><b>Logotipo</b><span>Letra itálica extendida con el corte inferior y la línea roja.</span></div></div>
+      <div class="tile"><div class="art ivory" id="pTag"></div><div class="cap"><b>Bajada</b><span>"Avanza con la ayuda de tu box", siempre en mayúsculas espaciadas.</span></div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Composiciones</h2><p>La horizontal es la principal. La vertical va en etiquetas, cajas y redes sociales.</p></div>
+    <div class="grid g2">
+      <div class="tile"><div class="art ivory" id="cH"></div><div class="cap"><b>Horizontal · principal</b><span>Fachada, web, bolsas, firma de correo.</span></div></div>
+      <div class="tile"><div class="art ivory" id="cV"></div><div class="cap"><b>Vertical</b><span>Etiquetas, cajas de reloj, perfil de redes sociales.</span></div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Versiones de color</h2><p>Sobre fondos claros, oscuros y rojo. En rojo, la línea del undercut pasa a negro.</p></div>
+    <div class="grid g3">
+      <div class="tile"><div class="art ivory" id="v1"></div><div class="cap"><b>Positivo</b><span>Carbono y rojo sobre marfil.</span></div></div>
+      <div class="tile"><div class="art carbon" id="v2"></div><div class="cap"><b>Negativo</b><span>Marfil y rojo sobre carbono.</span></div></div>
+      <div class="tile"><div class="art rosso" id="v3"></div><div class="cap"><b>Sobre rojo</b><span>Marfil y carbono sobre rojo escudería.</span></div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Reglas de uso</h2><p>Para que el logo se vea igual en una etiqueta bordada y en la fachada de la tienda.</p></div>
+    <div class="rules">
+      <div class="tile"><div class="art ivory" id="rArea"></div><div class="cap"><b>Área de protección</b><span>Deja libre alrededor del logo el alto de la letra "U". Nada de texto ni imágenes dentro de esa zona.</span></div></div>
+      <div class="tile"><div class="art ivory" id="rMin"></div><div class="cap"><b>Tamaños mínimos</b><span>Logotipo: 30 mm impreso o 120 px en pantalla. Isotipo: 10 mm bordado o 24 px. Bajo eso, usa solo el isotipo.</span></div></div>
+    </div>
+    <div class="dont" style="margin-top:16px" id="donts"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Color</h2><p>El rojo manda; carbono y plata lo acompañan; el marfil reemplaza al blanco puro.</p></div>
+    <div class="chips">
+      <div class="chip"><i class="rosso"></i><div><b>Rosso Box</b>#CC0A14 · Pantone 485 C aprox.</div></div>
+      <div class="chip"><i class="carbon"></i><div><b>Carbono</b>#0F0F0F</div></div>
+      <div class="chip"><i class="silver"></i><div><b>Plata cromo</b>#C7CACC</div></div>
+      <div class="chip"><i class="ivory" style="border-bottom:1px solid var(--line)"></i><div><b>Marfil</b>#F6F4EF</div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Tipografía</h2><p>Tres familias gratuitas de Google Fonts, para web e impresión.</p></div>
+    <div class="type">
+      <div><div class="mono" style="margin-bottom:10px">Títulos · Exo 2 Black Italic</div><div class="s1">Avanza</div></div>
+      <div><div class="mono" style="margin-bottom:10px">Textos · IBM Plex Sans</div><div class="s2">Relojes, ropa y cuero inspirados en el automovilismo.</div></div>
+      <div><div class="mono" style="margin-bottom:10px">Datos y bajada · IBM Plex Mono</div><div class="s3">Avanza con la ayuda de tu box</div></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="head"><h2>Aplicaciones</h2><p>Cómo se ve la marca en piezas reales.</p></div>
+    <div class="grid g3" id="apps"></div>
+  </section>
+</main>
+<footer class="wrap">Undercut · Isotipo y logotipo originales. Antes de registrar, confirmar disponibilidad del nombre en INAPI (clases 14, 18, 25 y 35).</footer>
+
+<script>
+const R='#cc0a14',K='#0f0f0f',W='#f6f4ef';
+const EXO=`font-family="'Exo 2','Arial Black',sans-serif" font-style="italic" font-weight="900"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+let uid=0;
+/* Isotipo (200 x 88) */
+function car(body,accent){return `<g fill="${body}"><path d="M8 50C24 37 46 27 74 23C96 20 114 23 130 31C114 27 98 26 76 27.5C52 30 30 39 13 51Z"/><path d="M48 41C60 34 72 31 88 31L104 39C86 38.5 66 39.5 48 42.5Z"/><path d="M104 39C134 40 162 46 194 58C196 59 195 61 192 61C162 53 134 46.5 102 42.5Z"/><path d="M40 50A12 12 0 1 0 40 74A7.4 9.8 0 1 1 40 50Z"/><path d="M136 46A15 15 0 1 0 136 76A10 12.6 0 1 1 136 46Z"/><path d="M112 54C120 45 140 43 158 53C140 48 124 50 116 57Z"/><path d="M158 51L184 56L180 59.5L162 55.5Z"/><path d="M58 67C88 66 118 67 148 69L170 63H196L190 68L152 73C120 71 88 70 58 70Z"/><path d="M2 79C60 76.5 140 76.5 198 79C140 81.5 60 81.5 2 79Z"/></g><path d="M28 86H100C106 86 108 83 114 83H186" fill="none" stroke="${accent}" stroke-width="2.4"/>`;}
+/* Logotipo (400 x 80): letras cortadas por debajo + línea del undercut */
+function logotype(fg,accent){const id='cut'+(uid++);
+  return `<defs><mask id="${id}"><rect x="-20" y="0" width="440" height="80" fill="#fff"/><rect x="-20" y="45" width="440" height="4.2" fill="#000"/></mask></defs>
+  <text x="6" y="58" ${EXO} font-size="58" textLength="384" lengthAdjust="spacingAndGlyphs" fill="${fg}" mask="url(#${id})">UNDERCUT</text>
+  <path d="M4 71H210C218 71 220 77 228 77H392" fill="none" stroke="${accent}" stroke-width="3.6"/>`;}
+const tagline=(fg,x,y,w,size=10.5)=>`<text x="${x}" y="${y}" ${MONO} font-weight="500" font-size="${size}" textLength="${w}" lengthAdjust="spacing" fill="${fg}">AVANZA CON LA AYUDA DE TU BOX</text>`;
+const svgIso=(fg,ac)=>`<svg viewBox="0 18 200 72" role="img" aria-label="Isotipo Undercut">${car(fg,ac)}</svg>`;
+const svgLogo=(fg,ac)=>`<svg viewBox="0 0 400 80" role="img" aria-label="Logotipo Undercut">${logotype(fg,ac)}</svg>`;
+const svgTag=(fg)=>`<svg viewBox="0 0 400 30" role="img" aria-label="Avanza con la ayuda de tu box">${tagline(fg,4,20,392,13)}</svg>`;
+function horizontal(fg,ac,sub=true){return `<svg viewBox="0 0 640 ${sub?118:96}" role="img" aria-label="Undercut, avanza con la ayuda de tu box"><g transform="translate(0 0) scale(1.15)">${car(fg,ac)}</g><g transform="translate(240 10)">${logotype(fg,ac)}</g>${sub?tagline(fg,246,112,390,12):''}</svg>`;}
+function vertical(fg,ac){return `<svg viewBox="0 0 400 250" role="img" aria-label="Undercut vertical"><g transform="translate(100 -4)">${car(fg,ac)}</g><g transform="translate(0 106)">${logotype(fg,ac)}</g>${tagline(fg,40,232,320,11)}</svg>`;}
+
+document.getElementById('heroLogo').innerHTML=horizontal(W,R);
+document.getElementById('pIso').innerHTML=svgIso(K,R);
+document.getElementById('pLogo').innerHTML=svgLogo(K,R);
+document.getElementById('pTag').innerHTML=svgTag(K);
+document.getElementById('cH').innerHTML=horizontal(K,R);
+document.getElementById('cV').innerHTML=vertical(K,R);
+document.getElementById('v1').innerHTML=horizontal(K,R,false);
+document.getElementById('v2').innerHTML=horizontal(W,R,false);
+document.getElementById('v3').innerHTML=horizontal(W,K,false);
+
+/* Reglas */
+document.getElementById('rArea').innerHTML=`<svg viewBox="0 0 760 220" role="img" aria-label="Área de protección del logo"><rect x="60" y="30" width="640" height="160" fill="none" stroke="${R}" stroke-dasharray="6 5"/><g transform="translate(120 62) scale(.81)">${horizontal(K,R,false).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}</g><text x="60" y="22" ${MONO} font-size="12" fill="${R}">X = alto de la U</text><path d="M60 30V62M64 62H56M64 30H56" stroke="${R}"/></svg>`;
+document.getElementById('rMin').innerHTML=`<svg viewBox="0 0 520 200" role="img" aria-label="Tamaños mínimos"><g transform="translate(20 30) scale(.45)">${logotype(K,R)}</g><text x="20" y="90" ${MONO} font-size="12" fill="#666">30 mm · 120 px</text><g transform="translate(300 20) scale(.5)">${car(K,R)}</g><text x="300" y="90" ${MONO} font-size="12" fill="#666">10 mm · 24 px</text><g transform="translate(20 120) scale(.25)">${logotype(K,R)}</g><g transform="translate(300 116) scale(.24)">${car(K,R)}</g><text x="20" y="180" ${MONO} font-size="11" fill="#999">tamaño mínimo real (aprox.)</text></svg>`;
+const D=[['No deformar',`<g transform="translate(10 10) scale(.6 .35)">${logotype(K,R)}</g>`],['No cambiar colores',`<g transform="translate(10 6) scale(.6)">${logotype('#2a6ad8','#f2b400')}</g>`],['No quitar el corte',`<text x="12" y="44" ${EXO} font-size="35" textLength="230" lengthAdjust="spacingAndGlyphs" fill="${K}">UNDERCUT</text>`],['No usar sobre fotos con poco contraste',`<rect x="0" y="0" width="260" height="60" fill="#9a2a2a"/><g transform="translate(10 6) scale(.6)">${logotype('#b8352f','#c43a33')}</g>`]];
+document.getElementById('donts').innerHTML=D.map(([t,g])=>`<div><svg viewBox="0 0 260 60">${g}</svg><b>✕ ${t}</b></div>`).join('');
+
+/* Aplicaciones */
+const card=`<svg viewBox="0 0 340 220" role="img" aria-label="Tarjeta de presentación"><rect x="20" y="20" width="300" height="180" rx="6" fill="${K}"/><g transform="translate(40 54) scale(1.3)">${car(W,R)}</g><text x="300" y="176" text-anchor="end" ${MONO} font-size="8" fill="#9a9a96">AVANZA CON LA AYUDA DE TU BOX</text><text x="300" y="188" text-anchor="end" ${MONO} font-size="8" fill="#9a9a96">UNDERCUT.CL</text></svg>`;
+const bag=`<svg viewBox="0 0 340 260" role="img" aria-label="Bolsa de compras"><path d="M130 70Q130 30 170 30Q210 30 210 70" fill="none" stroke="#222" stroke-width="6"/><path d="M80 66H260L272 240H68Z" fill="${R}"/><g transform="translate(98 110) scale(.36)">${logotype(W,K)}</g><g transform="translate(126 150) scale(.45)">${car(W,K)}</g><text x="170" y="222" text-anchor="middle" ${MONO} font-size="7.5" fill="${W}">AVANZA CON LA AYUDA DE TU BOX</text></svg>`;
+const polo=`<svg viewBox="0 0 300 260" role="img" aria-label="Polo con isotipo bordado"><path d="M95 40L125 28Q150 42 175 28L205 40L250 75L232 110L210 98V240Q150 248 90 240V98L68 110L50 75Z" fill="${K}"/><path d="M121 26L140 64L150 46Z" fill="#000" stroke="${R}" stroke-width="2.5"/><path d="M179 26L160 64L150 46Z" fill="#000" stroke="${R}" stroke-width="2.5"/><rect x="144" y="46" width="12" height="46" fill="#000"/><g transform="translate(166 74) scale(.22)">${car(W,R)}</g><path d="M56 79L73 105M244 79L227 105" stroke="${R}" stroke-width="4"/></svg>`;
+const sign=`<svg viewBox="0 0 340 220" role="img" aria-label="Letrero de tienda"><rect x="10" y="40" width="320" height="140" fill="#2a2a2a"/><rect x="24" y="70" width="292" height="80" fill="${K}"/><g transform="translate(32 82) scale(.46)">${horizontal(W,R,true).replace(/^<svg[^>]*>/,'').replace(/<\/svg>$/,'')}</g><rect x="10" y="180" width="320" height="10" fill="#1a1a1a"/></svg>`;
+const dial=`<svg viewBox="0 0 340 220" role="img" aria-label="Isotipo en esfera de reloj"><circle cx="170" cy="110" r="96" fill="#bfc3c6"/><circle cx="170" cy="110" r="84" fill="${K}"/>${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return `<path d="M${170+74*Math.sin(a)} ${110-74*Math.cos(a)}L${170+64*Math.sin(a)} ${110-64*Math.cos(a)}" stroke="${W}" stroke-width="3"/>`}).join('')}<g transform="translate(142 58) scale(.28)">${car(W,R)}</g><text x="170" y="150" text-anchor="middle" ${EXO} font-size="11" fill="${W}">UNDERCUT</text><path d="M170 110L150 82" stroke="${W}" stroke-width="4"/><path d="M170 110L214 96" stroke="${W}" stroke-width="3"/><circle cx="170" cy="110" r="4" fill="${R}"/></svg>`;
+const insta=`<svg viewBox="0 0 340 220" role="img" aria-label="Perfil de redes sociales"><circle cx="170" cy="100" r="74" fill="${R}"/><g transform="translate(112 66) scale(.58)">${car(W,K)}</g><text x="170" y="200" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-weight="600" font-size="14" fill="currentColor">@undercut.cl</text></svg>`;
+const APPS=[['Tarjeta de presentación','Isotipo grande en marfil sobre carbono.',card,'silver'],['Bolsa de compras','Rojo escudería con logotipo e isotipo.',bag,'ivory'],['Polo bordado','Isotipo bordado en el pecho, ribetes rojos.',polo,'ivory'],['Letrero de tienda','Composición horizontal con la bajada.',sign,'ivory'],['Esfera de reloj','Isotipo bajo las 12, en rojo y marfil.',dial,'silver'],['Perfil de redes','Isotipo en un círculo rojo.',insta,'ivory']];
+document.getElementById('apps').innerHTML=APPS.map(([t,d,s,bg])=>`<div class="tile"><div class="art ${bg}">${s}</div><div class="cap"><b>${t}</b><span>${d}</span></div></div>`).join('');
+</script>
