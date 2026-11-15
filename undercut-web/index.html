@@ -4,65 +4,74 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,700;1,800;1,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: tienda online — barra de anuncios, header con menú, hero carbono/rojo, categorías, vitrina de relojes, banner de colección, historia, club y pie */
+/* Layout: tienda Undercut — anuncios + header fijo; vistas por ancla: inicio, relojes (estilo maison: héroe oscuro, configurador), fichas de reloj, ropa y accesorios (catálogo con filtros), historia y tiendas; carro lateral */
 :root{
-  --bg:#f4f3f1; --fg:#131313; --muted:#62615d; --line:#dedcd7; --surface:#ffffff;
-  --rosso:#cc0a14; --rosso-deep:#9e0710; --carbon:#111111; --carbon-2:#1b1b1b; --ivory:#f6f4ef; --silver:#c7cacc;
+  --bg:#f4f3f1; --fg:#131313; --muted:#62615d; --line:#dedcd7; --surface:#ffffff; --soft:#ebe9e5;
+  --rosso:#cc0a14; --rosso-deep:#9e0710; --carbon:#0f0f0f; --carbon-2:#1a1a1a; --ivory:#f6f4ef;
+  --stage-a:#fbfbfa; --stage-b:#e0dfdb;
   --display:"Exo 2","Arial Black",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e0e0e; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#171717; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0e0e0e; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#171717; color-scheme:dark}
+  --bg:#0d0d0d; --fg:#ecebe8; --muted:#a3a29d; --line:#292928; --surface:#161616; --soft:#1d1d1d; --stage-a:#2a2a2a; --stage-b:#151515; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0d0d; --fg:#ecebe8; --muted:#a3a29d; --line:#292928; --surface:#161616; --soft:#1d1d1d; --stage-a:#2a2a2a; --stage-b:#151515; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--carbon)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--carbon)}
 .wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:900;text-wrap:balance;margin:0;line-height:1.02;text-transform:uppercase}
 a{color:inherit}
-button{font:inherit;cursor:pointer}
+button{font:inherit;cursor:pointer;color:inherit}
 :focus-visible{outline:2px solid var(--rosso);outline-offset:2px}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13.5px;padding:14px 22px;border-radius:2px;text-decoration:none;border:2px solid var(--rosso);background:var(--rosso);color:var(--ivory)}
+.btn.ghost{background:transparent;border-color:currentColor;color:inherit}
+.btn.dark{background:var(--carbon);border-color:var(--carbon)}
+.btn:hover{filter:brightness(1.08)}
 
-/* Barra de anuncios */
+/* Anuncios y header */
 .announce{background:var(--rosso);color:var(--ivory);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-align:center}
 .announce .wrap{padding-block:8px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
-
-/* Header */
-header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--carbon);color:var(--ivory);border-bottom:1px solid #262626}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--carbon);color:var(--ivory);border-bottom:1px solid #242424}
 header.site .wrap{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;text-decoration:none}
 .brand svg{height:34px;display:block}
-nav.main{display:flex;gap:22px;flex:1;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+nav.main{display:flex;gap:24px;flex:1;font-family:var(--display);font-weight:700;font-size:13.5px;letter-spacing:.07em;text-transform:uppercase}
 nav.main a{text-decoration:none;padding-block:4px;border-bottom:2px solid transparent}
-nav.main a:hover,nav.main a.on{border-color:var(--rosso)}
-.icons{display:flex;gap:6px;align-items:center}
+nav.main a:hover,nav.main a[aria-current="page"]{border-color:var(--rosso)}
+.icons{display:flex;gap:4px;align-items:center}
 .icon-btn{background:none;border:0;color:var(--ivory);width:40px;height:40px;display:grid;place-items:center;border-radius:50%;position:relative}
-.icon-btn:hover{background:#222}
+.icon-btn:hover{background:#232323}
 .icon-btn svg{width:20px;height:20px}
 .count{position:absolute;top:3px;right:2px;background:var(--rosso);color:var(--ivory);font-family:var(--mono);font-size:10px;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
 .menu-btn{display:none}
+.mnav{background:var(--carbon);color:var(--ivory);border-bottom:1px solid #242424}
+.mnav .wrap{display:grid;padding-block:8px 16px}
+.mnav a{padding:12px 0;border-bottom:1px solid #222;text-decoration:none;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 
-/* Hero */
+/* Vistas */
+.view{display:none}
+.view.on{display:block}
+section{padding-block:56px 8px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.head h2{font-size:clamp(30px,4.4vw,46px)}
+.head a{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rosso);text-decoration:none}
+
+/* Inicio: héroe */
 .hero{background:var(--carbon);color:var(--ivory);position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(115deg,transparent 0 56%,var(--rosso) 56% 72%,var(--rosso-deep) 72% 74%,transparent 74%),
-  radial-gradient(80% 120% at 85% 40%,#2a2a2a,transparent 60%);opacity:1}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 58%,var(--rosso) 58% 73%,var(--rosso-deep) 73% 75%,transparent 75%),radial-gradient(70% 110% at 82% 45%,#2b2b2b,transparent 60%)}
 .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:56px 64px}
 .hero .kicker{color:#ff8f86}
-.hero h1{font-size:clamp(44px,7.2vw,96px);margin:12px 0 18px}
+.hero h1{font-size:clamp(46px,7.4vw,100px);margin:12px 0 18px}
 .hero h1 span{color:var(--rosso)}
 .hero p{max-width:44ch;color:#cfcfca;font-size:17px;margin:0 0 26px}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:14px;padding:14px 22px;border-radius:2px;text-decoration:none;border:2px solid var(--rosso);background:var(--rosso);color:var(--ivory)}
-.btn.ghost{background:transparent;border-color:#5a5a5a}
-.btn:hover{filter:brightness(1.08)}
-.hero-watch{justify-self:center;width:min(440px,100%);aspect-ratio:1/1;border-radius:50%;padding:14px;background:conic-gradient(from 210deg,#3a3a3a,#0b0b0b,#3a3a3a);box-shadow:0 30px 60px rgba(0,0,0,.6)}
-.hero-watch img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
-.lap{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:16px;font-family:var(--mono);font-size:11px;color:#bdbdb8;letter-spacing:.1em}
+.hero-art{justify-self:center;width:min(420px,100%)}
+.hero-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
 
-/* Beneficios */
 .perks{background:var(--surface);border-bottom:1px solid var(--line)}
 .perks .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding-block:18px}
 .perk{display:flex;gap:12px;align-items:center;min-width:0}
@@ -70,36 +79,40 @@ nav.main a:hover,nav.main a.on{border-color:var(--rosso)}
 .perk b{display:block;font-size:14px}
 .perk span{font-size:12.5px;color:var(--muted)}
 
-section{padding-block:56px 8px}
-.head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
-.head h2{font-size:clamp(30px,4.4vw,46px)}
-.head a{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rosso);text-decoration:none}
-
-/* Categorías */
-.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.cat{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;display:flex;align-items:flex-end;text-decoration:none;color:var(--ivory)}
+.cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cat{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:flex-end;text-decoration:none;color:var(--ivory)}
 .cat .art{position:absolute;inset:0;display:grid;place-items:center}
-.cat .art svg{width:82%;height:auto}
-.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.65))}
-.cat .lbl{position:relative;z-index:1;padding:16px 18px;width:100%;display:flex;justify-content:space-between;align-items:end}
-.cat .lbl b{font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;text-transform:uppercase}
-.cat .lbl span{font-family:var(--mono);font-size:11px;opacity:.85}
+.cat .art svg{width:78%;height:auto;transition:transform .3s}
 .cat:hover .art svg{transform:scale(1.04)}
-.cat .art svg{transition:transform .3s}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.65))}
+.cat .lbl{position:relative;z-index:1;padding:18px 20px;width:100%;display:flex;justify-content:space-between;align-items:end}
+.cat .lbl b{font-family:var(--display);font-style:italic;font-weight:900;font-size:28px;text-transform:uppercase}
+.cat .lbl span{font-family:var(--mono);font-size:11px;opacity:.85}
+
+/* Trilogía (estilo maison) */
+.trilogy{background:var(--carbon);color:var(--ivory);margin-top:56px}
+.trilogy .wrap{padding-block:56px}
+.trilogy .head h2{color:var(--ivory)}
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tri a{text-decoration:none;display:flex;flex-direction:column;gap:10px;background:#151515;border:1px solid #262626;border-radius:4px;padding:18px;min-width:0}
+.tri a:hover{border-color:var(--rosso)}
+.tri .art svg{width:100%;height:auto;display:block}
+.tri b{font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;text-transform:uppercase}
+.tri span{font-size:13px;color:#b5b5b0}
+.tri em{font-style:normal;font-family:var(--mono);font-size:12px;color:#ff8f86}
 
 /* Productos */
 .tabs{display:flex;gap:8px;flex-wrap:wrap}
-.tab{border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:8px 14px;border-radius:20px;font-size:13px}
+.tab{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:20px;font-size:13px}
 .tab[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .prod{display:flex;flex-direction:column;gap:10px;min-width:0}
-.prod .ph{position:relative;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:#151515;display:grid;place-items:center}
-.prod .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.prod .ph svg{width:86%;height:86%}
+.prod .ph{position:relative;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:radial-gradient(90% 80% at 50% 35%,var(--stage-a),var(--stage-b));display:grid;place-items:center}
+.prod .ph svg{width:88%;height:88%}
+.prod .ph.tall svg{width:70%;height:94%}
 .badge{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;background:var(--rosso);color:var(--ivory)}
-.badge.dark{background:var(--ivory);color:var(--carbon)}
-.add{position:absolute;right:10px;bottom:10px;border:0;background:var(--ivory);color:var(--carbon);font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;border-radius:2px;opacity:.95}
-.add:hover{background:var(--rosso);color:var(--ivory)}
+.add{position:absolute;right:10px;bottom:10px;border:0;background:var(--carbon);color:var(--ivory);font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;border-radius:2px}
+.add:hover{background:var(--rosso)}
 .prod .name{font-weight:600;font-size:15px}
 .prod .sub{font-size:13px;color:var(--muted)}
 .price{display:flex;gap:10px;align-items:baseline;font-variant-numeric:tabular-nums}
@@ -108,29 +121,69 @@ section{padding-block:56px 8px}
 .price em{font-style:normal;color:var(--rosso);font-size:12px;font-family:var(--mono)}
 .cuotas{font-size:12px;color:var(--muted)}
 
-/* Banner colección */
-.banner{margin-top:56px;background:var(--rosso);color:var(--ivory);position:relative;overflow:hidden}
-.banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--carbon) 0 10px,var(--ivory) 10px 20px)}
-.banner .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:56px 66px}
-.banner h2{font-size:clamp(36px,5.6vw,68px)}
-.banner p{max-width:46ch;color:#ffe3e0;margin:16px 0 24px}
-.banner .btn{background:var(--carbon);border-color:var(--carbon)}
-.specs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.25)}
-.specs div{background:var(--rosso);padding:18px}
-.specs b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:34px;font-variant-numeric:tabular-nums}
-.specs span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#ffd5d1}
+/* Cabecera de catálogo */
+.cathead{background:var(--carbon);color:var(--ivory)}
+.cathead .wrap{padding-block:44px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end}
+.cathead h1{font-size:clamp(40px,6vw,76px)}
+.cathead p{margin:0;color:#c3c3be;max-width:52ch}
+.crumbs{font-family:var(--mono);font-size:12px;color:#9a9a96;margin-bottom:10px}
+.crumbs a{text-decoration:none}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar select{font:inherit;padding:8px 10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:2px}
 
-/* Historia */
+/* Ficha de reloj (estilo maison) */
+.pdp-hero{background:var(--carbon);color:var(--ivory)}
+.pdp-hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:40px 48px}
+.pdp-art{background:radial-gradient(70% 60% at 50% 42%,#2e2e2e,#0f0f0f 70%);border-radius:4px;padding:24px;display:grid;place-items:center}
+.pdp-art svg{width:min(460px,100%);height:auto}
+.pdp-info h1{font-size:clamp(40px,5.6vw,72px);margin:8px 0 12px}
+.pdp-info .lead{color:#cfcfca;font-size:17px;max-width:46ch;margin:0 0 20px}
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
+.swatches button{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid #444;color:var(--ivory);border-radius:22px;padding:7px 14px;font-size:13px}
+.swatches button i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.35)}
+.swatches button[aria-pressed="true"]{border-color:var(--rosso);box-shadow:inset 0 0 0 1px var(--rosso)}
+.pdp-price{font-family:var(--display);font-weight:700;font-size:30px;font-variant-numeric:tabular-nums;margin-bottom:4px}
+.pdp-price + .cuotas{color:#a9a9a4;margin-bottom:20px}
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.feat div{background:var(--surface);padding:22px}
+.feat b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:34px;font-variant-numeric:tabular-nums}
+.feat span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.specs-grid p{color:var(--muted);max-width:56ch}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:40%;padding-right:12px}
+.others{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.others a{display:flex;gap:16px;align-items:center;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px}
+.others a:hover{border-color:var(--rosso)}
+.others svg{width:90px;height:auto;flex:none}
+.others b{font-family:var(--display);font-style:italic;font-weight:900;font-size:20px;text-transform:uppercase;display:block}
+
+/* Mundo / historia */
+.world{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.world figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.world .imgbox{aspect-ratio:1/1;background:#111;display:grid;place-items:center}
+.world img{width:200px;max-width:100%;height:auto;display:block;border-radius:2px}
+.world figcaption{padding:14px 16px;font-size:14px;color:var(--muted)}
+.world figcaption b{display:block;color:var(--fg);font-size:15px}
 .story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
 .story .visual{background:var(--carbon);border-radius:4px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden}
 .story .visual svg{width:92%}
 .story h2{font-size:clamp(30px,4.2vw,44px);margin:10px 0 16px}
 .story p{color:var(--muted);max-width:56ch;margin:0 0 12px}
-.story ol{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:s}
-.story li{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;counter-increment:s}
-.story li::before{content:counter(s,decimal-leading-zero);font-family:var(--display);font-style:italic;font-weight:900;font-size:22px;color:var(--rosso)}
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.timeline div{border-top:3px solid var(--rosso);padding-top:12px}
+.timeline b{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;display:block}
+.timeline span{color:var(--muted);font-size:14px}
 
-/* Club */
+/* Tiendas */
+.stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.store{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.store b{font-family:var(--display);font-style:italic;font-weight:900;font-size:22px;text-transform:uppercase}
+.store .tag{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:var(--soft)}
+.store .tag.on{background:var(--rosso);color:var(--ivory)}
+
+/* Club y pie */
 .club{margin-top:56px;background:var(--carbon);color:var(--ivory)}
 .club .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:48px}
 .club h2{font-size:clamp(28px,4vw,40px)}
@@ -138,35 +191,48 @@ section{padding-block:56px 8px}
 .club form{display:flex;gap:8px;flex-wrap:wrap}
 .club input{flex:1;min-width:0;padding:14px 16px;border:1px solid #3a3a3a;background:#1a1a1a;color:var(--ivory);border-radius:2px;font:inherit}
 .club .ok{flex-basis:100%;font-size:13px;color:#ff9a92;min-height:1.4em;margin:0}
-.levels{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.levels span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid #444;padding:5px 10px;border-radius:2px}
-.levels span:last-child{border-color:var(--rosso);color:#ff8f86}
-
-/* Footer */
-footer{background:#0a0a0a;color:#bdbdb8;font-size:14px}
+footer{background:#080808;color:#bdbdb8;font-size:14px}
 footer .wrap{padding-block:44px 28px}
 .fcols{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:28px}
 .fcols h4{font-family:var(--display);font-weight:700;color:var(--ivory);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin:0 0 12px}
 .fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .fcols a{text-decoration:none}
 .fcols a:hover{color:var(--ivory)}
+.tagline{margin:10px 0 0;font-family:var(--display);font-style:italic;font-weight:800;color:var(--ivory);text-transform:uppercase;letter-spacing:.04em}
 .legal{border-top:1px solid #262626;margin-top:32px;padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#8a8a86}
 
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(140%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:3px;font-size:14px;transition:transform .25s;z-index:40;visibility:hidden}
+/* Carro */
+.drawer[hidden],.scrim[hidden],.mnav[hidden]{display:none}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:70}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);color:var(--fg);z-index:80;display:flex;flex-direction:column;padding:calc(18px + env(safe-area-inset-top,0px)) calc(20px + env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 20px;box-shadow:-20px 0 40px rgba(0,0,0,.3)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.drawer h3{font-size:24px}
+.lines{flex:1;overflow:auto;display:grid;align-content:start;gap:12px}
+.line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px}
+.line .th{width:64px;height:64px;border-radius:3px;background:var(--soft);display:grid;place-items:center}
+.line .th svg{width:56px;height:56px}
+.qty{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty button{width:26px;height:26px;border:1px solid var(--line);background:var(--surface);border-radius:2px}
+.empty{color:var(--muted);padding:24px 0}
+.total{border-top:2px solid var(--fg);padding-top:14px;display:grid;gap:10px}
+.total div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.total b{font-family:var(--display);font-size:22px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(140%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:3px;font-size:14px;transition:transform .25s;z-index:90;visibility:hidden}
 .toast.show{transform:translateX(-50%) translateY(0);visibility:visible}
 
 @media (max-width:1000px){
   nav.main{display:none}
   .menu-btn{display:grid}
   header.site .wrap{justify-content:space-between}
-  .hero .wrap,.banner .wrap,.story,.club .wrap{grid-template-columns:1fr}
-  .hero::before{background:linear-gradient(160deg,transparent 0 62%,var(--rosso) 62% 78%,transparent 78%)}
-  .perks .wrap,.cats,.products{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero .wrap,.story,.club .wrap,.cathead .wrap,.pdp-hero .wrap,.specs-grid{grid-template-columns:1fr}
+  .hero::before{background:linear-gradient(160deg,transparent 0 64%,var(--rosso) 64% 80%,transparent 80%)}
+  .perks .wrap,.products,.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tri,.cats,.world,.stores{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcols{grid-template-columns:1fr 1fr}
 }
-@media (max-width:520px){
-  .perks .wrap{grid-template-columns:1fr}
-  .specs b{font-size:26px}
+@media (max-width:560px){
+  .perks .wrap,.tri,.cats,.world,.stores,.others,.timeline{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr 1fr}
   .fcols{grid-template-columns:1fr}
   .announce .wrap span:nth-child(n+2){display:none}
 }
@@ -177,33 +243,34 @@ footer .wrap{padding-block:44px 28px}
 
 <header class="site">
   <div class="wrap">
-    <button class="icon-btn menu-btn" aria-label="Abrir menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-    <a class="brand" href="#inicio" aria-label="Undercut, inicio" id="brandLogo"></a>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="brand" href="#inicio" aria-label="Undercut, inicio" data-logo="34"></a>
     <nav class="main" aria-label="Principal">
-      <a href="#nuevo" class="on">Nuevo</a><a href="#relojes">Relojes</a><a href="#categorias">Ropa</a><a href="#categorias">Cuero</a><a href="#coleccion">Rosso 01</a><a href="#club">Club</a>
+      <a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#historia">Historia</a><a href="#tiendas">Tiendas</a>
     </nav>
     <div class="icons">
-      <button class="icon-btn" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+      <button class="icon-btn" aria-label="Buscar" data-go="accesorios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
       <button class="icon-btn" aria-label="Mi cuenta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></button>
-      <button class="icon-btn" aria-label="Carro de compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="count" id="cartCount">0</span></button>
+      <button class="icon-btn" id="cartBtn" aria-label="Abrir carro de compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="count" id="cartCount">0</span></button>
     </div>
   </div>
 </header>
+<div class="mnav" id="mnav" hidden><div class="wrap"><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#historia">Historia</a><a href="#tiendas">Tiendas</a></div></div>
 
-<main id="inicio">
+<main>
+<!-- INICIO -->
+<div class="view" data-view="inicio">
   <section class="hero" style="padding:0">
     <div class="wrap">
       <div>
-        <div class="mono kicker">Undercut · Colección Rosso 01</div>
+        <div class="mono kicker">Undercut · Colección 2027</div>
         <h1>Gana con la ayuda <span>de tu box.</span></h1>
-        <p>El undercut es la jugada de quien entra primero a boxes y sale adelante. Ropa, cuero y relojes para el hombre que se anticipa.</p>
-        <div class="cta"><a class="btn" href="#relojes">Ver relojes →</a><a class="btn ghost" href="#categorias">Comprar ropa</a></div>
+        <p>En la carrera, el undercut es entrar primero a boxes y salir adelante. Relojes, ropa y cuero para el hombre que se anticipa.</p>
+        <div class="cta"><a class="btn" href="#relojes">Descubrir relojes</a><a class="btn ghost" href="#ropa">Comprar ropa</a></div>
       </div>
-      <div class="hero-watch"><img src="img/reloj-gt-rosso.png" alt="Reloj cronógrafo Undercut GT Rosso con bisel negro y esfera roja"></div>
+      <div class="hero-art" id="heroArt"></div>
     </div>
-    <div class="lap">VUELTA 23 · DELTA −1,4 s</div>
   </section>
-
   <div class="perks"><div class="wrap">
     <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg><div><b>Despacho a todo Chile</b><span>Gratis sobre $59.990</span></div></div>
     <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><div><b>6 cuotas sin interés</b><span>Con tarjetas de crédito</span></div></div>
@@ -211,190 +278,361 @@ footer .wrap{padding-block:44px 28px}
     <div class="perk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12l5 5L20 6"/></svg><div><b>Cambios en 30 días</b><span>En tienda u online</span></div></div>
   </div></div>
 
-  <section class="wrap" id="categorias">
+  <section class="wrap">
     <div class="head"><h2>Compra por categoría</h2></div>
     <div class="cats" id="cats"></div>
   </section>
 
-  <section class="wrap" id="relojes">
-    <div class="head" id="nuevo">
-      <h2>Lo más nuevo</h2>
-      <div class="tabs" role="group" aria-label="Filtrar productos">
-        <button class="tab" aria-pressed="true" data-f="todo">Todo</button>
-        <button class="tab" aria-pressed="false" data-f="reloj">Relojes</button>
-        <button class="tab" aria-pressed="false" data-f="ropa">Ropa</button>
-        <button class="tab" aria-pressed="false" data-f="cuero">Cuero y accesorios</button>
-      </div>
-    </div>
-    <div class="products" id="products"></div>
+  <div class="trilogy"><div class="wrap">
+    <div class="head"><div><div class="mono" style="color:#ff8f86">Relojes Undercut</div><h2 style="margin-top:8px">La trilogía</h2></div><a href="#relojes">Ver todos los relojes →</a></div>
+    <div class="tri" id="tri"></div>
+  </div></div>
+
+  <section class="wrap">
+    <div class="head"><h2>Lo más nuevo</h2><a href="#accesorios">Ver accesorios →</a></div>
+    <div class="products" id="newGrid"></div>
   </section>
 
-  <section class="banner" id="coleccion" style="padding:0">
-    <div class="wrap">
-      <div>
-        <div class="mono" style="color:#ffd5d1">Edición limitada · 230 unidades numeradas</div>
-        <h2 style="margin-top:12px">Rosso 01</h2>
-        <p>Cronógrafo de 43 mm con bisel taquimétrico, esfera roja de escudería y correa de cuero perforado. Cada pieza lleva grabado su número en la tapa, como el chasis de un auto de carrera.</p>
-        <a class="btn" href="#relojes">Reservar el mío</a>
-      </div>
-      <div class="specs">
-        <div><b>43</b><span>mm de caja</span></div>
-        <div><b>100</b><span>metros de agua</span></div>
-        <div><b>230</b><span>unidades</span></div>
-        <div><b>1/5</b><span>s cronógrafo</span></div>
-        <div><b>316L</b><span>acero</span></div>
-        <div><b>2</b><span>años garantía</span></div>
-      </div>
+  <section class="wrap">
+    <div class="head"><h2>Mundo Undercut</h2><a href="#historia">Nuestra historia →</a></div>
+    <div class="world">
+      <figure><div class="imgbox"><img src="img/reloj-gt-rosso.png" alt="Cronógrafo rojo y negro sobre base de exhibición"></div><figcaption><b>En el box</b>Así imaginamos la vitrina: acero, rojo de escudería y luz de taller.</figcaption></figure>
+      <figure><div class="imgbox"><img src="img/reloj-duo.png" alt="Dos cronógrafos junto a un pistón en un taller"></div><figcaption><b>Del motor a la muñeca</b>Cada pieza nace de una pieza del auto: pistones, llantas, tableros.</figcaption></figure>
+      <figure><div class="imgbox"><img src="img/reloj-carbono.png" alt="Cronógrafo negro con detalles rojos"></div><figcaption><b>Carbono</b>El negro de la fibra de carbono y el rojo de la bandera de boxes.</figcaption></figure>
     </div>
   </section>
+</div>
 
+<!-- RELOJES -->
+<div class="view" data-view="relojes">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Relojes</div><h1>Relojes</h1></div>
+    <p>Tres relojes para tres momentos de la carrera: la vuelta rápida, el paddock y el muro de boxes. Acero 316L, cristal de zafiro y garantía de 2 años.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:36px">
+    <div class="tri light" id="triAll"></div>
+  </section>
+  <section class="wrap">
+    <div class="head"><h2>Accesorios de relojería</h2></div>
+    <div class="products" id="watchAcc"></div>
+  </section>
+</div>
+
+<!-- FICHAS DE RELOJ -->
+<div class="view" data-view="pole-chrono" data-watch="pole"></div>
+<div class="view" data-view="paddock-gt" data-watch="paddock"></div>
+<div class="view" data-view="box-square" data-watch="box"></div>
+
+<!-- ROPA -->
+<div class="view" data-view="ropa">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Ropa</div><h1>Ropa</h1></div>
+    <p>Tres líneas: Gran Turismo para la oficina, Paddock para el fin de semana y Taller para la calle. La insignia UC va siempre bordada.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px">
+    <div class="toolbar"><div class="tabs" data-grid="ropa"></div><label class="muted" style="font-size:13px">Ordenar <select data-sort="ropa"><option value="new">Novedades</option><option value="asc">Menor precio</option><option value="desc">Mayor precio</option></select></label></div>
+    <div class="products" id="grid-ropa"></div>
+  </section>
+</div>
+
+<!-- ACCESORIOS -->
+<div class="view" data-view="accesorios">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Accesorios</div><h1>Accesorios</h1></div>
+    <p>Cuero, acero y seda con detalles del auto: hebilla de cinturón de seguridad, costura de asiento clásico y colleras de llanta.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px">
+    <div class="toolbar"><div class="tabs" data-grid="accesorios"></div><label class="muted" style="font-size:13px">Ordenar <select data-sort="accesorios"><option value="new">Novedades</option><option value="asc">Menor precio</option><option value="desc">Mayor precio</option></select></label></div>
+    <div class="products" id="grid-accesorios"></div>
+  </section>
+</div>
+
+<!-- HISTORIA -->
+<div class="view" data-view="historia">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Historia</div><h1>Gana con la ayuda de tu box</h1></div>
+    <p>Undercut nace en Santiago para el hombre que juega con estrategia: entra antes, cambia lo necesario y sale adelante.</p>
+  </div></div>
   <section class="wrap">
     <div class="story">
       <div class="visual" id="storyArt"></div>
       <div>
-        <div class="mono" style="color:var(--rosso)">Nuestra historia</div>
+        <div class="mono" style="color:var(--rosso)">Qué es un undercut</div>
         <h2>Adelantar no es correr más. Es pensar antes.</h2>
-        <p>En la Fórmula 1, el undercut es entrar a boxes una vuelta antes que el rival. Con neumáticos nuevos, el auto marca vueltas más rápidas y, cuando el otro sale de su detención, ya quedó atrás.</p>
-        <p>Undercut nace en Santiago para el hombre que juega así: con estrategia, precisión y estilo. Diseñamos cada prenda y cada reloj con la misma obsesión por el detalle que un equipo en boxes.</p>
-        <ol>
-          <li><span><b>Entrar.</b> Diseño propio inspirado en la tradición italiana de carreras.</span></li>
-          <li><span><b>Cambiar.</b> Cuero chileno, acero 316L y algodón de alta calidad.</span></li>
-          <li><span><b>Salir adelante.</b> Piezas para la oficina, la ruta y el fin de semana.</span></li>
-        </ol>
+        <p>En la Fórmula 1, el undercut es entrar a boxes una vuelta antes que el rival. Con neumáticos nuevos el auto marca vueltas más rápidas y, cuando el otro sale de su detención, ya quedó atrás.</p>
+        <p>Por eso nuestra bajada es "gana con la ayuda de tu box": nadie gana solo. El box es tu equipo, tus herramientas y tus decisiones. Undercut quiere ser parte de ese box.</p>
       </div>
     </div>
   </section>
+  <section class="wrap">
+    <div class="head"><h2>Hoja de ruta</h2></div>
+    <div class="timeline">
+      <div><b>2026</b><span>Nace la marca. Primera colección de cuero y accesorios.</span></div>
+      <div><b>2027</b><span>Lanzamiento de la trilogía de relojes y tienda online.</span></div>
+      <div><b>2028</b><span>Tienda "El Box" en Santiago y Club Undercut con track days.</span></div>
+      <div><b>2029</b><span>Expansión a Perú, Colombia y México.</span></div>
+    </div>
+  </section>
+</div>
 
-  <section class="club" id="club" style="padding:0">
-    <div class="wrap">
-      <div>
-        <h2>Únete al Club Undercut</h2>
-        <p>10% de descuento en tu primera compra, acceso anticipado a ediciones limitadas e invitaciones a track days.</p>
-        <div class="levels"><span>Novato</span><span>Piloto</span><span>Pole</span></div>
-      </div>
-      <form id="clubForm" novalidate>
-        <label for="email" class="mono" style="flex-basis:100%;color:#9a9a96">Tu correo</label>
-        <input id="email" type="email" placeholder="nombre@correo.cl" autocomplete="email">
-        <button class="btn" type="submit">Inscribirme</button>
-        <p class="ok" id="clubMsg" role="status"></p>
-      </form>
+<!-- TIENDAS -->
+<div class="view" data-view="tiendas">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Tiendas</div><h1>Tiendas</h1></div>
+    <p>Visítanos para probarte los relojes, grabar tus iniciales y conocer las ediciones limitadas.</p>
+  </div></div>
+  <section class="wrap">
+    <div class="stores">
+      <div class="store"><span class="tag on">Tienda insignia · 2028</span><b>El Box · Vitacura</b><span class="muted">Diseño de taller premium con auto clásico en exhibición y barra de grabado.</span><span class="mono muted">Lun a sáb · 10:00 a 20:00</span></div>
+      <div class="store"><span class="tag">Pop-up · 2027</span><b>Pop-up · Las Condes</b><span class="muted">Espacio temporal en centro comercial para el lanzamiento de la trilogía.</span><span class="mono muted">Todos los días · 10:00 a 21:00</span></div>
+      <div class="store"><span class="tag">Online</span><b>Tienda online</b><span class="muted">Despacho a todo Chile en 48 a 72 horas. Retiro en tienda sin costo.</span><span class="mono muted">Atención · lun a vie 9:00 a 18:00</span></div>
     </div>
   </section>
+</div>
+
+<section class="club" id="club" style="padding:0">
+  <div class="wrap">
+    <div><h2>Únete al Club Undercut</h2><p>10% de descuento en tu primera compra, acceso anticipado a ediciones limitadas e invitaciones a track days.</p></div>
+    <form id="clubForm" novalidate>
+      <label for="email" class="mono" style="flex-basis:100%;color:#9a9a96">Tu correo</label>
+      <input id="email" type="email" placeholder="nombre@correo.cl" autocomplete="email">
+      <button class="btn" type="submit">Inscribirme</button>
+      <p class="ok" id="clubMsg" role="status"></p>
+    </form>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div><div id="footLogo"></div><p style="margin:10px 0 0;font-family:'Exo 2',sans-serif;font-style:italic;font-weight:800;color:#f6f4ef;text-transform:uppercase;letter-spacing:.04em">Gana con la ayuda de tu box</p><p style="max-width:34ch;margin:10px 0 0">Ropa, cuero y relojes inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
-      <div><h4>Tienda</h4><ul><li><a href="#relojes">Relojes</a></li><li><a href="#categorias">Polos y chaquetas</a></li><li><a href="#categorias">Cinturones y billeteras</a></li><li><a href="#categorias">Colleras y corbatas</a></li></ul></div>
-      <div><h4>Ayuda</h4><ul><li><a href="#inicio">Seguimiento de pedido</a></li><li><a href="#inicio">Cambios y devoluciones</a></li><li><a href="#inicio">Guía de tallas</a></li><li><a href="#inicio">Garantía de relojes</a></li></ul></div>
-      <div><h4>Undercut</h4><ul><li><a href="#inicio">Nuestra historia</a></li><li><a href="#club">Club Undercut</a></li><li><a href="#inicio">Tiendas</a></li><li><a href="#inicio">Ventas corporativas</a></li></ul></div>
+      <div><div data-logo="30"></div><p class="tagline">Gana con la ayuda de tu box</p><p style="max-width:34ch;margin:10px 0 0">Relojes, ropa y cuero inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
+      <div><h4>Tienda</h4><ul><li><a href="#relojes">Relojes</a></li><li><a href="#ropa">Ropa</a></li><li><a href="#accesorios">Accesorios</a></li></ul></div>
+      <div><h4>Ayuda</h4><ul><li><a href="#tiendas">Seguimiento de pedido</a></li><li><a href="#tiendas">Cambios y devoluciones</a></li><li><a href="#ropa">Guía de tallas</a></li><li><a href="#relojes">Garantía de relojes</a></li></ul></div>
+      <div><h4>Undercut</h4><ul><li><a href="#historia">Historia</a></li><li><a href="#tiendas">Tiendas</a></li><li><a href="#club">Club Undercut</a></li></ul></div>
     </div>
-    <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Fotos de relojes generadas con Canva (versión preliminar)</span></div>
+    <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Renders conceptuales · fotos preliminares generadas con Canva</span></div>
   </div>
 </footer>
 
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Carro de compras">
+  <header><h3>Tu carro</h3><button class="icon-btn" id="closeCart" aria-label="Cerrar carro" style="color:var(--fg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="lines" id="lines"></div>
+  <div class="total"><div><span>Subtotal</span><b id="subtotal">$0</b></div><div class="muted" style="font-size:13px"><span id="shipNote">Agrega productos para ver el despacho</span></div><button class="btn" id="checkout" type="button" style="justify-content:center">Ir a pagar</button></div>
+</aside>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const R='#cc0a14',RD='#9e0710',K='#141414',W='#f6f4ef',S='#c7cacc',COG='#8e5126',COGD='#5f3417';
+const R='#cc0a14',RD='#9e0710',K='#141414',W='#f6f4ef',COG='#8e5126',COGD='#5f3417';
 const EXO=`font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+const Dg=Math.PI/180;let uid=0;
+const fmt=n=>'$'+n.toLocaleString('es-CL');
 
+/* ---------- Marca ---------- */
 function checks(x,y,w,rows,n,c){let s='';const q=w/n;for(let r=0;r<rows;r++)for(let i=0;i<n;i++)if((i+r)%2===0)s+=`<rect x="${x+i*q}" y="${y+r*q}" width="${q}" height="${q}" fill="${c}"/>`;return s;}
-/* Insignia UC (100 x 120) */
-function badge(bg=R,fg=W,ink=K){
-  return `<path d="M18 3H82L97 18V66Q97 95 50 117Q3 95 3 66V18Z" fill="${bg}"/>
-  <path d="M20 8H80L92 20V65Q92 91 50 111Q8 91 8 65V20Z" fill="none" stroke="${fg}" stroke-width="2"/>
-  <rect x="22" y="16" width="56" height="10" fill="${fg}"/>${checks(22,16,56,2,14,ink)}
-  <text x="51" y="78" text-anchor="middle" ${EXO} font-size="48" fill="${fg}">UC</text>
-  <path d="M24 91H52" stroke="${fg}" stroke-width="2.5"/><path d="M52 91L60 98H76" fill="none" stroke="${fg}" stroke-width="2.5"/>`;
-}
-/* Logotipo: la línea pasa por debajo y sale adelante (el undercut) */
-function wordmark(fg,accent,h=34){
-  return `<svg viewBox="0 0 330 64" style="height:${h}px" role="img" aria-label="Undercut"><g transform="translate(0 2) scale(.48)">${badge(accent,fg,K)}</g>
-  <text x="58" y="42" ${EXO} font-size="44" textLength="266" lengthAdjust="spacingAndGlyphs" fill="${fg}">UNDERCUT</text>
-  <path d="M60 52H210" stroke="${fg}" stroke-width="2.5" opacity=".55"/><path d="M150 52C160 52 162 59 172 59H300C310 59 312 52 322 52" fill="none" stroke="${accent}" stroke-width="3"/></svg>`;
-}
-document.getElementById('brandLogo').innerHTML=wordmark(W,R,34);
-document.getElementById('footLogo').innerHTML=wordmark(W,R,30);
+function badge(bg=R,fg=W,ink=K){return `<path d="M18 3H82L97 18V66Q97 95 50 117Q3 95 3 66V18Z" fill="${bg}"/><path d="M20 8H80L92 20V65Q92 91 50 111Q8 91 8 65V20Z" fill="none" stroke="${fg}" stroke-width="2"/><rect x="22" y="16" width="56" height="10" fill="${fg}"/>${checks(22,16,56,2,14,ink)}<text x="51" y="78" text-anchor="middle" ${EXO} font-size="48" fill="${fg}">UC</text><path d="M24 91H52" stroke="${fg}" stroke-width="2.5"/><path d="M52 91L60 98H76" fill="none" stroke="${fg}" stroke-width="2.5"/>`;}
+function wordmark(fg,accent,h){return `<svg viewBox="0 0 330 64" style="height:${h}px" role="img" aria-label="Undercut"><g transform="translate(0 2) scale(.48)">${badge(accent,fg,K)}</g><text x="58" y="42" ${EXO} font-size="44" textLength="266" lengthAdjust="spacingAndGlyphs" fill="${fg}">UNDERCUT</text><path d="M60 52H210" stroke="${fg}" stroke-width="2.5" opacity=".55"/><path d="M150 52C160 52 162 59 172 59H300C310 59 312 52 322 52" fill="none" stroke="${accent}" stroke-width="3"/></svg>`;}
+document.querySelectorAll('[data-logo]').forEach(el=>el.innerHTML=wordmark(W,R,+el.dataset.logo));
 
-/* Ilustraciones para categorías y productos sin foto */
-const ART={
-polo:(c=R)=>`<svg viewBox="0 0 300 300"><path d="M95 60L125 48Q150 62 175 48L205 60L250 95L232 130L210 118V260Q150 268 90 260V118L68 130L50 95Z" fill="${c}"/>
- <path d="M90 118V260Q100 262 112 263V130Z" fill="#000" opacity=".14"/><path d="M56 99L73 125M244 99L227 125" stroke="${K}" stroke-width="4"/><path d="M61 96L78 122M239 96L222 122" stroke="${W}" stroke-width="2"/>
- <rect x="144" y="66" width="12" height="46" fill="#000" opacity=".2"/><circle cx="150" cy="80" r="2.6" fill="${W}"/><circle cx="150" cy="96" r="2.6" fill="${W}"/>
- <path d="M121 46L140 84L150 66Z" fill="#000" opacity=".25" stroke="${K}" stroke-width="3"/><path d="M179 46L160 84L150 66Z" fill="#000" opacity=".25" stroke="${K}" stroke-width="3"/>
- <g transform="translate(172 88) scale(.26)">${badge(K,W,R)}</g></svg>`,
-jacket:()=>`<svg viewBox="0 0 300 300"><path d="M100 55L128 45H172L200 55L235 80L262 235L236 242L212 130V262H88V130L64 242L38 235L65 80Z" fill="#1d1d1d"/>
- <path d="M74 84L50 238M226 84L250 238" stroke="${R}" stroke-width="8"/><path d="M83 86L59 240M217 86L241 240" stroke="${W}" stroke-width="2.5"/>
- <rect x="88" y="138" width="124" height="16" fill="${R}"/><path d="M128 45H172L170 28H130Z" fill="#2a2a2a" stroke="${R}" stroke-width="2"/>
- <path d="M150 28V262" stroke="#9ea3a6" stroke-width="2.5"/><g transform="translate(166 66) scale(.32)">${badge(R,W,K)}</g></svg>`,
-wallet:()=>`<svg viewBox="0 0 300 300"><defs><pattern id="dq" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="18" height="18" fill="#1a1a1a"/><path d="M0 0H18M0 0V18" stroke="#000" stroke-width="2" opacity=".6"/></pattern></defs>
- <rect x="56" y="80" width="188" height="140" rx="12" fill="url(#dq)"/><rect x="64" y="88" width="172" height="124" rx="8" fill="none" stroke="${R}" stroke-width="1.6" stroke-dasharray="4 3"/>
- <rect x="222" y="80" width="10" height="140" fill="${R}"/><g transform="translate(78 160) scale(.36)">${badge('#2a2a2a','#5b5b5b','#2a2a2a')}</g></svg>`,
-belt:()=>`<svg viewBox="0 0 300 300"><path d="M110 132H262Q282 132 286 150Q282 168 262 168H110Z" fill="${COG}"/>
- <path d="M112 138H260Q276 138 279 150Q276 162 260 162H112" fill="none" stroke="#e3cfa8" stroke-width="1.3" stroke-dasharray="4 3"/>
- <circle cx="214" cy="150" r="3.4" fill="${COGD}"/><circle cx="232" cy="150" r="3.4" fill="${COGD}"/><circle cx="250" cy="150" r="3.4" fill="${COGD}"/><rect x="122" y="126" width="14" height="48" rx="3" fill="${COGD}"/>
- <defs><linearGradient id="bk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0f1"/><stop offset=".5" stop-color="#a8adb0"/><stop offset="1" stop-color="#6c7174"/></linearGradient></defs>
- <rect x="18" y="114" width="98" height="72" rx="14" fill="url(#bk)"/><rect x="30" y="134" width="56" height="32" rx="6" fill="${R}"/><text x="58" y="156" text-anchor="middle" ${EXO} font-size="16" fill="${W}">BOX</text></svg>`,
-cuff:()=>{let sp='';for(let i=0;i<5;i++)sp+=`<rect x="92" y="104" width="8" height="34" rx="3" fill="#7f8487" transform="rotate(${i*72} 96 140)"/>`;
- return `<svg viewBox="0 0 300 300"><defs><radialGradient id="cs" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f4f5f5"/><stop offset=".6" stop-color="#a9adb0"/><stop offset="1" stop-color="#6a6f72"/></radialGradient></defs>
- <circle cx="96" cy="140" r="50" fill="#111"/><circle cx="96" cy="140" r="38" fill="url(#cs)"/>${sp}<circle cx="96" cy="140" r="9" fill="${R}"/>
- <circle cx="208" cy="140" r="48" fill="url(#cs)"/><g transform="translate(183 110) scale(.5)">${badge(R,W,K)}</g></svg>`;},
-tie:()=>`<svg viewBox="0 0 300 300"><defs><pattern id="ck" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><rect width="26" height="26" fill="${R}"/><path d="M3 20C7 6 13 6 15 13S22 22 24 8" fill="none" stroke="${W}" stroke-width="1.1" opacity=".5"/></pattern></defs>
- <path d="M133 26H167L161 62H139Z" fill="${RD}"/><path d="M139 62H161L190 236L150 276L110 236Z" fill="url(#ck)"/><g transform="translate(138 222) scale(.24)">${badge(K,W,R)}</g></svg>`,
+/* ---------- Relojes ---------- */
+const P=(cx,cy,r,a)=>[cx+r*Math.sin(a*Dg),cy-r*Math.cos(a*Dg)];
+function defs(id){return `<defs><linearGradient id="${id}st" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".35" stop-color="#b9bdc1"/><stop offset=".6" stop-color="#e2e4e6"/><stop offset="1" stop-color="#6d7276"/></linearGradient><linearGradient id="${id}br" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7d8286"/><stop offset=".5" stop-color="#d7dadd"/><stop offset="1" stop-color="#7d8286"/></linearGradient><linearGradient id="${id}po" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa0a4"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa0a4"/></linearGradient><radialGradient id="${id}gl" cx="35%" cy="25%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="${id}sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity=".35"/></filter></defs>`;}
+const hand=(cx,cy,a,len,w,fill,lume,tail=14)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx-w/2} ${cy+tail}L${cx-w*.42} ${cy-len}L${cx} ${cy-len-6}L${cx+w*.42} ${cy-len}L${cx+w/2} ${cy+tail}Z" fill="${fill}" stroke="#000" stroke-opacity=".4" stroke-width=".7"/>${lume?`<path d="M${cx-w*.2} ${cy-len*.25}L${cx-w*.18} ${cy-len+4}L${cx+w*.18} ${cy-len+4}L${cx+w*.2} ${cy-len*.25}Z" fill="${lume}"/>`:''}</g>`;
+const secH=(cx,cy,a,len,c)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx} ${cy+22}V${cy-len}" stroke="${c}" stroke-width="1.6"/><rect x="${cx-3}" y="${cy-len+10}" width="6" height="6" fill="${c}"/><circle cx="${cx}" cy="${cy+18}" r="3.5" fill="${c}"/></g>`;
+function subdial(x,y,r,bg,ink,ring,hc,a=40,n=30){let s=`<circle cx="${x}" cy="${y}" r="${r}" fill="${bg}"/><circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${ring}" stroke-width="1.6"/>`;for(let i=0;i<n;i++){const big=i%5===0;const[x1,y1]=P(x,y,r-2,i*360/n),[x2,y2]=P(x,y,r-(big?6:4),i*360/n);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${ink}" stroke-width="${big?1.2:.6}"/>`;}return s+`<g transform="rotate(${a} ${x} ${y})"><path d="M${x} ${y+3}V${y-r+4}" stroke="${hc}" stroke-width="1.8" stroke-linecap="round"/></g><circle cx="${x}" cy="${y}" r="2.2" fill="${hc}"/>`;}
+
+function pole(v){const id='a'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Pole Chrono, ${v.n}">${defs(id)}`;
+  for(const [y0,y1] of [[-10,118],[322,450]])for(let y=y0;y<y1;y+=19){const t=Math.abs((y<220?118-y:y-322))/130;const w=78-t*8;s+=`<rect x="${cx-w/2}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/><rect x="${cx-w/6+.5}" y="${y}" width="${w/3-1}" height="18" rx="3" fill="url(#${id}po)"/><rect x="${cx+w/6+1}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/>`;}
+  s+=`<g filter="url(#${id}sh)">`;for(const x of [cx-50,cx+28])for(const y of [108,300])s+=`<path d="M${x} ${y}h22v32h-22z" fill="url(#${id}st)"/>`;
+  s+=`<path d="M${cx+84} ${cy-22}L${cx+100} ${cy-16}V${cy+16}L${cx+84} ${cy+22}Z" fill="url(#${id}st)"/><rect x="${cx+98}" y="${cy-9}" width="12" height="18" rx="2" fill="url(#${id}st)"/>`;
+  for(const a of [-36,36])s+=`<g transform="rotate(${a} ${cx} ${cy})"><rect x="${cx+86}" y="${cy-7}" width="16" height="14" rx="2" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="90" fill="url(#${id}st)"/></g><circle cx="${cx}" cy="${cy}" r="86" fill="${v.bezel}"/>`;
+  for(const val of [400,300,250,200,170,150,130,120,110,100,90,80,75,70,65,60]){const a=(3600/val)*6%360;const[x,y]=P(cx,cy,79,a);const rot=(a>90&&a<270)?a+180:a;s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="7.2" fill="${v.bezelInk}" transform="rotate(${rot} ${x} ${y})">${val}</text>`;}
+  s+=`<circle cx="${cx}" cy="${cy}" r="71" fill="${v.dial}"/>`;
+  for(let i=0;i<300;i++){const a=i*1.2;const big=i%25===0;const[x1,y1]=P(cx,cy,70,a),[x2,y2]=P(cx,cy,big?65:67.5,a);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${big?.9:.35}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===9||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-2.6}" y="${y-(h===0?9:7)}" width="5.2" height="${h===0?18:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5"/><rect x="${x-1.2}" y="${y-(h===0?7:5)}" width="2.4" height="${h===0?14:10}" fill="#eef2e6"/></g>`;}
+  s+=subdial(cx-34,cy,18,v.sub,v.subInk,'#9aa0a4',v.subInk,210)+subdial(cx+34,cy,18,v.sub,v.subInk,R,R,60);
+  s+=`<rect x="${cx-15}" y="${cy+38}" width="30" height="13" rx="2" fill="${v.sub}" stroke="#9aa0a4"/><text x="${cx}" y="${cy+45.5}" text-anchor="middle" dominant-baseline="central" ${EXO} font-size="7.5" fill="${R}">POLE 15</text>`;
+  s+=`<text x="${cx}" y="${cy-36}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text><text x="${cx}" y="${cy-24}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.2" fill="${v.ink}" opacity=".85">AUTOMATIC CHRONOGRAPH</text>`;
+  s+=hand(cx,cy,305,40,7,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,60,5,`url(#${id}po)`,'#eef2e6')+secH(cx,cy,180,66,R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><circle cx="${cx}" cy="${cy}" r="86" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+function paddock(v){const id='b'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Paddock GT, ${v.n}">${defs(id)}<defs><radialGradient id="${id}d" cx="45%" cy="35%" r="75%"><stop offset="0" stop-color="${v.dialHi}"/><stop offset="1" stop-color="${v.dial}"/></radialGradient><pattern id="${id}tr" width="14" height="12" patternUnits="userSpaceOnUse"><path d="M0 9L7 3L14 9" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="2.2"/></pattern><clipPath id="${id}c"><circle cx="${cx}" cy="${cy}" r="72"/></clipPath></defs>`;
+  for(const [y0,y1,dir] of [[-10,130,-1],[310,450,1]])for(let y=y0;y<y1;y+=16){const t=dir<0?(130-y)/140:(y-310)/140;const w=104-t*22;s+=`<rect x="${cx-w/2}" y="${y}" width="${w}" height="15" rx="2" fill="url(#${id}br)"/><rect x="${cx-3}" y="${y}" width="6" height="15" fill="#5d6266"/>`;}
+  s+=`<g filter="url(#${id}sh)"><path d="M${cx-52} 128L${cx-70} 160H${cx+70}L${cx+52} 128Z" fill="url(#${id}st)"/><path d="M${cx-52} 312L${cx-70} 280H${cx+70}L${cx+52} 312Z" fill="url(#${id}st)"/><rect x="${cx+84}" y="${cy-9}" width="13" height="18" rx="3" fill="url(#${id}st)"/><circle cx="${cx}" cy="${cy}" r="88" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="84" fill="url(#${id}br)"/><circle cx="${cx}" cy="${cy}" r="78" fill="url(#${id}po)"/><circle cx="${cx}" cy="${cy}" r="74" fill="#3c4044"/><circle cx="${cx}" cy="${cy}" r="72" fill="url(#${id}d)"/><rect x="${cx-72}" y="${cy-72}" width="144" height="144" fill="url(#${id}tr)" clip-path="url(#${id}c)"/>`;
+  for(let i=0;i<60;i++){const[x1,y1]=P(cx,cy,71,i*6),[x2,y2]=P(cx,cy,68,i*6);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${i%5?.5:1}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);const big=h===0;s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-(big?5:2.8)}" y="${y-9}" width="${big?10:5.6}" height="18" rx="1.2" fill="url(#${id}po)" stroke="#000" stroke-opacity=".45" stroke-width=".5"/></g>`;}
+  s+=`<rect x="${cx+42}" y="${cy-8}" width="20" height="16" rx="1.5" fill="#fafafa" stroke="url(#${id}po)" stroke-width="2"/><text x="${cx+52}" y="${cy+.5}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="9" fill="#151515">15</text><circle cx="${cx}" cy="${cy+36}" r="16" fill="${v.sub}"/>`;
+  for(let i=0;i<8;i++)for(let j=0;j<2;j++)if((i+j)%2===0)s+=`<rect x="${cx-8+i*2}" y="${cy+44+j*2}" width="2" height="2" fill="${v.ink}"/>`;
+  const sc=v.n==='Rosso'?W:R;s+=`<g transform="rotate(130 ${cx} ${cy+36})"><path d="M${cx} ${cy+40}V${cy+22}" stroke="${sc}" stroke-width="1.4"/></g><circle cx="${cx}" cy="${cy+36}" r="1.8" fill="${sc}"/>`;
+  s+=`<text x="${cx}" y="${cy-34}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text><text x="${cx}" y="${cy-22}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.4" fill="${v.ink}" opacity=".85">PADDOCK GT · AUTOMATIC</text>`;
+  s+=hand(cx,cy,305,42,7.5,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,62,5.2,`url(#${id}po)`,'#eef2e6')+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><circle cx="${cx}" cy="${cy}" r="74" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+function square(v){const id='c'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Box Square, ${v.n}">${defs(id)}<defs><linearGradient id="${id}dd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>`;
+  for(const dir of [-1,1]){s+=`<path d="${dir<0?`M${cx-46} 135L${cx-40} -10H${cx+40}L${cx+46} 135Z`:`M${cx-46} 305L${cx-40} 450H${cx+40}L${cx+46} 305Z`}" fill="${v.strap}"/><path d="${dir<0?`M${cx-40} 130L${cx-35} -10M${cx+40} 130L${cx+35} -10`:`M${cx-40} 310L${cx-35} 450M${cx+40} 310L${cx+35} 450`}" stroke="${v.stitch}" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+    for(const y of (dir<0?[10,26,42,58,74,90,106]:[324,340,356,372,388,404,420]))for(const x of [-22,-11,0,11,22])s+=`<circle cx="${cx+x}" cy="${y}" r="2.6" fill="#000" opacity=".7"/>`;}
+  s+=`<g filter="url(#${id}sh)"><rect x="${cx+86}" y="${cy-10}" width="13" height="20" rx="3" fill="url(#${id}st)"/>`;for(const dy of [-52,52])s+=`<rect x="${cx+84}" y="${cy+dy-8}" width="14" height="16" rx="3" fill="url(#${id}st)"/>`;
+  s+=`<rect x="${cx-90}" y="${cy-90}" width="180" height="180" rx="38" fill="url(#${id}st)"/></g><rect x="${cx-82}" y="${cy-82}" width="164" height="164" rx="32" fill="url(#${id}br)"/><rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="#2e3236"/><rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="${v.dial}"/><rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="url(#${id}dd)"/>`;
+  s+=`<rect x="${cx-12}" y="${cy-70}" width="10" height="140" fill="${v.stripe}"/><rect x="${cx+2}" y="${cy-70}" width="10" height="140" fill="${v.stripe}" opacity=".9"/>`;
+  for(let h=0;h<12;h++){if(h===0||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,58,a);const hz=(h===3||h===9);s+=`<rect x="${x-(hz?10:2.6)}" y="${y-(hz?2.8:7)}" width="${hz?20:5.2}" height="${hz?5.6:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5" ${hz?'':`transform="rotate(${a} ${x} ${y})"`}/>`;}
+  s+=subdial(cx,cy-36,19,v.sub,v.subInk,'#8f9498',v.subInk,30)+subdial(cx,cy+36,19,v.sub,v.subInk,R,R,250);
+  s+=`<text x="${cx-40}" y="${cy-56}" text-anchor="middle" ${EXO} font-size="9" letter-spacing="1" fill="${v.ink}">UNDERCUT</text><text x="${cx+40}" y="${cy-56}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1" fill="${v.ink}" opacity=".85">BOX SQUARE</text>`;
+  s+=hand(cx,cy,305,40,7,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,58,5,`url(#${id}po)`,'#eef2e6')+secH(cx,cy,90,62,v.stripe===R?W:R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+const WATCHES={
+ pole:{view:'pole-chrono',ref:'UC-01',name:'Pole Chrono',fn:pole,price:1290000,kind:'Cronógrafo de pista',
+  lead:'El cronógrafo para marcar la vuelta más rápida. Bisel taquimétrico de cerámica, esfera tipo panda y contador de vueltas en rojo.',
+  story:'Pensado para el entusiasta que mide todo: la vuelta, el tramo, el café. Dos contadores limpios, una ventana "POLE" con la fecha y pulsadores protegidos como la jaula antivuelco de un auto de carrera.',
+  feat:[['40','mm de caja'],['62','h de reserva'],['100','m de agua']],
+  specs:[['Caja','40 mm · acero 316L · 12,4 mm'],['Bisel','Cerámica negra fija, taquímetro 60–400'],['Movimiento','Automático cronógrafo, 27 rubíes'],['Funciones','Horas, minutos, segundos, cronógrafo 30 min, fecha'],['Cristal','Zafiro antirreflejo, fondo de zafiro'],['Brazalete','Tres eslabones, cierre desplegable']],
+  v:[{n:'Panda',dot:'#f2f0eb',dial:'#f2f0eb',sub:'#151515',ink:'#151515',subInk:'#e9e7e1',bezel:'#121212',bezelInk:'#f2f0eb'},{n:'Panda invertido',dot:'#151515',dial:'#121212',sub:'#ecebe6',ink:'#ecebe6',subInk:'#151515',bezel:'#121212',bezelInk:'#ecebe6'},{n:'Rosso',dot:R,dial:'#b90912',sub:'#141414',ink:W,subInk:'#ecebe6',bezel:'#121212',bezelInk:W}]},
+ paddock:{view:'paddock-gt',ref:'UC-02',name:'Paddock GT',fn:paddock,price:890000,kind:'Deportivo de brazalete integrado',
+  lead:'El reloj para el paddock y la oficina. Caja plana, brazalete integrado y esfera con textura de neumático de lluvia.',
+  story:'Delgado para pasar bajo el puño de la camisa, firme para el fin de semana. La esfera grabada recuerda la banda de rodadura y el segundero pequeño lleva una bandera a cuadros.',
+  feat:[['39','mm de caja'],['9,2','mm de alto'],['70','h de reserva']],
+  specs:[['Caja','39 mm · acero 316L · 9,2 mm'],['Bisel','Satinado con chaflán pulido'],['Movimiento','Automático ultraplano, 25 rubíes'],['Funciones','Horas, minutos, segundero pequeño, fecha'],['Esfera','Textura de banda de rodadura, índices aplicados'],['Brazalete','Integrado, cierre oculto']],
+  v:[{n:'Rosso',dot:R,dial:'#b8070f',dialHi:'#e0222b',ink:W,sub:'#7d050a'},{n:'Carbono',dot:'#1a1a1a',dial:'#141414',dialHi:'#2c2c2c',ink:'#ecebe6',sub:'#0b0b0b'},{n:'Plata pista',dot:'#cfd2d4',dial:'#c9ccce',dialHi:'#eef0f1',ink:'#151515',sub:'#a9adb0'}]},
+ box:{view:'box-square',ref:'UC-03',name:'Box Square',fn:square,price:1090000,kind:'Cronógrafo cuadrado',
+  lead:'El reloj del muro de boxes, para quien dirige la carrera. Caja cuadrada, contadores en vertical y franja de carrera.',
+  story:'Inspirado en los años setenta, cuando las cajas cuadradas llegaron a la pista. La franja doble cruza la esfera de arriba abajo y la correa perforada recuerda el guante del piloto.',
+  feat:[['39','mm por lado'],['48','h de reserva'],['100','m de agua']],
+  specs:[['Caja','39 × 39 mm · acero cepillado · 13,8 mm'],['Esfera','Con franja de carrera, contadores en vertical'],['Movimiento','Automático cronógrafo'],['Funciones','Horas, minutos, cronógrafo 30 min, segundero pequeño'],['Cristal','Zafiro plano antirreflejo'],['Correa','Cuero perforado, costura de color, hebilla desplegable']],
+  v:[{n:'Carbono',dot:'#1a1a1a',dial:'#141414',stripe:R,ink:'#ecebe6',sub:'#d8dadc',subInk:'#151515',strap:'#151515',stitch:R},{n:'Rosso',dot:R,dial:'#b8070f',stripe:'#151515',ink:W,sub:'#151515',subInk:'#ecebe6',strap:'#151515',stitch:W},{n:'Azul de pista',dot:'#1d3d6e',dial:'#173764',stripe:R,ink:'#eef1f6',sub:'#e3e6ea',subInk:'#152038',strap:'#14223a',stitch:'#cfd6e2'}]},
 };
 
-const CATS=[
- {n:'Relojes',c:'4 modelos',bg:`radial-gradient(90% 70% at 50% 40%,#2a2a2a,#0d0d0d)`,img:'img/reloj-carbono.png'},
- {n:'Ropa',c:'Polos y chaquetas',bg:`linear-gradient(160deg,#e9e7e2,#cfccc5)`,art:ART.jacket()},
- {n:'Cuero',c:'Cinturones y billeteras',bg:`linear-gradient(160deg,#2b1a10,#120b07)`,art:ART.belt()},
- {n:'Colleras',c:'Y corbatas',bg:`linear-gradient(160deg,${R},${RD})`,art:ART.cuff()},
-];
-document.getElementById('cats').innerHTML=CATS.map(c=>`<a class="cat" href="#relojes" style="background:${c.bg}"><div class="art">${c.img?`<img src="${c.img}" alt="" style="width:100%;height:100%;object-fit:cover">`:c.art}</div><div class="lbl"><b>${c.n}</b><span>${c.c}</span></div></a>`).join('');
+/* ---------- Ilustraciones de ropa y accesorios ---------- */
+const sh=(cx,cy,rx)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="8" fill="#000" opacity=".14"/>`;
+const ub=(x,y,s,a,b,c)=>`<g transform="translate(${x} ${y}) scale(${s})">${badge(a,b,c)}</g>`;
+const ART={
+polo:(c=R,tip=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M95 60L125 48Q150 62 175 48L205 60L250 95L232 130L210 118V260Q150 268 90 260V118L68 130L50 95Z" fill="${c}"/><path d="M90 118V260Q100 262 112 263V130Z" fill="#000" opacity=".14"/><path d="M56 99L73 125M244 99L227 125" stroke="${tip}" stroke-width="4"/><path d="M61 96L78 122M239 96L222 122" stroke="${W}" stroke-width="2"/><rect x="144" y="66" width="12" height="46" fill="#000" opacity=".2"/><circle cx="150" cy="80" r="2.6" fill="${W}"/><circle cx="150" cy="96" r="2.6" fill="${W}"/><path d="M121 46L140 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/><path d="M179 46L160 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/>${ub(172,88,.26,c===R?K:R,W,c===R?R:K)}</svg>`,
+jacket:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 55L128 45H172L200 55L235 80L262 235L236 242L212 130V262H88V130L64 242L38 235L65 80Z" fill="#1d1d1d"/><path d="M74 84L50 238M226 84L250 238" stroke="${R}" stroke-width="8"/><path d="M83 86L59 240M217 86L241 240" stroke="${W}" stroke-width="2.5"/><rect x="88" y="138" width="124" height="16" fill="${R}"/><path d="M128 45H172L170 28H130Z" fill="#2a2a2a" stroke="${R}" stroke-width="2"/><path d="M150 28V262" stroke="#9ea3a6" stroke-width="2.5"/>${ub(166,66,.32,R,W,K)}</svg>`,
+tee:(c='#c6c9c3',ink=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L125 45Q150 52 175 45L202 55L250 92L230 126L210 114V262H90V114L70 126L50 92Z" fill="${c}"/><path d="M125 45Q150 52 175 45" fill="none" stroke="#000" stroke-opacity=".2" stroke-width="4"/>${ub(124,74,.52,R,W,K)}<text x="150" y="168" text-anchor="middle" ${EXO} font-size="26" textLength="110" lengthAdjust="spacingAndGlyphs" fill="${ink}">UNDERCUT</text><path d="M95 178H205" stroke="${ink}" stroke-width="2"/><path d="M150 178L156 184H200" fill="none" stroke="${R}" stroke-width="2"/><text x="150" y="200" text-anchor="middle" ${MONO} font-size="7.5" letter-spacing="1.5" fill="${ink}">GANA CON LA AYUDA DE TU BOX</text></svg>`,
+shirt:()=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L128 44L150 60L172 44L202 55L248 210L228 216L210 120V262H90V120L72 216L52 210Z" fill="#eef0f3"/><path d="M128 44L140 74L150 60L160 74L172 44" fill="#fff" stroke="#c9ced6"/><path d="M150 60V262" stroke="#c9ced6" stroke-width="2"/>${[90,120,150,180,210,240].map(y=>`<circle cx="154" cy="${y}" r="2" fill="#9aa3ad"/>`).join('')}<rect x="52" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(-16 62 208)"/><circle cx="62" cy="208" r="4" fill="${R}"/><rect x="228" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(16 238 208)"/><circle cx="238" cy="208" r="4" fill="${R}"/><text x="186" y="104" text-anchor="middle" ${EXO} font-size="9" fill="${R}">UC</text></svg>`,
+hoodie:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 62Q150 20 200 62L238 86L262 236L236 242L212 136V262H88V136L64 242L38 236L62 86Z" fill="${R}"/><path d="M118 60Q150 92 182 60Q170 40 150 38Q130 40 118 60Z" fill="${RD}"/><path d="M140 80V118M160 80V118" stroke="${W}" stroke-width="2"/><rect x="110" y="196" width="80" height="40" rx="6" fill="#000" opacity=".12"/>${ub(130,128,.4,K,W,R)}</svg>`,
+cap:()=>`<svg viewBox="0 0 300 300">${sh(150,232,96)}<path d="M74 176Q72 86 150 80Q228 86 226 176Z" fill="${K}"/><path d="M110 90Q100 130 104 176M190 90Q200 130 196 176" stroke="#2c2c2c" stroke-width="2" fill="none"/><circle cx="150" cy="82" r="6" fill="${R}"/><path d="M56 180Q150 150 244 180Q150 222 56 180Z" fill="#1f1f1f"/><path d="M60 180Q150 152 240 180" fill="none" stroke="${R}" stroke-width="3"/>${ub(124,100,.52,R,W,K)}</svg>`,
+wallet:()=>`<svg viewBox="0 0 300 300">${sh(150,236,100)}<defs><pattern id="dq${uid}" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="18" height="18" fill="#1a1a1a"/><path d="M0 0H18M0 0V18" stroke="#000" stroke-width="2" opacity=".6"/></pattern></defs><rect x="56" y="80" width="188" height="140" rx="12" fill="url(#dq${uid++})"/><rect x="64" y="88" width="172" height="124" rx="8" fill="none" stroke="${R}" stroke-width="1.6" stroke-dasharray="4 3"/><rect x="222" y="80" width="10" height="140" fill="${R}"/>${ub(78,160,.36,'#2a2a2a','#5b5b5b','#2a2a2a')}</svg>`,
+belt:()=>`<svg viewBox="0 0 300 300">${sh(150,206,120)}<path d="M110 132H262Q282 132 286 150Q282 168 262 168H110Z" fill="${COG}"/><path d="M112 138H260Q276 138 279 150Q276 162 260 162H112" fill="none" stroke="#e3cfa8" stroke-width="1.3" stroke-dasharray="4 3"/><circle cx="214" cy="150" r="3.4" fill="${COGD}"/><circle cx="232" cy="150" r="3.4" fill="${COGD}"/><circle cx="250" cy="150" r="3.4" fill="${COGD}"/><rect x="122" y="126" width="14" height="48" rx="3" fill="${COGD}"/><defs><linearGradient id="bk${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0f1"/><stop offset=".5" stop-color="#a8adb0"/><stop offset="1" stop-color="#6c7174"/></linearGradient></defs><rect x="18" y="114" width="98" height="72" rx="14" fill="url(#bk${uid++})"/><rect x="30" y="134" width="56" height="32" rx="6" fill="${R}"/><text x="58" y="156" text-anchor="middle" ${EXO} font-size="16" fill="${W}">BOX</text></svg>`,
+cuff:()=>{const g='cs'+(uid++);let sp='';for(let i=0;i<5;i++)sp+=`<rect x="92" y="104" width="8" height="34" rx="3" fill="#7f8487" transform="rotate(${i*72} 96 140)"/>`;return `<svg viewBox="0 0 300 300">${sh(150,206,110)}<defs><radialGradient id="${g}" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f4f5f5"/><stop offset=".6" stop-color="#a9adb0"/><stop offset="1" stop-color="#6a6f72"/></radialGradient></defs><circle cx="96" cy="140" r="50" fill="#111"/><circle cx="96" cy="140" r="38" fill="url(#${g})"/>${sp}<circle cx="96" cy="140" r="9" fill="${R}"/><circle cx="208" cy="140" r="48" fill="url(#${g})"/>${ub(183,110,.5,R,W,K)}</svg>`;},
+tie:()=>{const g='ck'+(uid++);return `<svg viewBox="0 0 300 300">${sh(150,284,46)}<defs><pattern id="${g}" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><rect width="26" height="26" fill="${R}"/><path d="M3 20C7 6 13 6 15 13S22 22 24 8" fill="none" stroke="${W}" stroke-width="1.1" opacity=".5"/></pattern></defs><path d="M133 26H167L161 62H139Z" fill="${RD}"/><path d="M139 62H161L190 236L150 276L110 236Z" fill="url(#${g})"/>${ub(138,222,.24,K,W,R)}</svg>`;},
+bag:()=>`<svg viewBox="0 0 300 300">${sh(150,250,118)}<path d="M118 118Q118 78 150 78Q182 78 182 118" fill="none" stroke="${COGD}" stroke-width="9" stroke-linecap="round"/><rect x="38" y="112" width="224" height="128" rx="48" fill="${COG}"/><rect x="124" y="112" width="16" height="128" fill="${K}"/><rect x="144" y="112" width="12" height="128" fill="${W}"/><rect x="160" y="112" width="16" height="128" fill="${R}"/><path d="M70 116H230" stroke="${COGD}" stroke-width="4"/>${ub(196,150,.4,COGD,'#e3cfa8',COGD)}</svg>`,
+pouch:()=>{const g='hb'+(uid++);return `<svg viewBox="0 0 300 300">${sh(150,246,112)}<defs><pattern id="${g}" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#9a9ea2"/><path d="M0 8L4 0L8 8" fill="none" stroke="#83878b" stroke-width="1.2"/></pattern></defs><rect x="46" y="96" width="208" height="146" rx="26" fill="url(#${g})"/><path d="M52 104Q150 86 248 104" fill="none" stroke="#2a2a2a" stroke-width="6"/><rect x="128" y="96" width="14" height="146" fill="#1d1d1d"/><rect x="142" y="96" width="14" height="146" fill="${W}"/><rect x="156" y="96" width="14" height="146" fill="${R}"/>${ub(130,150,.4,'#e9e9e6','#555','#e9e9e6')}<path d="M226 240h28v-26" fill="none" stroke="#2a2a2a" stroke-width="10"/></svg>`;},
+pen:()=>{const g='pn'+(uid++);return `<svg viewBox="0 0 300 300"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2353d"/><stop offset=".5" stop-color="${R}"/><stop offset="1" stop-color="#6e050a"/></linearGradient><linearGradient id="${g}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#8a8f93"/></linearGradient></defs><rect x="30" y="84" width="240" height="150" rx="6" fill="#262626"/><rect x="40" y="94" width="220" height="56" fill="#1b1b1b"/><text x="150" y="128" text-anchor="middle" ${EXO} font-size="18" letter-spacing="2" fill="#d9d9d6">UNDERCUT</text><rect x="40" y="160" width="220" height="64" fill="#333"/><path d="M58 192L74 186H226L238 190L238 196L226 200H74Z" fill="url(#${g})"/><path d="M58 192L48 193L58 194Z" fill="#cfd2d4"/><rect x="74" y="185" width="10" height="16" fill="url(#${g}c)"/><rect x="226" y="186" width="12" height="14" fill="url(#${g}c)"/><path d="M168 184H232" stroke="url(#${g}c)" stroke-width="3"/><rect x="146" y="176" width="22" height="34" rx="3" fill="#4a4a4a"/><circle cx="238" cy="193" r="2.5" fill="${R}"/></svg>`;},
+key:()=>`<svg viewBox="0 0 300 300">${sh(150,262,70)}<circle cx="150" cy="56" r="24" fill="none" stroke="#c7cacc" stroke-width="6"/><rect x="138" y="76" width="24" height="18" rx="4" fill="#c7cacc"/><path d="M108 96H192Q204 96 204 108V214Q204 236 150 256Q96 236 96 214V108Q96 96 108 96Z" fill="${K}"/><path d="M112 104H188Q196 104 196 112V212Q196 230 150 247Q104 230 104 212V112Q104 104 112 104Z" fill="none" stroke="${R}" stroke-width="1.4" stroke-dasharray="4 3"/>${ub(115,128,.7,R,W,K)}</svg>`,
+strap:()=>`<svg viewBox="0 0 300 300">${[[70,K,R],[150,COG,'#e3cfa8'],[230,'#1d2a44','#cfd6e2']].map(([x,c,st])=>`<rect x="${x-24}" y="40" width="48" height="220" rx="10" fill="${c}"/><rect x="${x-18}" y="46" width="36" height="208" rx="6" fill="none" stroke="${st}" stroke-width="1.3" stroke-dasharray="4 3"/>${[80,104,128,152,176,200].map(y=>`<circle cx="${x}" cy="${y}" r="3" fill="#000" opacity=".5"/>`).join('')}`).join('')}</svg>`,
+case:()=>`<svg viewBox="0 0 300 300">${sh(150,246,110)}<rect x="40" y="90" width="220" height="150" rx="14" fill="${K}"/><path d="M40 160H260" stroke="${R}" stroke-width="4"/>${[80,150,220].map(x=>`<ellipse cx="${x}" cy="200" rx="26" ry="16" fill="#2b2b2b"/><ellipse cx="${x}" cy="196" rx="20" ry="12" fill="#3a3a3a"/>`).join('')}${ub(132,104,.32,R,W,K)}</svg>`,
+};
 
-const fmt=n=>'$'+n.toLocaleString('es-CL');
+/* ---------- Catálogo ---------- */
 const PRODUCTS=[
- {t:'reloj',name:'Undercut GT Rosso',sub:'Cronógrafo 43 mm · correa cuero',price:349990,img:'img/reloj-gt-rosso.png',badge:'Nuevo'},
- {t:'reloj',name:'Undercut Carbono',sub:'Cronógrafo 44 mm · caja negra',price:389990,img:'img/reloj-carbono.png',badge:'Edición limitada'},
- {t:'reloj',name:'Undercut Duo Paddock',sub:'Set de dos relojes · estuche',price:599990,old:689990,img:'img/reloj-duo.png',fit:'cover'},
- {t:'ropa',name:'Polo Rosso',sub:'Piqué de algodón · insignia bordada',price:49990,art:ART.polo(),bg:'#e6e4df',badge:'Nuevo',dark:true},
- {t:'ropa',name:'Chaqueta Box',sub:'Nylon técnico · franjas rojas',price:159990,old:189990,art:ART.jacket(),bg:'#dedbd5'},
- {t:'cuero',name:'Cinturón Box',sub:'Cuero coñac · hebilla de seguridad',price:59990,art:ART.belt(),bg:'#e6e4df'},
- {t:'cuero',name:'Billetera Diamante',sub:'Cuero negro · bloqueo RFID',price:49990,art:ART.wallet(),bg:'#dedbd5'},
- {t:'cuero',name:'Corbata Circuito',sub:'Seda 7,5 cm',price:39990,art:ART.tie(),bg:'#e6e4df'},
+ {id:'polo-rosso',c:'ropa',t:'Polos',name:'Polo Rosso',sub:'Piqué de algodón · insignia bordada',price:49990,art:()=>ART.polo(R,K),badge:'Nuevo'},
+ {id:'polo-carbono',c:'ropa',t:'Polos',name:'Polo Carbono',sub:'Piqué de algodón · ribete rojo',price:49990,art:()=>ART.polo('#1c1c1c',R)},
+ {id:'chaqueta-box',c:'ropa',t:'Chaquetas',name:'Chaqueta Box',sub:'Nylon técnico · franjas rojas',price:159990,old:189990,art:()=>ART.jacket()},
+ {id:'poleron-pit',c:'ropa',t:'Polerones',name:'Polerón Pit Crew',sub:'Algodón perchado · capucha',price:69990,art:()=>ART.hoodie(),badge:'Nuevo'},
+ {id:'camisa-gt',c:'ropa',t:'Camisas',name:'Camisa Gran Turismo',sub:'Popelina · puño para colleras',price:64990,art:()=>ART.shirt()},
+ {id:'polera-taller',c:'ropa',t:'Poleras',name:'Polera Taller',sub:'Algodón orgánico · estampado frontal',price:29990,art:()=>ART.tee()},
+ {id:'polera-negra',c:'ropa',t:'Poleras',name:'Polera Box Negra',sub:'Algodón orgánico · bajada de marca',price:29990,art:()=>ART.tee('#1c1c1c',W)},
+ {id:'jockey',c:'ropa',t:'Jockeys',name:'Jockey Pista',sub:'Seis paneles · insignia 3D',price:24990,art:()=>ART.cap()},
+ {id:'cinturon',c:'accesorios',t:'Cuero',name:'Cinturón Box',sub:'Cuero coñac · hebilla de seguridad',price:59990,art:()=>ART.belt(),badge:'Más vendido'},
+ {id:'billetera',c:'accesorios',t:'Cuero',name:'Billetera Diamante',sub:'Cuero negro · bloqueo RFID',price:49990,art:()=>ART.wallet()},
+ {id:'weekender',c:'accesorios',t:'Bolsos',name:'Weekender Gran Turismo',sub:'Cuero coñac · franja de carrera',price:219990,art:()=>ART.bag()},
+ {id:'neceser',c:'accesorios',t:'Bolsos',name:'Neceser Pit Lane',sub:'Tela espiga · franja tricolor',price:54990,art:()=>ART.pouch(),badge:'Nuevo'},
+ {id:'colleras',c:'accesorios',t:'Joyería',name:'Colleras Llanta y Emblema',sub:'Acero 316L y esmalte',price:44990,art:()=>ART.cuff()},
+ {id:'corbata',c:'accesorios',t:'Seda',name:'Corbata Circuito',sub:'Seda 7,5 cm',price:39990,art:()=>ART.tie()},
+ {id:'lapicera',c:'accesorios',t:'Escritura',name:'Lapicera Rosso',sub:'Laca roja guilloché · estuche',price:89990,art:()=>ART.pen(),badge:'Nuevo'},
+ {id:'llavero',c:'accesorios',t:'Cuero',name:'Llavero Insignia',sub:'Cuero negro · argolla cromada',price:19990,art:()=>ART.key()},
+ {id:'correas',c:'accesorios',t:'Relojería',name:'Set de correas rally',sub:'Tres correas de cuero perforado · 20 mm',price:59990,art:()=>ART.strap()},
+ {id:'estuche',c:'accesorios',t:'Relojería',name:'Estuche de viaje',sub:'Para tres relojes · cuero negro',price:79990,art:()=>ART.case()},
 ];
-function render(f='todo'){
-  document.getElementById('products').innerHTML=PRODUCTS.filter(p=>f==='todo'||p.t===f).map((p,i)=>{
-    const off=p.old?Math.round((1-p.price/p.old)*100):0;
-    return `<article class="prod"><div class="ph" style="${p.bg?`background:${p.bg}`:''}">${p.img?`<img src="${p.img}" alt="${p.name}">`:p.art}
-    ${p.badge?`<span class="badge ${p.dark?'dark':''}">${p.badge}</span>`:off?`<span class="badge">−${off}%</span>`:''}
-    <button class="add" data-name="${p.name}">Agregar</button></div>
-    <div><div class="name">${p.name}</div><div class="sub">${p.sub}</div></div>
-    <div class="price"><b>${fmt(p.price)}</b>${p.old?`<s>${fmt(p.old)}</s><em>−${off}%</em>`:''}</div>
-    <div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(p.price/6))}</div></article>`;}).join('');
-}
-render();
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-pressed',x===b));render(b.dataset.f);}));
+Object.values(WATCHES).forEach(w=>PRODUCTS.push({id:w.view,c:'relojes',t:'Relojes',name:w.name,sub:w.kind,price:w.price,watch:w,tall:true}));
+const byId=id=>PRODUCTS.find(p=>p.id===id);
 
-let cart=0;const toast=document.getElementById('toast');let tt;
-function say(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
-document.getElementById('products').addEventListener('click',e=>{const b=e.target.closest('.add');if(!b)return;cart++;document.getElementById('cartCount').textContent=cart;say(`${b.dataset.name} agregado al carro`);});
+function card(p){const off=p.old?Math.round((1-p.price/p.old)*100):0;
+  const art=p.watch?p.watch.fn(p.watch.v[0]):p.art();
+  return `<article class="prod"><div class="ph ${p.tall?'tall':''}">${p.watch?`<a href="#${p.watch.view}" aria-label="Ver ${p.name}" style="display:contents">${art}</a>`:art}${p.badge?`<span class="badge">${p.badge}</span>`:off?`<span class="badge">−${off}%</span>`:''}<button class="add" data-id="${p.id}">Agregar</button></div>
+  <div><div class="name">${p.name}</div><div class="sub">${p.sub}</div></div><div class="price"><b>${fmt(p.price)}</b>${p.old?`<s>${fmt(p.old)}</s><em>−${off}%</em>`:''}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(p.price/6))}</div></article>`;}
 
-document.getElementById('clubForm').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('email').value.trim();const m=document.getElementById('clubMsg');
-  m.textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)?'Listo. Esta es una versión de prueba: el correo no se guarda.':'Escribe un correo válido, por ejemplo nombre@correo.cl.';});
+function triCard(w,dark=true){return `<a href="#${w.view}"><div class="art">${w.fn(w.v[0])}</div><em>${w.ref} · ${w.kind}</em><b>${w.name}</b><span>${fmt(w.price)} · ${w.v.length} colores</span></a>`;}
 
-/* Ilustración de la historia: el undercut en la pista */
-document.getElementById('storyArt').innerHTML=`<svg viewBox="0 0 400 300" role="img" aria-label="Esquema del undercut: el auto rojo entra a boxes antes y sale adelante">
- <path d="M30 210H370" stroke="#3a3a3a" stroke-width="34" stroke-linecap="round"/>
- <path d="M30 210H370" stroke="#555" stroke-width="2" stroke-dasharray="10 10"/>
- <path d="M90 210C120 210 130 250 160 250H260C290 250 300 210 330 210" fill="none" stroke="${R}" stroke-width="5"/>
- <text x="210" y="276" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#9a9a96" letter-spacing="2">PIT LANE</text>
- <g transform="translate(300 196)"><rect width="44" height="22" rx="6" fill="${R}"/><rect x="34" y="4" width="10" height="14" fill="${W}"/></g>
- <g transform="translate(200 196)"><rect width="44" height="22" rx="6" fill="#8a8a86"/></g>
- <text x="322" y="182" text-anchor="middle" font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900" font-size="14" fill="${W}">P1</text>
- <text x="222" y="182" text-anchor="middle" font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900" font-size="14" fill="#8a8a86">P2</text>
- <text x="30" y="60" font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900" font-size="34" fill="${W}">UNDER<tspan fill="${R}">CUT</tspan></text>
- <text x="30" y="88" font-family="IBM Plex Mono,monospace" font-size="9.5" fill="#9a9a96" letter-spacing="1">ENTRA ANTES · NEUMÁTICOS NUEVOS · SALE ADELANTE</text>
- <g transform="translate(320 26) scale(.5)">${badge(R,W,K)}</g></svg>`;
+/* Inicio */
+document.getElementById('heroArt').innerHTML=pole(WATCHES.pole.v[2]);
+const CATS=[{n:'Relojes',c:'3 modelos',href:'relojes',bg:'radial-gradient(90% 70% at 50% 40%,#2a2a2a,#0d0d0d)',art:paddock(WATCHES.paddock.v[0])},
+ {n:'Ropa',c:'8 productos',href:'ropa',bg:'linear-gradient(160deg,#e9e7e2,#cfccc5)',art:ART.jacket()},
+ {n:'Accesorios',c:'10 productos',href:'accesorios',bg:`linear-gradient(160deg,${R},${RD})`,art:ART.cuff()}];
+document.getElementById('cats').innerHTML=CATS.map(c=>`<a class="cat" href="#${c.href}" style="background:${c.bg}"><div class="art">${c.art}</div><div class="lbl"><b>${c.n}</b><span>${c.c}</span></div></a>`).join('');
+document.getElementById('tri').innerHTML=Object.values(WATCHES).map(w=>triCard(w)).join('');
+document.getElementById('newGrid').innerHTML=['polo-rosso','neceser','lapicera','poleron-pit'].map(id=>card(byId(id))).join('');
+
+/* Relojes */
+document.getElementById('triAll').innerHTML=Object.values(WATCHES).map(w=>triCard(w)).join('');
+document.getElementById('triAll').style.cssText='';
+document.getElementById('triAll').classList.add('tri');
+document.getElementById('watchAcc').innerHTML=['correas','estuche','lapicera','colleras'].map(id=>card(byId(id))).join('');
+
+/* Fichas de reloj */
+document.querySelectorAll('[data-watch]').forEach(el=>{const w=WATCHES[el.dataset.watch];const others=Object.values(WATCHES).filter(o=>o!==w);
+  el.innerHTML=`<div class="pdp-hero"><div class="wrap"><div class="pdp-art" data-art></div><div class="pdp-info"><div class="crumbs"><a href="#inicio">Inicio</a> / <a href="#relojes">Relojes</a> / ${w.name}</div><div class="mono" style="color:#ff8f86">${w.ref} · ${w.kind}</div><h1>${w.name}</h1><p class="lead">${w.lead}</p>
+  <div class="mono" style="color:#9a9a96">Color: <span data-vname>${w.v[0].n}</span></div><div class="swatches" role="group" aria-label="Elegir color">${w.v.map((v,i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}"><i style="background:${v.dot}"></i>${v.n}</button>`).join('')}</div>
+  <div class="pdp-price">${fmt(w.price)}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(w.price/6))} · grabado de tapa incluido</div><div class="cta"><button class="btn" type="button" data-addw>Agregar al carro</button><a class="btn ghost" href="#tiendas">Probar en tienda</a></div></div></div></div>
+  <section class="wrap"><div class="feat">${w.feat.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('')}</div></section>
+  <section class="wrap"><div class="specs-grid"><div><div class="mono" style="color:var(--rosso)">El diseño</div><h2 style="font-size:clamp(28px,4vw,40px);margin:8px 0 14px">${w.name}</h2><p>${w.story}</p></div><table>${w.specs.map(s=>`<tr><th>${s[0]}</th><td>${s[1]}</td></tr>`).join('')}</table></div></section>
+  <section class="wrap"><div class="head"><h2>Otros relojes</h2></div><div class="others">${others.map(o=>`<a href="#${o.view}">${o.fn(o.v[0])}<div><b>${o.name}</b><span class="muted">${o.kind} · ${fmt(o.price)}</span></div></a>`).join('')}</div></section>`;
+  let cur=0;const art=el.querySelector('[data-art]');art.innerHTML=w.fn(w.v[0]);
+  el.querySelector('.swatches').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;el.querySelectorAll('.swatches button').forEach(x=>x.setAttribute('aria-pressed',x===b));art.innerHTML=w.fn(w.v[cur]);el.querySelector('[data-vname]').textContent=w.v[cur].n;});
+  el.querySelector('[data-addw]').addEventListener('click',()=>addToCart(w.view,w.v[cur].n));
+});
+
+/* Catálogos con filtros */
+const state={ropa:{t:'Todo',sort:'new'},accesorios:{t:'Todo',sort:'new'}};
+function renderGrid(c){const st=state[c];let list=PRODUCTS.filter(p=>p.c===c&&(st.t==='Todo'||p.t===st.t));
+  if(st.sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);if(st.sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);
+  document.getElementById('grid-'+c).innerHTML=list.map(card).join('');}
+document.querySelectorAll('[data-grid]').forEach(box=>{const c=box.dataset.grid;const types=['Todo',...new Set(PRODUCTS.filter(p=>p.c===c).map(p=>p.t))];
+  box.innerHTML=types.map(t=>`<button class="tab" type="button" aria-pressed="${t==='Todo'}" data-t="${t}">${t}</button>`).join('');
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state[c].t=b.dataset.t;box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderGrid(c);});renderGrid(c);});
+document.querySelectorAll('[data-sort]').forEach(s=>s.addEventListener('change',()=>{state[s.dataset.sort].sort=s.value;renderGrid(s.dataset.sort);}));
+
+/* Historia */
+document.getElementById('storyArt').innerHTML=`<svg viewBox="0 0 400 300" role="img" aria-label="Esquema del undercut: el auto rojo entra a boxes antes y sale adelante"><path d="M30 210H370" stroke="#3a3a3a" stroke-width="34" stroke-linecap="round"/><path d="M30 210H370" stroke="#555" stroke-width="2" stroke-dasharray="10 10"/><path d="M90 210C120 210 130 250 160 250H260C290 250 300 210 330 210" fill="none" stroke="${R}" stroke-width="5"/><text x="210" y="276" text-anchor="middle" ${MONO} font-size="11" fill="#9a9a96" letter-spacing="2">PIT LANE</text><g transform="translate(300 196)"><rect width="44" height="22" rx="6" fill="${R}"/><rect x="34" y="4" width="10" height="14" fill="${W}"/></g><g transform="translate(200 196)"><rect width="44" height="22" rx="6" fill="#8a8a86"/></g><text x="322" y="182" text-anchor="middle" ${EXO} font-size="14" fill="${W}">P1</text><text x="222" y="182" text-anchor="middle" ${EXO} font-size="14" fill="#8a8a86">P2</text><text x="30" y="60" ${EXO} font-size="34" fill="${W}">UNDER<tspan fill="${R}">CUT</tspan></text><text x="30" y="88" ${MONO} font-size="9.5" fill="#9a9a96" letter-spacing="1">GANA CON LA AYUDA DE TU BOX</text>${ub(320,26,.5,R,W,K)}</svg>`;
+
+/* Carro */
+const cart=[];const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim');let tt;
+function say(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
+function addToCart(id,variant){const p=byId(id);const key=id+(variant?'|'+variant:'');const l=cart.find(x=>x.key===key);if(l)l.q++;else cart.push({key,id,variant,q:1});renderCart();say(`${p.name}${variant?' '+variant:''} agregado al carro`);}
+function renderCart(){const n=cart.reduce((a,l)=>a+l.q,0);document.getElementById('cartCount').textContent=n;
+  const lines=document.getElementById('lines');
+  if(!cart.length){lines.innerHTML='<p class="empty">Tu carro está vacío. Agrega un reloj, una prenda o un accesorio.</p>';}
+  else lines.innerHTML=cart.map((l,i)=>{const p=byId(l.id);const th=p.watch?p.watch.fn(p.watch.v.find(v=>v.n===l.variant)||p.watch.v[0]):p.art();
+    return `<div class="line"><div class="th">${th}</div><div><div style="font-weight:600">${p.name}</div><div class="muted" style="font-size:13px">${l.variant||p.sub}</div><div class="qty"><button type="button" data-q="${i}" data-d="-1" aria-label="Quitar uno">−</button><span>${l.q}</span><button type="button" data-q="${i}" data-d="1" aria-label="Agregar uno">+</button></div></div><b style="font-variant-numeric:tabular-nums">${fmt(p.price*l.q)}</b></div>`;}).join('');
+  const sub=cart.reduce((a,l)=>a+byId(l.id).price*l.q,0);document.getElementById('subtotal').textContent=fmt(sub);
+  document.getElementById('shipNote').textContent=!cart.length?'Agrega productos para ver el despacho':sub>=59990?'Despacho gratis a todo Chile':`Te faltan ${fmt(59990-sub)} para el despacho gratis`;}
+document.getElementById('lines').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;const l=cart[+b.dataset.q];l.q+=+b.dataset.d;if(l.q<=0)cart.splice(+b.dataset.q,1);renderCart();});
+function openCart(o){drawer.hidden=!o;scrim.hidden=!o;if(o)document.getElementById('closeCart').focus();}
+document.getElementById('cartBtn').addEventListener('click',()=>openCart(true));
+document.getElementById('closeCart').addEventListener('click',()=>openCart(false));
+scrim.addEventListener('click',()=>openCart(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')openCart(false);});
+document.getElementById('checkout').addEventListener('click',()=>say(cart.length?'Este es un prototipo: el pago aún no está conectado.':'Tu carro está vacío.'));
+document.addEventListener('click',e=>{const b=e.target.closest('.add');if(b)addToCart(b.dataset.id);});
+renderCart();
+
+/* Club */
+document.getElementById('clubForm').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('email').value.trim();
+  document.getElementById('clubMsg').textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)?'Listo. Esta es una versión de prueba: el correo no se guarda.':'Escribe un correo válido, por ejemplo nombre@correo.cl.';});
+
+/* Menú móvil */
+const mnav=document.getElementById('mnav'),menuBtn=document.getElementById('menuBtn');
+menuBtn.addEventListener('click',()=>{const o=mnav.hidden;mnav.hidden=!o;menuBtn.setAttribute('aria-expanded',o);});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.go;}));
+
+/* Rutas */
+const VIEWS=[...document.querySelectorAll('.view')].map(v=>v.dataset.view);
+function route(){const h=location.hash.slice(1);const v=VIEWS.includes(h)?h:'inicio';
+  document.querySelectorAll('.view').forEach(el=>el.classList.toggle('on',el.dataset.view===v));
+  document.querySelectorAll('nav.main a').forEach(a=>{const t=a.getAttribute('href').slice(1);a.toggleAttribute('aria-current',t===v||(t==='relojes'&&['pole-chrono','paddock-gt','box-square'].includes(v)));if(a.hasAttribute('aria-current'))a.setAttribute('aria-current','page');});
+  mnav.hidden=true;menuBtn.setAttribute('aria-expanded','false');
+  if(h&&!VIEWS.includes(h)){const el=document.getElementById(h);if(el){el.scrollIntoView();return;}}
+  window.scrollTo(0,0);}
+addEventListener('hashchange',route);route();
 </script>
