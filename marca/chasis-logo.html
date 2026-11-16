@@ -1,0 +1,203 @@
+<title>Chasis Identidad</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira:wdth,wght@100..125,500..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: banda carbono con el monograma de riel; propuestas, producto y nota de marca sobre fondo de estudio */
+:root{
+  --bg:#f2f2f0; --fg:#121212; --muted:#5e5e5b; --line:#dad9d5; --surface:#ffffff;
+  --rosso:#cc0a14; --carbon:#121212; --silver:#c7cacc; --ivory:#f6f4ef;
+  --stage-a:#f4f4f2; --stage-b:#dcdbd7; --warn-bg:#fff4f3; --warn-line:#f0c5c2;
+  --display:"Saira","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f0f0f; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#171717;
+  --stage-a:#d6d5d1; --stage-b:#b2b1ad; --warn-bg:#2a1312; --warn-line:#5a2522; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f0f0f; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#171717;
+  --stage-a:#d6d5d1; --stage-b:#b2b1ad; --warn-bg:#2a1312; --warn-line:#5a2522; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-stretch:125%;font-weight:900;text-wrap:balance;margin:0;line-height:1.02;text-transform:uppercase}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.hero{background:var(--carbon);color:var(--ivory);border-bottom:8px solid var(--rosso)}
+.hero .wrap{padding-block:52px 48px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero .eyebrow{color:#9c9c98}
+.hero-lockup{width:100%;max-width:640px;display:block;margin-top:16px}
+.hero p{margin:0;max-width:46ch;font-size:16px;color:#c9c9c5}
+.hero p strong{color:var(--ivory)}
+
+section{padding-block:48px 8px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:end;margin-bottom:24px;border-bottom:2px solid var(--fg);padding-bottom:14px}
+.sec-head h2{font-size:clamp(28px,4.4vw,44px)}
+.sec-head p{margin:0;color:var(--muted);max-width:60ch}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.pick{outline:3px solid var(--rosso);outline-offset:-1px}
+.duo{display:grid;grid-template-rows:1fr 1fr}
+.duo div{display:grid;place-items:center;padding:24px;min-height:170px}
+.duo .light{background:var(--ivory)} .duo .dark{background:var(--carbon)} .duo .red{background:var(--rosso)}
+.duo svg{max-width:100%;max-height:120px}
+.meta{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.meta h3{font-size:19px}
+.meta p{margin:0;color:var(--muted);font-size:14px}
+.tag{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--rosso);color:var(--ivory);padding:3px 8px;border-radius:3px}
+.stage{background:radial-gradient(120% 90% at 50% 25%,var(--stage-a),var(--stage-b));aspect-ratio:1/1;display:grid;place-items:center}
+.stage svg{width:100%;height:100%;display:block}
+
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:6px;padding:20px 22px;display:grid;gap:8px;max-width:820px}
+.note h3{font-size:18px;color:var(--rosso)}
+.note p{margin:0}
+.note ul{margin:0;padding-left:20px}
+
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+footer .wrap{border-top:1px solid var(--line);padding-top:20px}
+
+@media (max-width:980px){
+  .hero .wrap,.sec-head{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){.g4{grid-template-columns:1fr}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Identidad · Chasis · Nov 2026</div>
+      <div id="heroLockup"></div>
+    </div>
+    <p><strong>Una marca de rendimiento con alma de taller.</strong> Como las grandes marcas deportivas, Chasis se apoya en un monograma simple y fuerte que se reconoce a 20 metros. La "C" está dibujada como un bastidor de autos: dos rieles unidos por travesaños.</p>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>El monograma</h2>
+      <p>Tres versiones para usos distintos. Recomiendo el monograma solo como símbolo principal, igual que un ícono deportivo: va en el pecho, en la gorra y en la esfera del reloj.</p>
+    </div>
+    <div class="grid g3" id="proposals"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>En producto</h2>
+      <p>Línea de rendimiento: tela técnica, cortes atléticos y el monograma grande y centrado.</p>
+    </div>
+    <div class="grid g4" id="apps"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>Antes de registrar</h2>
+      <p>Lo que encontré sobre el nombre.</p>
+    </div>
+    <div class="note">
+      <h3>Riesgo: Camper usa "Chasis"</h3>
+      <p>La marca española de calzado Camper vende una línea de zapatos y zapatillas para hombre llamada <b>Chasis</b>, también en Chile. El calzado está en la misma clase de marcas que la ropa (clase 25), así que registrar "Chasis" solo podría enfrentar oposición de Camper.</p>
+      <ul>
+        <li>Opciones más seguras: <b>Chasis Racing Co.</b>, <b>Chasis Garage</b> o <b>Chasis 1960</b>.</li>
+        <li>El monograma de riel se puede registrar aparte como marca figurativa.</li>
+        <li>Confirmar con una búsqueda en INAPI en las clases 14, 18, 25 y 35.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Diseño original. Toma de las marcas deportivas la idea de un monograma fuerte y simple, sin copiar formas ni letras de ninguna.</div></footer>
+
+<script>
+const R='#cc0a14',K='#121212',W='#f6f4ef',S='#c7cacc';
+const SAIRA=`font-family="Saira,'Arial Black',sans-serif" font-weight="900" style="font-stretch:125%"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+const D=Math.PI/180;
+
+/* Monograma de riel (100 x 100) */
+function sector(r1,r2,a1,a2,cx=50,cy=50){
+  const p=(r,a)=>[cx+r*Math.sin(a*D),cy-r*Math.cos(a*D)];
+  const L=(a2-a1)>180?1:0;const[x1,y1]=p(r2,a1),[x2,y2]=p(r2,a2),[x3,y3]=p(r1,a2),[x4,y4]=p(r1,a1);
+  return `M${x1.toFixed(2)} ${y1.toFixed(2)}A${r2} ${r2} 0 ${L} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}L${x3.toFixed(2)} ${y3.toFixed(2)}A${r1} ${r1} 0 ${L} 0 ${x4.toFixed(2)} ${y4.toFixed(2)}Z`;
+}
+function rail(rails=K,rungs=null){
+  const rg=rungs||rails;
+  return `<path d="${sector(37,49,128,412)}" fill="${rails}"/><path d="${sector(13,25,128,412)}" fill="${rails}"/>
+  <path d="${sector(24,38,128,140)}" fill="${rg}"/><path d="${sector(24,38,400,412)}" fill="${rg}"/>
+  <path d="${sector(24,38,219,229)}" fill="${rg}"/><path d="${sector(24,38,311,321)}" fill="${rg}"/>`;
+}
+const railSvg=(a,b)=>`<svg viewBox="0 0 100 100" role="img" aria-label="Monograma Chasis">${rail(a,b)}</svg>`;
+
+function lockup(text,mark,rungs,sub=true){
+  return `<svg viewBox="0 0 470 120" role="img" aria-label="Chasis"><g transform="translate(0 6)">${rail(mark,rungs)}</g>
+  <text x="122" y="80" ${SAIRA} font-size="72" textLength="342" lengthAdjust="spacingAndGlyphs" fill="${text}">CHASIS</text>
+  ${sub?`<text x="124" y="110" ${MONO} font-size="11.5" letter-spacing="3.6" fill="${text}" opacity=".8">CONSTRUIDO DESDE LA BASE</text>`:''}</svg>`;
+}
+function stacked(text,mark,rungs){
+  return `<svg viewBox="0 0 200 170" role="img" aria-label="Chasis vertical"><g transform="translate(55 4) scale(.9)">${rail(mark,rungs)}</g>
+  <text x="100" y="140" text-anchor="middle" ${SAIRA} font-size="40" textLength="186" lengthAdjust="spacingAndGlyphs" fill="${text}">CHASIS</text>
+  <rect x="7" y="152" width="186" height="5" fill="${mark}"/></svg>`;
+}
+
+const P=[
+ {pick:true,tag:'Recomendado',name:'Monograma de riel',desc:'La C es un bastidor: riel exterior, riel interior y cuatro travesaños. Funciona sola, en un color, bordada o grabada.',a:railSvg(R),b:railSvg(W,R),bc:'dark'},
+ {name:'Logo horizontal',desc:'Monograma con el nombre en letra extendida y pesada. Para la fachada de la tienda, la web y las bolsas.',a:lockup(K,R,K),b:lockup(W,R,W),bc:'dark'},
+ {name:'Versión vertical',desc:'Monograma sobre el nombre, con un riel rojo debajo. Para etiquetas, cajas y redes sociales.',a:stacked(K,R,K),b:stacked(W,K,W),bc:'red'},
+];
+document.getElementById('proposals').innerHTML=P.map(p=>`<article class="card ${p.pick?'pick':''}"><div class="duo"><div class="light">${p.a}</div><div class="${p.bc}">${p.b}</div></div>
+<div class="meta">${p.tag?`<span class="tag">${p.tag}</span>`:''}<h3>${p.name}</h3><p>${p.desc}</p></div></article>`).join('');
+document.getElementById('heroLockup').innerHTML=lockup(W,R,W).replace('<svg ','<svg class="hero-lockup" ');
+
+/* Aplicaciones */
+const sh=(cx,cy,rx)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="9" fill="#000" opacity=".16"/>`;
+const g=(x,y,s,inner)=>`<g transform="translate(${x} ${y}) scale(${s})">${inner}</g>`;
+
+function watchApp(){
+  const cx=150,cy=160,Rd=74;const pt=(r,a)=>[cx+r*Math.sin(a*D),cy-r*Math.cos(a*D)];
+  let s=`<svg viewBox="0 0 300 300"><defs><radialGradient id="wc" cx="38%" cy="32%" r="78%"><stop offset="0" stop-color="#f6f7f7"/><stop offset=".55" stop-color="#a9adb0"/><stop offset="1" stop-color="#555a5d"/></radialGradient>
+  <radialGradient id="wd" cx="45%" cy="35%" r="80%"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0b0b0b"/></radialGradient></defs>`;
+  for(const y of [-30,240]){s+=`<rect x="110" y="${y}" width="80" height="100" rx="8" fill="#161616"/>`;
+    for(let yy=y+(y<0?42:14);yy<y+(y<0?94:82);yy+=8)s+=`<path d="M118 ${yy}H182" stroke="#000" stroke-width="3" opacity=".5"/>`;}
+  s+=`<rect x="${cx+88}" y="${cy-11}" width="13" height="22" rx="3" fill="url(#wc)"/><circle cx="${cx}" cy="${cy}" r="92" fill="url(#wc)"/><circle cx="${cx}" cy="${cy}" r="86" fill="${K}"/><circle cx="${cx}" cy="${cy}" r="${Rd}" fill="url(#wd)"/>`;
+  for(let i=0;i<60;i+=5){const[x,y]=pt(80,i*6);s+=`<circle cx="${x}" cy="${y}" r="${i%15===0?3:1.6}" fill="${i===0?R:W}"/>`;}
+  for(let i=0;i<60;i++){const maj=i%5===0;const[x1,y1]=pt(Rd-3,i*6),[x2,y2]=pt(Rd-(maj?13:6),i*6);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${maj?W:'#8a8a87'}" stroke-width="${maj?3.2:1}"/>`;}
+  s+=g(cx-13,cy-50,.26,rail(R,W));
+  s+=`<text x="${cx}" y="${cy+40}" text-anchor="middle" ${SAIRA} font-size="11" textLength="60" lengthAdjust="spacingAndGlyphs" fill="${W}">CHASIS</text>`;
+  const hand=(a,len,w)=>`<path d="M${cx-w/2} ${cy+10}L${cx-w*.38} ${cy-len}L${cx} ${cy-len-5}L${cx+w*.38} ${cy-len}L${cx+w/2} ${cy+10}Z" fill="${W}" transform="rotate(${a} ${cx} ${cy})"/>`;
+  s+=hand(305,40,8)+hand(60,60,5.5)+`<g transform="rotate(140 ${cx} ${cy})"><path d="M${cx} ${cy+16}V${cy-Rd+6}" stroke="${R}" stroke-width="1.8"/></g><circle cx="${cx}" cy="${cy}" r="4.5" fill="${R}"/>`;
+  return s+`</svg>`;
+}
+
+const APPS=[
+ {name:'Polera técnica',desc:'Tela de secado rápido, mangas raglán y paneles laterales de malla.',svg:`<svg viewBox="0 0 300 300">${sh(150,272,88)}
+  <defs><pattern id="mesh" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#1b1b1b"/><circle cx="2.5" cy="2.5" r="1" fill="#000"/></pattern></defs>
+  <path d="M98 55L125 45Q150 54 175 45L202 55L250 92L230 126L210 114V262H90V114L70 126L50 92Z" fill="${K}"/>
+  <path d="M90 140V262H106V140Z M210 140V262H194V140Z" fill="url(#mesh)"/>
+  <path d="M125 45L92 112M175 45L208 112" stroke="#2c2c2c" stroke-width="2.5" fill="none"/>
+  <path d="M125 45Q150 54 175 45" fill="none" stroke="${R}" stroke-width="4"/>
+  ${g(126,84,.48,rail(R,W))}</svg>`},
+ {name:'Jockey Pista',desc:'Carbono con el monograma en rojo, ventilación láser y visera curva.',svg:`<svg viewBox="0 0 300 300">${sh(150,232,96)}
+  <path d="M74 176Q72 86 150 80Q228 86 226 176Z" fill="${K}"/>
+  <path d="M110 90Q100 130 104 176M190 90Q200 130 196 176" stroke="#2c2c2c" stroke-width="2" fill="none"/>
+  <circle cx="150" cy="82" r="6" fill="${R}"/>
+  ${[0,1,2].map(i=>`<circle cx="${92+i*7}" cy="${132-i*12}" r="1.8" fill="#333"/><circle cx="${208-i*7}" cy="${132-i*12}" r="1.8" fill="#333"/>`).join('')}
+  <path d="M56 180Q150 150 244 180Q150 222 56 180Z" fill="#1d1d1d"/>
+  ${g(122,100,.56,rail(R,W))}</svg>`},
+ {name:'Reloj Bastidor',desc:'Esfera negra con el monograma a las 12 y correa de caucho.',svg:watchApp()},
+ {name:'Bolso de entrenamiento',desc:'Bolso carbono con laterales rojos y compartimento para zapatillas.',svg:`<svg viewBox="0 0 300 300">${sh(150,248,118)}
+  <path d="M118 120Q118 80 150 80Q182 80 182 120" fill="none" stroke="#222" stroke-width="8" stroke-linecap="round"/>
+  <rect x="40" y="114" width="220" height="124" rx="44" fill="${K}"/>
+  <path d="M40 158Q40 114 84 114H92V238H84Q40 238 40 194Z" fill="${R}"/><path d="M260 158Q260 114 216 114H208V238H216Q260 238 260 194Z" fill="${R}"/>
+  <path d="M92 118H208" stroke="#3a3a3a" stroke-width="3"/><rect x="190" y="112" width="10" height="12" rx="2" fill="${S}"/>
+  ${g(120,148,.6,rail(W,R))}</svg>`},
+];
+document.getElementById('apps').innerHTML=APPS.map(a=>`<article class="card"><div class="stage">${a.svg}</div><div class="meta"><h3>${a.name}</h3><p>${a.desc}</p></div></article>`).join('');
+</script>

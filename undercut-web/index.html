@@ -1,0 +1,878 @@
+<title>Undercut Tienda</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,700;1,800;1,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: tienda Undercut — anuncios + header fijo; vistas por ancla: inicio, relojes (estilo maison: héroe oscuro, configurador), fichas de reloj, ropa y accesorios (catálogo con filtros), historia y tiendas; carro lateral */
+:root{
+  --bg:#f4f3f1; --fg:#131313; --muted:#62615d; --line:#dedcd7; --surface:#ffffff; --soft:#ebe9e5;
+  --rosso:#cc0a14; --rosso-deep:#9e0710; --carbon:#0f0f0f; --carbon-2:#1a1a1a; --ivory:#f6f4ef;
+  --stage-a:#fbfbfa; --stage-b:#e0dfdb;
+  --display:"Exo 2","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0d0d0d; --fg:#ecebe8; --muted:#a3a29d; --line:#292928; --surface:#161616; --soft:#1d1d1d; --stage-a:#2a2a2a; --stage-b:#151515; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d0d0d; --fg:#ecebe8; --muted:#a3a29d; --line:#292928; --surface:#161616; --soft:#1d1d1d; --stage-a:#2a2a2a; --stage-b:#151515; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--carbon)}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:900;text-wrap:balance;margin:0;line-height:1.02;text-transform:uppercase}
+a{color:inherit}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--rosso);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13.5px;padding:14px 22px;border-radius:2px;text-decoration:none;border:2px solid var(--rosso);background:var(--rosso);color:var(--ivory)}
+.btn.ghost{background:transparent;border-color:currentColor;color:inherit}
+.btn.dark{background:var(--carbon);border-color:var(--carbon)}
+.btn:hover{filter:brightness(1.08)}
+
+/* Anuncios y header */
+.announce{background:var(--rosso);color:var(--ivory);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-align:center}
+.announce .wrap{padding-block:8px;display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--carbon);color:var(--ivory);border-bottom:1px solid #242424}
+header.site .wrap{display:flex;align-items:center;gap:28px;padding-block:14px}
+.brand{display:flex;text-decoration:none}
+.brand svg{height:34px;display:block}
+nav.main{display:flex;gap:24px;flex:1;font-family:var(--display);font-weight:700;font-size:13.5px;letter-spacing:.07em;text-transform:uppercase}
+nav.main a{text-decoration:none;padding-block:4px;border-bottom:2px solid transparent}
+nav.main a:hover,nav.main a[aria-current="page"]{border-color:var(--rosso)}
+nav.main a.sale,.mnav a.sale{color:#ff6b62}
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px 18px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{margin:10px 0 0;color:var(--muted)}
+.help{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.help div{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px}
+.help h3{font-size:20px;margin-bottom:8px}
+.help ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:4px}
+@media (max-width:700px){.help{grid-template-columns:1fr}}
+.icons{display:flex;gap:4px;align-items:center}
+.icon-btn{background:none;border:0;color:var(--ivory);width:40px;height:40px;display:grid;place-items:center;border-radius:50%;position:relative}
+.icon-btn:hover{background:#232323}
+.icon-btn svg{width:20px;height:20px}
+.count{position:absolute;top:3px;right:2px;background:var(--rosso);color:var(--ivory);font-family:var(--mono);font-size:10px;min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.menu-btn{display:none}
+.mnav{background:var(--carbon);color:var(--ivory);border-bottom:1px solid #242424}
+.mnav .wrap{display:grid;padding-block:8px 16px}
+.mnav a{padding:12px 0;border-bottom:1px solid #222;text-decoration:none;font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+
+/* Vistas */
+.view{display:none}
+.view.on{display:block}
+section{padding-block:56px 8px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.head h2{font-size:clamp(30px,4.4vw,46px)}
+.head a{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--rosso);text-decoration:none}
+
+/* Inicio: héroe */
+.hero{background:var(--carbon);color:var(--ivory);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 58%,var(--rosso) 58% 73%,var(--rosso-deep) 73% 75%,transparent 75%),radial-gradient(70% 110% at 82% 45%,#2b2b2b,transparent 60%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:56px 64px}
+.hero .kicker{color:#ff8f86}
+.hero h1{font-size:clamp(46px,7.4vw,100px);margin:12px 0 18px}
+.hero h1 span{color:var(--rosso)}
+.hero p{max-width:44ch;color:#cfcfca;font-size:17px;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-art{justify-self:center;width:min(420px,100%)}
+.hero-art svg{width:100%;height:auto;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+
+.perks{background:var(--surface);border-bottom:1px solid var(--line)}
+.perks .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding-block:18px}
+.perk{display:flex;gap:12px;align-items:center;min-width:0}
+.perk svg{width:28px;height:28px;flex:none;color:var(--rosso)}
+.perk b{display:block;font-size:14px}
+.perk span{font-size:12.5px;color:var(--muted)}
+
+.cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cat{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:4/5;display:flex;align-items:flex-end;text-decoration:none;color:var(--ivory)}
+.cat .art{position:absolute;inset:0;display:grid;place-items:center}
+.cat .art svg{width:78%;height:auto;transition:transform .3s}
+.cat:hover .art svg{transform:scale(1.04)}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.65))}
+.cat .lbl{position:relative;z-index:1;padding:18px 20px;width:100%;display:flex;justify-content:space-between;align-items:end}
+.cat .lbl b{font-family:var(--display);font-style:italic;font-weight:900;font-size:28px;text-transform:uppercase}
+.cat .lbl span{font-family:var(--mono);font-size:11px;opacity:.85}
+
+/* Trilogía (estilo maison) */
+.trilogy{background:var(--carbon);color:var(--ivory);margin-top:56px}
+.trilogy .wrap{padding-block:56px}
+.trilogy .head h2{color:var(--ivory)}
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tri a{text-decoration:none;display:flex;flex-direction:column;gap:10px;background:#151515;border:1px solid #262626;border-radius:4px;padding:18px;min-width:0}
+.tri a:hover{border-color:var(--rosso)}
+.tri .art svg{width:100%;height:auto;display:block}
+.tri b{font-family:var(--display);font-style:italic;font-weight:900;font-size:24px;text-transform:uppercase}
+.tri span{font-size:13px;color:#b5b5b0}
+.tri em{font-style:normal;font-family:var(--mono);font-size:12px;color:#ff8f86}
+
+/* Productos */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:20px;font-size:13px}
+.tab[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.prod{display:flex;flex-direction:column;gap:10px;min-width:0}
+.prod .ph{position:relative;aspect-ratio:1/1;border-radius:4px;overflow:hidden;background:radial-gradient(90% 80% at 50% 35%,var(--stage-a),var(--stage-b));display:grid;place-items:center}
+.prod .ph svg{width:88%;height:88%}
+.prod .ph.tall svg{width:70%;height:94%}
+.badge{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:2px;background:var(--rosso);color:var(--ivory)}
+.add{position:absolute;right:10px;bottom:10px;border:0;background:var(--carbon);color:var(--ivory);font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:9px 12px;border-radius:2px}
+.add:hover{background:var(--rosso)}
+.prod .name{font-weight:600;font-size:15px}
+.prod .sub{font-size:13px;color:var(--muted)}
+.price{display:flex;gap:10px;align-items:baseline;font-variant-numeric:tabular-nums}
+.price b{font-family:var(--display);font-weight:700;font-size:18px}
+.price s{color:var(--muted);font-size:13px}
+.price em{font-style:normal;color:var(--rosso);font-size:12px;font-family:var(--mono)}
+.cuotas{font-size:12px;color:var(--muted)}
+
+/* Cabecera de catálogo */
+.cathead{background:var(--carbon);color:var(--ivory)}
+.cathead .wrap{padding-block:44px 40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:end}
+.cathead h1{font-size:clamp(40px,6vw,76px)}
+.cathead p{margin:0;color:#c3c3be;max-width:52ch}
+.crumbs{font-family:var(--mono);font-size:12px;color:#9a9a96;margin-bottom:10px}
+.crumbs a{text-decoration:none}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar select{font:inherit;padding:8px 10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:2px}
+
+/* Ficha de reloj (estilo maison) */
+.pdp-hero{background:var(--carbon);color:var(--ivory)}
+.pdp-hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:center;padding-block:40px 48px}
+.pdp-art{background:radial-gradient(70% 60% at 50% 42%,#2e2e2e,#0f0f0f 70%);border-radius:4px;padding:24px;display:grid;place-items:center}
+.pdp-art svg{width:min(460px,100%);height:auto}
+.pdp-art{min-height:420px}
+.pdp-art img{width:100%;max-height:600px;object-fit:contain;border-radius:3px;display:block}
+.thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.thumbs button{width:64px;height:64px;padding:0;border:1px solid #3a3a3a;border-radius:3px;overflow:hidden;background:#1a1a1a}
+.thumbs button img,.thumbs button svg{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs button[aria-pressed="true"]{border-color:var(--rosso);box-shadow:0 0 0 1px var(--rosso)}
+.prod .ph img,.tri .art img{width:100%;height:100%;object-fit:cover;display:block}
+.tri .art{aspect-ratio:4/5;overflow:hidden;border-radius:3px;background:#111}
+.hero-art img{width:100%;display:block;border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.pdp-info h1{font-size:clamp(40px,5.6vw,72px);margin:8px 0 12px}
+.pdp-info .lead{color:#cfcfca;font-size:17px;max-width:46ch;margin:0 0 20px}
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
+.swatches button{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid #444;color:var(--ivory);border-radius:22px;padding:7px 14px;font-size:13px}
+.swatches button i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.35)}
+.swatches button[aria-pressed="true"]{border-color:var(--rosso);box-shadow:inset 0 0 0 1px var(--rosso)}
+.pdp-price{font-family:var(--display);font-weight:700;font-size:30px;font-variant-numeric:tabular-nums;margin-bottom:4px}
+.pdp-price + .cuotas{color:#a9a9a4;margin-bottom:20px}
+.feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.feat div{background:var(--surface);padding:22px}
+.feat b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:34px;font-variant-numeric:tabular-nums}
+.feat span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.specs-grid p{color:var(--muted);max-width:56ch}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:40%;padding-right:12px}
+.others{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.others a{display:flex;gap:16px;align-items:center;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:14px}
+.others a:hover{border-color:var(--rosso)}
+.others svg{width:90px;height:auto;flex:none}
+.others b{font-family:var(--display);font-style:italic;font-weight:900;font-size:20px;text-transform:uppercase;display:block}
+
+/* Mundo / historia */
+.world{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.world figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.world .imgbox{aspect-ratio:1/1;background:#111;overflow:hidden}
+.world img{width:100%;height:100%;object-fit:cover;display:block}
+.world figcaption{padding:14px 16px;font-size:14px;color:var(--muted)}
+.world figcaption b{display:block;color:var(--fg);font-size:15px}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.story .visual{background:var(--carbon);border-radius:4px;aspect-ratio:4/3;display:grid;place-items:center;overflow:hidden}
+.story .visual svg{width:92%}
+.story h2{font-size:clamp(30px,4.2vw,44px);margin:10px 0 16px}
+.story p{color:var(--muted);max-width:56ch;margin:0 0 12px}
+.iso{background:var(--carbon);border-radius:4px;padding:56px 40px;display:grid;place-items:center}
+.iso svg{max-width:440px}
+.looks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.looks figure{margin:0;position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:#111}
+.looks img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.looks figure:hover img{transform:scale(1.03)}
+.looks figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.75));color:#f6f4ef;font-size:13px}
+.looks figcaption b{display:block;font-family:var(--display);font-style:italic;font-weight:900;font-size:20px;text-transform:uppercase}
+@media (max-width:700px){.looks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.timeline div{border-top:3px solid var(--rosso);padding-top:12px}
+.timeline b{font-family:var(--display);font-style:italic;font-weight:900;font-size:26px;display:block}
+.timeline span{color:var(--muted);font-size:14px}
+
+/* Tiendas */
+.stores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.store{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.store b{font-family:var(--display);font-style:italic;font-weight:900;font-size:22px;text-transform:uppercase}
+.store .tag{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;background:var(--soft)}
+.store .tag.on{background:var(--rosso);color:var(--ivory)}
+
+/* Club y pie */
+.club{margin-top:56px;background:var(--carbon);color:var(--ivory)}
+.club .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding-block:48px}
+.club h2{font-size:clamp(28px,4vw,40px)}
+.club p{color:#c3c3be;margin:10px 0 0}
+.club form{display:flex;gap:8px;flex-wrap:wrap}
+.club input{flex:1;min-width:0;padding:14px 16px;border:1px solid #3a3a3a;background:#1a1a1a;color:var(--ivory);border-radius:2px;font:inherit}
+.club .ok{flex-basis:100%;font-size:13px;color:#ff9a92;min-height:1.4em;margin:0}
+footer{background:#080808;color:#bdbdb8;font-size:14px}
+footer .wrap{padding-block:44px 28px}
+.fcols{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:28px}
+.fcols h4{font-family:var(--display);font-weight:700;color:var(--ivory);text-transform:uppercase;letter-spacing:.08em;font-size:13px;margin:0 0 12px}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fcols a{text-decoration:none}
+.fcols a:hover{color:var(--ivory)}
+.tagline{margin:10px 0 0;font-family:var(--display);font-style:italic;font-weight:800;color:var(--ivory);text-transform:uppercase;letter-spacing:.04em}
+.legal{border-top:1px solid #262626;margin-top:32px;padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#8a8a86}
+
+/* Carro */
+.drawer[hidden],.scrim[hidden],.mnav[hidden]{display:none}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:70}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);color:var(--fg);z-index:80;display:flex;flex-direction:column;padding:calc(18px + env(safe-area-inset-top,0px)) calc(20px + env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) 20px;box-shadow:-20px 0 40px rgba(0,0,0,.3)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.drawer h3{font-size:24px}
+.lines{flex:1;overflow:auto;display:grid;align-content:start;gap:12px}
+.line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px}
+.line .th{width:64px;height:64px;border-radius:3px;background:var(--soft);display:grid;place-items:center}
+.line .th svg{width:56px;height:56px}
+.qty{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty button{width:26px;height:26px;border:1px solid var(--line);background:var(--surface);border-radius:2px}
+.empty{color:var(--muted);padding:24px 0}
+.total{border-top:2px solid var(--fg);padding-top:14px;display:grid;gap:10px}
+.total div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.total b{font-family:var(--display);font-size:22px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(140%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:3px;font-size:14px;transition:transform .25s;z-index:90;visibility:hidden}
+.toast.show{transform:translateX(-50%) translateY(0);visibility:visible}
+
+@media (max-width:1000px){
+  nav.main{display:none}
+  .menu-btn{display:grid}
+  header.site .wrap{justify-content:space-between}
+  .hero .wrap,.story,.club .wrap,.cathead .wrap,.pdp-hero .wrap,.specs-grid{grid-template-columns:1fr}
+  .hero::before{background:linear-gradient(160deg,transparent 0 64%,var(--rosso) 64% 80%,transparent 80%)}
+  .perks .wrap,.products,.timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tri,.cats,.world,.stores{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fcols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .perks .wrap,.tri,.cats,.world,.stores,.others,.timeline{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr 1fr}
+  .fcols{grid-template-columns:1fr}
+  .announce .wrap span:nth-child(n+2){display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== Rediseño moderno (estilo editorial) ===== */
+.announce{background:#0f0f0f;font-size:11.5px}
+header.site{background:#fff;color:#111;border-bottom:1px solid #ececec}
+header.site .wrap{padding-block:16px}
+header.site .icon-btn{color:#111}
+header.site .icon-btn:hover{background:#f2f2f2}
+nav.main{justify-content:center;font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:.14em}
+nav.main a{border-bottom-width:1px}
+nav.main a.sale{color:var(--rosso)}
+.brand{min-width:150px}
+.mnav{background:#fff;color:#111;border-bottom:1px solid #ececec}.mnav a{border-color:#eee}
+.m-kicker{display:inline-block;font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;opacity:.9}
+.m-kicker.dark{color:var(--rosso);opacity:1}
+.m-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;background:#fff;color:#111;text-decoration:none;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;border:1px solid #fff}
+.m-btn.ghost{background:transparent;color:#fff}
+.m-btn:hover{background:#111;color:#fff;border-color:#111}
+.m-link{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}
+.m-hero{position:relative;height:min(86vh,820px);min-height:520px;overflow:hidden;background:#7b0a0f}
+.m-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 30%}
+.m-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%)}
+.m-hero-txt{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-block:0 72px;color:#fff;gap:18px}
+.m-hero h1{font-family:var(--body);font-style:normal;font-weight:600;text-transform:none;letter-spacing:-.02em;font-size:clamp(40px,6vw,84px);line-height:1;max-width:12ch}
+.m-cta{display:flex;gap:12px;flex-wrap:wrap}
+.m-sec{padding-block:72px 0}
+.m-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.m-head h2,.m-split h2,.m-wide h2{font-family:var(--body);font-style:normal;font-weight:600;text-transform:none;letter-spacing:-.02em}
+.m-head h2{font-size:clamp(28px,3.4vw,40px);margin-top:6px}
+.m-cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.m-cat{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:#eee;color:#fff;text-decoration:none}
+.m-cat img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.m-cat:hover img{transform:scale(1.04)}
+.m-cat span{position:absolute;left:16px;bottom:16px;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;background:#fff;color:#111;padding:8px 14px}
+.m-split{display:grid;grid-template-columns:1fr 1fr;margin-top:72px;background:#f4f3f1;min-height:560px}
+.m-split img{width:100%;height:100%;object-fit:cover;min-height:420px}
+.m-split.rev img{order:2}
+.m-split-txt{display:flex;flex-direction:column;justify-content:center;gap:16px;padding:48px max(32px,6vw)}
+.m-split h2{font-size:clamp(30px,3.8vw,52px);line-height:1.05;max-width:14ch}
+.m-split p{color:var(--muted);max-width:44ch;margin:0;font-size:16px}
+.m-wide{position:relative;margin-top:72px;height:min(70vh,640px);min-height:420px;overflow:hidden;background:#111}
+.m-wide.short{height:min(56vh,480px)}
+.m-wide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.m-wide::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 60%)}
+.m-wide-txt{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:16px;padding-block:0 56px;color:#fff}
+.m-wide h2{font-size:clamp(30px,4.4vw,60px);line-height:1.02;max-width:16ch}
+.m-people{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.m-people figure{margin:0}
+.m-people img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#eee}
+.m-people figcaption{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-top:10px}
+.m-sec .products .prod .ph{background:#f4f3f1}
+.club{margin-top:72px}
+@media (max-width:900px){
+  .m-cats,.m-people{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .m-split{grid-template-columns:1fr}.m-split.rev img{order:0}
+  .brand{min-width:0}
+}
+</style>
+
+<div class="announce"><div class="wrap"><span>Despacho gratis sobre $59.990</span><span>Hasta 6 cuotas sin interés</span><span>Devoluciones gratuitas</span><span>15% de descuento en tu primera compra</span></div></div>
+
+<header class="site">
+  <div class="wrap">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="brand" href="#inicio" aria-label="Undercut, inicio" data-logo="22"></a>
+    <nav class="main" aria-label="Principal">
+      <a href="#nuevo">Nuevo</a><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#sale" class="sale">Sale</a><a href="#box-spirit">Box Spirit</a><a href="#tiendas">Tiendas</a>
+    </nav>
+    <div class="icons">
+      <button class="icon-btn" aria-label="Buscar" data-go="accesorios"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+      <button class="icon-btn" aria-label="Mi cuenta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></button>
+      <button class="icon-btn" id="cartBtn" aria-label="Abrir carro de compras"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.5 13h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="count" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden><div class="wrap"><a href="#nuevo">Nuevo</a><a href="#relojes">Relojes</a><a href="#ropa">Ropa</a><a href="#accesorios">Accesorios</a><a href="#sale" class="sale">Sale</a><a href="#box-spirit">Box Spirit</a><a href="#tiendas">Tiendas</a></div></div>
+
+<main>
+<!-- INICIO -->
+<div class="view" data-view="inicio">
+  <section class="m-hero">
+    <img src="img/p/hero-polo.jpg" alt="Hombre con polo rojo Undercut al volante de un auto clásico">
+    <div class="m-hero-txt wrap">
+      <span class="m-kicker">Colección 2027</span>
+      <h1>Avanza con la ayuda de tu box.</h1>
+      <div class="m-cta"><a class="m-btn" href="#ropa">Comprar colección</a><a class="m-btn ghost" href="#relojes">Ver relojes</a></div>
+    </div>
+  </section>
+
+  <section class="wrap m-sec">
+    <div class="m-cats">
+      <a href="#ropa" class="m-cat"><img src="img/p/poleron-estudio.jpg" alt="Hombre con polerón negro Undercut" loading="lazy"><span>Polerones</span></a>
+      <a href="#ropa" class="m-cat"><img src="img/p/polera-estudio.jpg" alt="Hombre con polera negra Undercut" loading="lazy"><span>Poleras</span></a>
+      <a href="#ropa" class="m-cat"><img src="img/p/chaqueta-estudio.jpg" alt="Hombre con chaqueta negra Undercut" loading="lazy"><span>Chaquetas</span></a>
+      <a href="#relojes" class="m-cat"><img src="img/a/pole-hombre.jpg" alt="Hombre con reloj Pole Chrono" loading="lazy"><span>Relojes</span></a>
+    </div>
+  </section>
+
+  <section class="m-split">
+    <img src="img/p/camisa-hombre.jpg" alt="Hombre con camisa blanca y el monoplaza bordado en rojo" loading="lazy">
+    <div class="m-split-txt">
+      <span class="m-kicker dark">Gran Turismo</span>
+      <h2>Diseñado para quienes nos inspiran.</h2>
+      <p>Camisas de algodón con el monoplaza bordado en el pecho. Para la oficina, el viaje y el fin de semana.</p>
+      <a class="m-link" href="#ropa">Comprar camisas →</a>
+    </div>
+  </section>
+
+  <section class="wrap m-sec">
+    <div class="m-head"><h2>Lo más nuevo</h2><a class="m-link" href="#nuevo">Ver todo →</a></div>
+    <div class="products" id="newGrid"></div>
+  </section>
+
+  <section class="m-wide">
+    <img src="img/p/equipo.jpg" alt="Tres amigos con poleras negras Undercut en la pista" loading="lazy">
+    <div class="m-wide-txt wrap">
+      <span class="m-kicker">Box Spirit</span>
+      <h2>Hecho para quienes viven la pista.</h2>
+      <a class="m-btn" href="#box-spirit">Nuestra historia</a>
+    </div>
+  </section>
+
+  <section class="wrap m-sec">
+    <div class="m-head"><div><span class="m-kicker dark">Personas</span><h2>La gente Undercut</h2></div><p class="muted" style="max-width:44ch;margin:0">Mecánicos, pilotos de fin de semana, ejecutivos y coleccionistas. Lo que más nos inspira son las personas.</p></div>
+    <div class="m-people">
+      <figure><img src="img/p/camisa-senior.jpg" alt="Hombre mayor con camisa blanca Undercut junto a un auto clásico" loading="lazy"><figcaption>Coleccionista</figcaption></figure>
+      <figure><img src="img/p/polera-joven.jpg" alt="Joven con polera crema Undercut" loading="lazy"><figcaption>Piloto de karting</figcaption></figure>
+      <figure><img src="img/p/chaqueta-mecanico.jpg" alt="Mecánico con chaqueta y jockey Undercut" loading="lazy"><figcaption>Mecánico</figcaption></figure>
+      <figure><img src="img/p/chaqueta-mujer.jpg" alt="Mujer con chaqueta negra Undercut" loading="lazy"><figcaption>Copiloto de rally</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="m-split rev">
+    <img src="img/p/poleron-hombre.jpg" alt="Hombre con polerón negro Undercut en un garaje" loading="lazy">
+    <div class="m-split-txt">
+      <span class="m-kicker dark">Línea Taller</span>
+      <h2>Velocidad en cada detalle.</h2>
+      <p>Polerones y poleras negras con el auto bordado en rojo. Algodón perchado, calce relajado.</p>
+      <a class="m-link" href="#ropa">Comprar línea Taller →</a>
+    </div>
+  </section>
+
+  <section class="wrap m-sec">
+    <div class="m-head"><h2>Relojes</h2><a class="m-link" href="#relojes">Ver los tres →</a></div>
+    <div class="m-people">
+      <figure><img src="img/a/pole-hombre.jpg" alt="Hombre con chaqueta negra y reloj Pole Chrono" loading="lazy"><figcaption>Pole Chrono</figcaption></figure>
+      <figure><img src="img/a/paddock-mujer.jpg" alt="Mujer con reloj Paddock GT rojo" loading="lazy"><figcaption>Paddock GT</figcaption></figure>
+      <figure><img src="img/a/box-chaqueta.jpg" alt="Hombre con chaqueta de cuero y reloj Box Square" loading="lazy"><figcaption>Box Square</figcaption></figure>
+      <figure><img src="img/a/pole-camisa.jpg" alt="Hombre con camisa blanca y reloj Pole Chrono" loading="lazy"><figcaption>Pole Chrono</figcaption></figure>
+    </div>
+    <div class="tri light" id="tri" style="margin-top:28px"></div>
+  </section>
+
+  <section class="m-wide short">
+    <img src="img/p/comunidad.jpg" alt="Comunidad de aficionados en un circuito, uno con polo rojo Undercut" loading="lazy">
+    <div class="m-wide-txt wrap">
+      <h2>Más que ropa, una comunidad.</h2>
+      <a class="m-btn" href="#club">Únete al club</a>
+    </div>
+  </section>
+</div>
+
+<!-- RELOJES -->
+<div class="view" data-view="relojes">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Relojes</div><h1>Relojes</h1></div>
+    <p>Tres relojes para tres momentos de la carrera: la vuelta rápida, el paddock y el muro de boxes. Acero 316L, cristal de zafiro y garantía de 2 años.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:36px">
+    <div class="m-head"><h2>En la muñeca</h2></div>
+    <div class="m-people">
+      <figure><img src="img/a/pole-hombre.jpg" alt="Hombre con chaqueta negra y reloj Pole Chrono" loading="lazy"><figcaption>Pole Chrono</figcaption></figure>
+      <figure><img src="img/a/paddock-mujer.jpg" alt="Mujer con reloj Paddock GT rojo" loading="lazy"><figcaption>Paddock GT</figcaption></figure>
+      <figure><img src="img/a/box-chaqueta.jpg" alt="Hombre con chaqueta de cuero y reloj Box Square" loading="lazy"><figcaption>Box Square</figcaption></figure>
+      <figure><img src="img/a/pole-camisa.jpg" alt="Hombre con camisa blanca y reloj Pole Chrono" loading="lazy"><figcaption>Pole Chrono</figcaption></figure>
+    </div>
+  </section>
+  <section class="wrap">
+    <div class="tri light" id="triAll"></div>
+  </section>
+  <section class="wrap">
+    <div class="head"><h2>Accesorios de relojería</h2></div>
+    <div class="products" id="watchAcc"></div>
+  </section>
+</div>
+
+<!-- FICHAS DE RELOJ -->
+<div class="view" data-view="pole-chrono" data-watch="pole"></div>
+<div class="view" data-view="paddock-gt" data-watch="paddock"></div>
+<div class="view" data-view="box-square" data-watch="box"></div>
+
+<!-- ROPA -->
+<div class="view" data-view="ropa">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Ropa</div><h1>Ropa</h1></div>
+    <p>Tres líneas: Gran Turismo para la oficina, Paddock para el fin de semana y Taller para la calle. El auto Undercut va siempre bordado en el pecho.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px">
+    <div class="toolbar"><div class="tabs" data-grid="ropa"></div><label class="muted" style="font-size:13px">Ordenar <select data-sort="ropa"><option value="new">Novedades</option><option value="asc">Menor precio</option><option value="desc">Mayor precio</option></select></label></div>
+    <div class="products" id="grid-ropa"></div>
+  </section>
+  <section class="wrap">
+    <div class="head"><h2>Inspírate</h2></div>
+    <div class="looks">
+      <figure><img src="img/polo-rojo-nuevo.jpg" alt="Polo rojo con el monoplaza bordado en negro" loading="lazy"><figcaption><b>Polo Rosso</b>Monoplaza bordado en el pecho</figcaption></figure>
+      <figure><img src="img/bordado-polo.jpg" alt="Detalle del bordado del monoplaza en el polo rojo" loading="lazy"><figcaption><b>El bordado</b>Hilo negro sobre piqué rojo</figcaption></figure>
+      <figure><img src="img/camisa-nueva.jpg" alt="Camisa blanca con el monoplaza bordado en rojo" loading="lazy"><figcaption><b>Gran Turismo</b>Camisa blanca, auto en rojo</figcaption></figure>
+      <figure><img src="img/polera-negra-nueva.jpg" alt="Polera negra con el monoplaza en rojo" loading="lazy"><figcaption><b>Taller</b>Polera Box Negra</figcaption></figure>
+      <figure><img src="img/poleron-nuevo.jpg" alt="Polerón negro con el monoplaza en rojo" loading="lazy"><figcaption><b>Pit Crew</b>Polerón negro</figcaption></figure>
+      <figure><img src="img/etiqueta.jpg" alt="Etiqueta negra con el isotipo compacto" loading="lazy"><figcaption><b>Etiqueta</b>Isotipo compacto en cada prenda</figcaption></figure>
+    </div>
+  </section>
+</div>
+
+<!-- ACCESORIOS -->
+<div class="view" data-view="accesorios">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Accesorios</div><h1>Accesorios</h1></div>
+    <p>Cuero, acero y seda con detalles del auto: hebilla de cinturón de seguridad, costura de asiento clásico y colleras de llanta.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px">
+    <div class="toolbar"><div class="tabs" data-grid="accesorios"></div><label class="muted" style="font-size:13px">Ordenar <select data-sort="accesorios"><option value="new">Novedades</option><option value="asc">Menor precio</option><option value="desc">Mayor precio</option></select></label></div>
+    <div class="products" id="grid-accesorios"></div>
+  </section>
+  <section class="m-split" style="margin-top:56px">
+    <img src="img/a/cinturon-hombre.jpg" alt="Hombre con cinturón de cuero café y hebilla con el auto" loading="lazy">
+    <div class="m-split-txt">
+      <span class="m-kicker dark">Cuero</span>
+      <h2>Los detalles que completan el look.</h2>
+      <p>Cinturones de cuero con hebilla de acero grabada, para jeans o traje.</p>
+      <a class="m-link" href="#accesorios">Ver cinturones →</a>
+    </div>
+  </section>
+  <section class="m-split rev">
+    <img src="img/a/reloj-lino.jpg" alt="Hombre con camisa de lino y reloj Box Square con correa café" loading="lazy">
+    <div class="m-split-txt">
+      <span class="m-kicker dark">Relojería</span>
+      <h2>Una correa para cada día.</h2>
+      <p>El Box Square con correa de cuero café. Cambia de correa sin herramientas con el set rally.</p>
+      <a class="m-link" href="#box-square">Ver Box Square →</a>
+    </div>
+  </section>
+</div>
+
+<!-- NUEVO -->
+<div class="view" data-view="nuevo">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Nuevo</div><h1>Lo nuevo</h1></div>
+    <p>Los últimos lanzamientos: la trilogía de relojes y las piezas nuevas de ropa y accesorios.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px"><div class="products" id="grid-nuevo"></div></section>
+</div>
+
+<!-- SALE -->
+<div class="view" data-view="sale">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Sale</div><h1 style="color:#ff6b62">Sale</h1></div>
+    <p>Precios rebajados por tiempo limitado. Mismo despacho gratis sobre $59.990 y devoluciones gratuitas.</p>
+  </div></div>
+  <section class="wrap" style="padding-top:28px"><div class="products" id="grid-sale"></div></section>
+</div>
+
+<!-- AYUDA -->
+<div class="view" data-view="ayuda">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Ayuda</div><h1>Ayuda</h1></div>
+    <p>Despacho, formas de pago, cambios y cuidado de tus productos. Si no encuentras lo que buscas, escríbenos a contacto@undercut.cl.</p>
+  </div></div>
+  <section class="wrap">
+    <div class="head"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq">
+      <details open><summary>¿Cuánto demora el despacho?</summary><p>Entre 48 y 72 horas hábiles en Santiago y de 3 a 5 días en regiones. El despacho es gratis sobre $59.990.</p></details>
+      <details><summary>¿Las devoluciones tienen costo?</summary><p>No. Tienes 30 días para cambiar o devolver tu compra, en tienda o con retiro a domicilio, sin costo.</p></details>
+      <details><summary>¿Puedo grabar mis iniciales?</summary><p>Sí. El grabado láser de iniciales es gratis en billeteras, cinturones, llaveros y en la tapa de los relojes.</p></details>
+      <details><summary>¿Qué garantía tienen los relojes?</summary><p>Dos años contra defectos de fabricación. La garantía no cubre golpes, cristal roto ni desgaste de correas.</p></details>
+      <details><summary>¿Cómo elijo mi talla?</summary><p>Nuestros polos y poleras tienen calce regular. Si estás entre dos tallas, elige la mayor. Las chaquetas tienen calce entallado.</p></details>
+    </div>
+  </section>
+  <section class="wrap">
+    <div class="help">
+      <div><h3>Formas de pago</h3><ul><li>Tarjetas de crédito, hasta 6 cuotas sin interés</li><li>Tarjetas de débito y prepago</li><li>Transferencia bancaria</li></ul></div>
+      <div><h3>Políticas de despacho</h3><ul><li>Gratis sobre $59.990, a todo Chile</li><li>Retiro en tienda sin costo</li><li>Seguimiento del pedido por correo</li></ul></div>
+      <div><h3>Cambios y devoluciones</h3><ul><li>30 días desde la recepción</li><li>Producto sin uso y con etiquetas</li><li>Devolución gratuita en tienda o a domicilio</li></ul></div>
+      <div><h3>Cuidado de la ropa y el cuero</h3><ul><li>Lava los polos al revés, en agua fría</li><li>Hidrata el cuero cada 3 meses</li><li>Evita el agua salada en las correas de cuero</li></ul></div>
+    </div>
+    <p class="muted" style="font-size:13px;margin-top:20px">Términos y condiciones: precios en pesos chilenos con IVA incluido, válidos solo para compras online. Las promociones no son acumulables.</p>
+  </section>
+</div>
+
+<!-- BOX SPIRIT -->
+<div class="view" data-view="box-spirit">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Box Spirit</div><div class="mono" style="color:#ff8f86">Box Spirit</div><h1 style="margin-top:8px">Avanza con la ayuda de tu box</h1></div>
+    <p>Undercut nace en Santiago para el hombre que juega con estrategia: entra antes, cambia lo necesario y sale adelante.</p>
+  </div></div>
+  <section class="wrap">
+    <div class="story">
+      <div class="visual" id="storyArt"></div>
+      <div>
+        <div class="mono" style="color:var(--rosso)">Qué es un undercut</div>
+        <h2>Adelantar no es correr más. Es pensar antes.</h2>
+        <p>En la Fórmula 1, el undercut es entrar a boxes una vuelta antes que el rival. Con neumáticos nuevos el auto marca vueltas más rápidas y, cuando el otro sale de su detención, ya quedó atrás.</p>
+        <p>Por eso nuestra bajada es "avanza con la ayuda de tu box": nadie avanza solo. El box es tu equipo, tus herramientas y tus decisiones. Undercut quiere ser parte de ese box.</p>
+      </div>
+    </div>
+  </section>
+  <section class="wrap">
+    <div class="specs-grid" style="align-items:center">
+      <div class="iso" id="isoArt"></div>
+      <div><div class="mono" style="color:var(--rosso)">Nuestro isotipo</div><h2 style="font-size:clamp(28px,4vw,40px);margin:8px 0 14px">El auto Undercut</h2>
+      <p class="muted">Un monoplaza de Gran Premio de los años 50, la época dorada de las carreras: cuerpo de cigarro, cabina abierta, ruedas de rayos y franjas a lo largo del costado. Debajo corre la línea roja del undercut. Lo bordamos en el pecho de polos y camisas, en los jockeys, y lo grabamos en hebillas, billeteras y en la tapa de los relojes.</p></div>
+    </div>
+  </section>
+  <section class="wrap">
+    <div class="head"><h2>Hoja de ruta</h2></div>
+    <div class="timeline">
+      <div><b>2026</b><span>Nace la marca. Primera colección de cuero y accesorios.</span></div>
+      <div><b>2027</b><span>Lanzamiento de la trilogía de relojes y tienda online.</span></div>
+      <div><b>2028</b><span>Tienda "El Box" en Santiago y Club Undercut con track days.</span></div>
+      <div><b>2029</b><span>Expansión a Perú, Colombia y México.</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- TIENDAS -->
+<div class="view" data-view="tiendas">
+  <div class="cathead"><div class="wrap">
+    <div><div class="crumbs"><a href="#inicio">Inicio</a> / Tiendas</div><h1>Tiendas</h1></div>
+    <p>Visítanos para probarte los relojes, grabar tus iniciales y conocer las ediciones limitadas.</p>
+  </div></div>
+  <section class="wrap">
+    <div class="stores">
+      <div class="store"><span class="tag on">Tienda insignia · 2028</span><b>El Box · Vitacura</b><span class="muted">Diseño de taller premium con auto clásico en exhibición y barra de grabado.</span><span class="mono muted">Lun a sáb · 10:00 a 20:00</span></div>
+      <div class="store"><span class="tag">Pop-up · 2027</span><b>Pop-up · Las Condes</b><span class="muted">Espacio temporal en centro comercial para el lanzamiento de la trilogía.</span><span class="mono muted">Todos los días · 10:00 a 21:00</span></div>
+      <div class="store"><span class="tag">Online</span><b>Tienda online</b><span class="muted">Despacho a todo Chile en 48 a 72 horas. Retiro en tienda sin costo.</span><span class="mono muted">Atención · lun a vie 9:00 a 18:00</span></div>
+    </div>
+  </section>
+</div>
+
+<section class="club" id="club" style="padding:0">
+  <div class="wrap">
+    <div><h2>Únete al Club Undercut</h2><p>15% de descuento en tu primera compra, acceso anticipado a ediciones limitadas e invitaciones a track days.</p></div>
+    <form id="clubForm" novalidate>
+      <label for="email" class="mono" style="flex-basis:100%;color:#9a9a96">Tu correo</label>
+      <input id="email" type="email" placeholder="nombre@correo.cl" autocomplete="email">
+      <button class="btn" type="submit">Inscribirme</button>
+      <p class="ok" id="clubMsg" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div><div data-logo="30"></div><p class="tagline">Avanza con la ayuda de tu box</p><p style="max-width:34ch;margin:10px 0 0">Relojes, ropa y cuero inspirados en el automovilismo. Diseñado en Santiago de Chile.</p></div>
+      <div><h4>Tienda</h4><ul><li><a href="#relojes">Relojes</a></li><li><a href="#ropa">Ropa</a></li><li><a href="#accesorios">Accesorios</a></li></ul></div>
+      <div><h4>Ayuda</h4><ul><li><a href="#ayuda">Preguntas frecuentes</a></li><li><a href="#ayuda">Formas de pago</a></li><li><a href="#ayuda">Políticas de despacho</a></li><li><a href="#ayuda">Cambios y devoluciones</a></li><li><a href="#ayuda">Cuidado de la ropa</a></li><li><a href="#ayuda">Términos y condiciones</a></li></ul></div>
+      <div><h4>Undercut</h4><ul><li><a href="#box-spirit">Box Spirit</a></li><li><a href="#sale">Sale</a></li><li><a href="#tiendas">Tiendas</a></li><li><a href="#club">Club Undercut</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Undercut · Prototipo de sitio web, precios referenciales</span><span>Fotos de relojes generadas con Canva a partir de los diseños Undercut</span></div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Carro de compras">
+  <header><h3>Tu carro</h3><button class="icon-btn" id="closeCart" aria-label="Cerrar carro" style="color:var(--fg)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+  <div class="lines" id="lines"></div>
+  <div class="total"><div><span>Subtotal</span><b id="subtotal">$0</b></div><div class="muted" style="font-size:13px"><span id="shipNote">Agrega productos para ver el despacho</span></div><button class="btn" id="checkout" type="button" style="justify-content:center">Ir a pagar</button></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const R='#cc0a14',RD='#9e0710',K='#141414',W='#f6f4ef',COG='#8e5126',COGD='#5f3417';
+const EXO=`font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+const Dg=Math.PI/180;let uid=0;
+const fmt=n=>'$'+n.toLocaleString('es-CL');
+
+/* ---------- Marca ---------- */
+function checks(x,y,w,rows,n,c){let s='';const q=w/n;for(let r=0;r<rows;r++)for(let i=0;i<n;i++)if((i+r)%2===0)s+=`<rect x="${x+i*q}" y="${y+r*q}" width="${q}" height="${q}" fill="${c}"/>`;return s;}
+function badge(bg=R,fg=W,ink=K){return `<path d="M18 3H82L97 18V66Q97 95 50 117Q3 95 3 66V18Z" fill="${bg}"/><path d="M20 8H80L92 20V65Q92 91 50 111Q8 91 8 65V20Z" fill="none" stroke="${fg}" stroke-width="2"/><rect x="22" y="16" width="56" height="10" fill="${fg}"/>${checks(22,16,56,2,14,ink)}<text x="51" y="78" text-anchor="middle" ${EXO} font-size="48" fill="${fg}">UC</text><path d="M24 91H52" stroke="${fg}" stroke-width="2.5"/><path d="M52 91L60 98H76" fill="none" stroke="${fg}" stroke-width="2.5"/>`;}
+/* Isotipo: auto de carrera de perfil (viewBox 124 x 50) */
+const CARS="M381 418C384 416 388 415 389 415C392 415 406 408 411 404C413 402 416 399 419 397C421 396 425 393 426 391C437 378 440 374 443 366C451 349 454 335 452 316C451 310 450 303 449 301C449 298 448 295 447 294C445 283 431 262 420 254C417 251 413 248 411 246C407 243 396 238 383 233C371 229 346 229 339 232C337 233 334 234 332 234C327 234 316 238 308 243C294 251 272 276 272 283C272 284 271 286 270 288C268 290 267 294 267 296C266 298 265 303 264 306C259 321 262 349 272 368C279 381 295 399 305 404C309 406 314 409 316 411C318 412 321 414 323 414C325 414 329 416 331 417C342 421 371 421 381 418ZM1122 416C1125 415 1129 414 1132 413C1134 413 1139 410 1143 408C1164 395 1178 378 1186 354C1190 344 1190 344 1190 325C1190 306 1189 305 1187 297C1178 271 1161 251 1136 239C1122 232 1116 231 1100 230C1084 230 1072 231 1060 236C1049 240 1036 249 1034 253C1033 255 1031 256 1031 256C1029 256 1021 264 1017 271C1010 282 1006 290 1005 298C1004 303 1002 308 1001 311C999 317 1000 340 1003 350C1010 371 1022 390 1032 395C1033 396 1035 397 1035 398C1037 400 1048 408 1054 411C1058 412 1063 414 1066 416C1073 419 1112 420 1122 416ZM989 370C991 368 991 368 989 362C988 359 986 355 985 354C984 353 941 353 727 353C470 353 470 353 467 356C464 358 464 359 464 364C464 367 465 370 465 371C466 372 526 372 727 372C978 372 987 372 989 370ZM1216 371C1230 368 1233 367 1243 363C1263 353 1271 339 1271 315C1271 302 1270 290 1267 283C1264 276 1255 259 1251 255C1250 253 1248 251 1248 249C1247 246 1216 217 1208 212C1204 209 1198 206 1195 204C1192 203 1188 201 1187 200C1186 199 1184 198 1183 198C1182 198 1180 197 1178 196C1176 194 1174 193 1173 193C1172 193 1169 192 1168 191C1166 190 1161 188 1157 187C1153 186 1146 184 1142 183C1139 182 1133 180 1130 180C1126 180 1120 178 1116 177C1111 176 1102 176 1080 175C1063 175 1040 173 1030 173C1018 172 997 171 981 171C965 171 949 171 946 170C936 169 845 166 732 164C712 164 696 163 695 163C694 163 693 158 693 153C690 131 681 123 671 132C667 135 659 146 656 153C655 156 652 162 651 166C649 169 646 175 645 177C644 182 644 182 638 182C630 182 625 177 625 170C625 167 626 165 627 164C630 161 634 155 634 152C634 148 630 144 627 144C624 144 616 152 606 164C602 169 597 175 594 178C586 187 585 192 589 196C593 200 596 199 602 192C607 187 607 187 612 187C618 187 618 187 625 194C633 201 633 201 633 207C633 213 631 219 626 228C625 231 624 233 624 234C624 237 615 250 609 255C600 263 594 266 585 268C581 269 577 271 575 272C566 275 541 271 526 264C514 258 499 243 496 233C488 211 487 207 487 185C487 166 486 164 481 160C476 157 472 155 464 154C452 152 453 153 453 131C453 103 452 101 437 100C430 99 427 99 425 101C422 102 418 107 418 111C418 116 412 120 401 122C398 122 392 123 388 124C384 125 380 126 379 126C373 126 333 137 325 140C322 142 317 144 314 144C310 145 305 146 287 153C263 162 243 171 239 174C238 175 236 176 235 176C232 176 187 200 162 216C149 224 128 241 124 247C123 249 118 254 114 259C101 273 97 282 94 297C93 308 93 309 97 320C99 325 114 339 121 343C134 349 152 356 156 356C158 356 161 357 164 358C174 362 206 367 231 368C237 369 244 370 245 370C249 371 252 370 252 367C252 363 249 355 247 352C243 346 244 308 247 299C249 295 250 291 250 290C250 289 253 282 256 276C272 245 292 229 326 217C337 213 338 213 356 212C374 212 374 212 384 215C407 223 407 223 422 233C438 244 451 261 460 280C463 285 465 290 466 291C468 292 981 293 985 292C987 291 992 283 992 280C992 278 997 268 1000 265C1001 263 1002 261 1002 261C1002 259 1022 240 1031 233C1043 224 1055 219 1073 214C1085 211 1112 211 1118 214C1120 215 1123 216 1125 217C1131 218 1146 224 1152 228C1197 255 1219 310 1203 358C1200 368 1199 369 1201 371C1203 372 1209 372 1216 371ZM981 328C984 326 984 318 981 316C979 314 476 314 472 316C469 318 469 326 473 329C476 330 979 330 981 328ZM134 297C129 294 128 291 127 284C127 272 132 266 143 266C154 266 159 271 160 281C160 291 160 293 154 296C149 300 139 300 134 297ZM707 274C688 267 678 243 686 224C693 210 705 203 720 203C730 203 734 204 734 208C734 210 734 210 738 210C743 210 746 212 750 218C755 227 756 230 756 239C756 252 755 255 749 261C745 266 744 267 741 267C737 267 737 267 737 270C737 274 735 275 723 276C715 276 712 276 707 274ZM953 274C952 274 949 272 947 269C939 259 945 247 959 246C965 246 965 246 969 250C973 253 973 254 973 259C973 266 970 272 967 274C965 275 958 275 953 274ZM806 272C801 269 800 267 800 259C800 252 800 252 804 249C810 244 818 245 824 250C828 253 828 254 828 259C828 266 826 270 823 272C820 275 809 275 806 272ZM853 272C850 269 849 266 849 261C849 251 853 246 862 246C872 246 876 250 876 260C876 267 876 267 873 271C869 274 869 274 862 274C856 274 854 274 853 272ZM902 272C898 269 897 267 897 260C897 250 901 246 911 246C921 246 925 251 925 261C925 266 925 267 921 270C917 274 917 274 911 274C907 274 905 273 902 272ZM1227 269C1218 259 1216 255 1216 246L1216 238L1221 237C1226 237 1227 237 1232 241C1239 248 1244 258 1244 266C1244 274 1244 274 1237 274C1232 274 1232 274 1227 269ZM733 259C733 258 732 256 731 254C728 252 728 243 731 239C733 235 734 229 732 221C732 216 732 216 724 216C718 216 717 216 714 219C712 221 710 223 709 224C709 226 711 232 713 232C717 234 716 245 712 250C705 258 709 262 723 262C733 262 733 262 733 259ZM182 259C176 255 174 251 174 244C174 238 174 237 178 234C183 229 185 228 192 228C202 228 208 234 208 245C208 252 207 254 202 258C196 262 187 262 182 259Z";
+function carS(body,accent){return `<g transform="translate(-13.47 15.53) scale(0.16638)"><path d="${CARS}" fill="${body}" fill-rule="evenodd"/></g><path d="M28 88H100C106 88 108 85 114 85H186" fill="none" stroke="${accent}" stroke-width="3"/>`;}
+function badgeUC(bg,fg,ring){return `<circle cx="100" cy="100" r="96" fill="${bg}"/><circle cx="100" cy="100" r="86" fill="none" stroke="${ring}" stroke-width="3.2"/><g transform="translate(14.75 62) scale(.125)"><path d="${CARS}" fill="${fg}" fill-rule="evenodd"/></g><path d="M52 122H94C98 122 100 126 104 126H148" fill="none" stroke="${ring}" stroke-width="4.4"/>`;}
+const CARD="M381 418C384 416 388 415 389 415C392 415 406 408 411 404C413 402 416 399 419 397C421 396 425 393 426 391C437 378 440 374 443 366C451 349 454 335 452 316C451 310 450 303 449 301C449 298 448 295 447 294C447 293 445 287 442 282C436 270 428 260 420 254C417 251 413 248 411 246C407 243 396 238 383 233C371 229 346 229 339 232C337 233 334 234 332 234C327 234 316 238 308 243C294 251 272 276 272 283C272 284 271 286 270 288C268 290 267 294 267 296C266 298 265 303 264 306C261 315 261 334 264 347C268 363 275 375 287 389C296 398 299 401 305 404C309 406 314 409 316 411C318 412 321 414 323 414C325 414 329 416 331 417C337 419 345 420 361 420C373 420 375 420 381 418ZM1122 416C1125 415 1129 414 1132 413C1134 413 1139 410 1143 408C1164 395 1178 378 1186 354L1190 344L1190 325C1190 306 1189 305 1187 297C1180 277 1168 261 1150 247C1145 243 1127 234 1120 232C1110 230 1088 229 1077 231C1060 235 1038 246 1034 253C1033 255 1031 256 1031 256C1029 256 1021 264 1017 271C1010 282 1006 290 1005 298C1004 303 1002 308 1001 311C999 317 1000 340 1003 350C1010 371 1022 390 1032 395C1033 396 1035 397 1035 398C1037 400 1048 408 1054 411C1058 412 1063 414 1066 416C1070 418 1072 418 1088 418C1110 419 1117 418 1122 416ZM1085 388C1084 388 1084 386 1085 382C1086 381 1087 378 1087 376C1087 371 1090 371 1091 376C1092 382 1097 383 1098 376C1098 373 1099 372 1101 372C1103 372 1104 373 1104 375C1104 378 1107 381 1110 381C1112 381 1112 381 1112 379C1110 372 1110 369 1112 369C1113 369 1115 371 1117 373C1121 380 1127 379 1123 372C1122 370 1121 367 1121 366C1121 362 1124 362 1128 367C1131 369 1133 371 1134 371C1137 371 1135 375 1129 379C1122 384 1091 391 1085 388ZM348 387C346 385 346 385 347 383C347 382 348 379 348 377C348 374 349 374 351 374C353 374 354 374 354 378C354 381 354 383 355 383C358 383 360 380 360 377C359 374 361 370 363 371C364 372 365 373 366 375C366 379 368 380 370 381C373 381 374 380 372 376C371 374 371 373 372 371C373 368 376 369 378 373C379 376 381 377 383 378C387 379 388 377 385 372C382 364 385 361 390 366C393 369 396 370 397 367C398 366 397 365 395 362C389 357 393 353 400 358C402 360 405 361 405 361C408 361 407 364 401 370C394 377 389 380 378 385C369 388 351 389 348 387ZM1073 384C1071 383 1069 382 1068 382C1065 382 1057 376 1057 374C1057 372 1066 364 1068 364C1071 364 1070 367 1068 371C1067 373 1067 374 1068 376C1069 378 1071 378 1074 373C1079 368 1081 368 1080 375C1080 377 1080 381 1081 382C1083 387 1079 389 1073 384ZM328 381C313 374 303 362 297 342C293 331 294 310 299 298C301 294 311 281 312 281C314 281 321 291 321 293C321 296 318 296 314 293C311 291 308 290 308 292C307 294 309 297 312 299C314 300 315 301 315 302C315 304 314 304 308 304C302 304 301 305 302 308C302 308 304 309 306 310C310 311 311 312 311 313C311 316 309 317 304 316C301 316 299 316 299 317C297 319 299 322 302 322C303 323 305 323 306 324C311 324 310 328 305 328C296 330 296 335 306 335L312 334L312 337C312 340 311 341 310 341C306 341 305 343 305 346C305 348 305 348 307 348C314 346 315 346 316 347C316 349 315 350 312 354C305 360 309 364 316 358C324 353 327 357 320 363C318 365 317 367 317 368C318 372 321 372 324 368C330 361 335 364 330 371C329 374 328 375 329 376C331 379 334 378 337 374C340 367 342 368 342 377C342 385 342 385 340 385C339 385 333 383 328 381ZM989 370L991 368L989 362C988 359 986 355 985 354C984 353 941 353 727 353L470 353L467 356C464 358 464 359 464 364C464 367 465 370 465 371C466 372 526 372 727 372C978 372 987 372 989 370ZM1216 371C1230 368 1233 367 1243 363C1263 353 1271 339 1271 315C1271 302 1270 290 1267 283C1264 276 1255 259 1251 255C1250 253 1248 251 1248 249C1247 246 1216 217 1208 212C1204 209 1198 206 1195 204C1192 203 1188 201 1187 200C1186 199 1184 198 1183 198C1182 198 1180 197 1178 196C1176 194 1174 193 1173 193C1172 193 1169 192 1168 191C1166 190 1161 188 1157 187C1153 186 1146 184 1142 183C1139 182 1133 180 1130 180C1126 180 1120 178 1116 177C1111 176 1102 176 1080 175C1063 175 1040 173 1029 173C1016 172 999 171 981 171C964 171 951 171 946 170C935 169 851 166 732 164C712 164 696 163 695 163C694 163 693 158 693 153C690 131 681 123 671 132C667 135 659 146 656 153C655 156 652 162 651 166C649 169 646 176 644 179C643 183 641 186 640 186C637 186 621 173 621 170C621 169 623 167 626 165C631 159 634 155 634 152C634 148 630 144 627 144C624 144 616 152 606 164C602 169 597 175 594 178C586 187 585 192 589 196C593 200 597 198 607 186C609 184 611 183 611 183C613 183 624 192 631 199L635 204L634 208C632 216 629 223 627 228C625 231 624 233 624 234C624 237 615 250 609 255C600 263 594 266 585 268C581 269 577 271 575 272C566 276 542 272 526 264C514 258 499 243 496 233C488 211 487 207 487 185C487 166 486 164 481 160C476 157 472 155 464 154C460 153 455 152 454 151C453 150 453 146 453 131C453 103 452 101 437 100C430 99 427 99 425 101C422 102 418 107 418 111C418 116 412 120 401 122C398 122 392 123 388 124C384 125 380 126 379 126C373 126 333 137 325 140C322 142 317 144 314 144C310 145 305 146 287 153C263 162 243 171 239 174C238 175 236 176 235 176C232 176 187 200 162 216C149 224 128 241 124 247C123 249 118 254 114 259C107 267 99 278 97 285C96 286 95 292 94 297C93 308 93 309 97 320C99 325 114 339 121 343C134 349 152 356 156 356C158 356 161 357 164 358C174 362 206 367 231 368C237 369 244 370 245 370C249 371 252 370 252 367C252 363 249 355 247 352C245 349 245 347 245 327C245 306 245 305 247 299C249 295 250 291 250 290C250 289 253 282 256 276C272 245 292 229 326 217C337 213 338 213 356 212L374 212L384 215C407 223 407 223 422 233C438 244 451 261 460 280C463 285 465 290 466 291C468 292 981 293 985 292C987 291 992 283 992 280C992 278 997 268 1000 265C1001 263 1002 261 1002 261C1002 259 1022 240 1031 233C1043 224 1055 219 1073 214C1085 211 1112 211 1118 214C1120 215 1123 216 1125 217C1131 218 1146 224 1152 228C1197 255 1219 310 1203 358C1200 368 1199 369 1201 371C1203 372 1209 372 1216 371ZM1136 369C1136 367 1135 365 1133 363C1128 356 1130 353 1137 357C1139 359 1142 360 1144 360C1148 360 1148 362 1143 367C1138 372 1136 372 1136 369ZM1049 368C1047 367 1045 363 1043 360C1041 357 1039 355 1039 354C1037 353 1038 349 1040 349C1041 349 1044 349 1047 348C1055 345 1057 348 1050 354C1047 356 1046 358 1046 359C1048 361 1051 360 1054 358C1057 356 1061 355 1061 358C1061 358 1059 361 1058 364C1056 366 1054 369 1054 369C1054 371 1051 370 1049 368ZM406 357C405 355 403 353 401 351C396 348 396 345 401 346C402 346 405 346 408 346C413 347 416 345 413 342C411 342 410 341 408 341C406 341 403 338 403 335C404 334 404 333 417 332C419 332 419 332 419 337C419 345 412 360 409 360C408 360 407 359 406 357ZM1142 353C1134 348 1135 346 1145 346C1154 346 1154 347 1152 354C1150 358 1148 358 1142 353ZM1034 344C1031 341 1032 312 1035 307C1036 304 1037 302 1037 300C1037 298 1042 291 1044 291C1044 291 1045 292 1045 293C1045 294 1047 296 1049 298C1055 304 1054 308 1046 305C1042 303 1040 303 1040 305C1039 306 1043 310 1046 311C1048 311 1048 312 1048 314C1048 315 1048 316 1043 316C1040 316 1037 317 1037 318C1035 320 1037 322 1041 323C1046 323 1048 324 1048 326C1048 327 1048 327 1041 329C1033 331 1035 337 1044 336C1049 335 1049 335 1049 337C1049 339 1047 340 1043 343C1036 347 1036 347 1034 344ZM1152 343C1151 342 1149 341 1148 341C1144 341 1141 338 1141 336C1141 334 1142 334 1149 334L1157 333L1157 338C1157 346 1155 348 1152 343ZM981 328C984 326 984 318 981 316C980 314 476 314 472 316C470 317 470 318 470 321C470 326 471 327 473 329C476 330 979 330 981 328ZM411 328C406 328 404 327 404 324C404 321 406 320 413 320L420 319L420 324C420 330 421 329 411 328ZM1150 328C1144 327 1143 326 1143 324C1143 321 1145 320 1152 320L1158 320L1158 324C1158 330 1158 329 1150 328ZM408 314C400 314 400 312 408 308C411 307 413 305 414 304C415 300 419 305 419 312C419 315 419 315 417 315C416 315 412 314 408 314ZM1148 314C1140 313 1139 311 1146 308C1149 307 1151 305 1151 304C1152 302 1155 303 1156 305C1158 308 1157 315 1155 315C1154 315 1151 314 1148 314ZM399 303C397 302 398 299 403 295C406 293 409 291 409 291C411 291 414 295 415 299L415 302L411 302C408 301 406 301 404 302C401 304 400 304 399 303ZM1136 302C1136 299 1146 290 1148 290C1149 291 1152 295 1153 299L1153 302L1148 302C1145 302 1141 302 1139 302C1137 303 1136 303 1136 302ZM137 298C127 294 123 283 128 275C139 255 167 269 160 290C159 293 157 294 153 297C147 300 143 301 137 298ZM1052 292C1050 291 1048 290 1047 290C1044 290 1045 287 1050 282C1052 280 1054 277 1054 277C1054 276 1060 271 1062 271C1062 271 1064 270 1066 269C1067 267 1070 266 1074 266L1079 265L1079 273C1079 280 1079 281 1077 281C1075 281 1073 279 1072 276C1071 273 1068 272 1066 274C1065 276 1065 276 1067 280C1071 287 1068 289 1062 284C1058 280 1056 279 1055 282C1054 284 1054 285 1057 288C1062 294 1059 297 1052 292ZM391 291C391 289 392 287 393 286C396 283 397 281 396 279C394 277 393 278 389 282C384 286 382 286 382 282C383 280 383 277 384 274C384 268 388 268 396 275C404 282 408 288 404 288C404 288 401 289 399 290C394 294 391 294 391 291ZM1129 291C1129 291 1130 288 1132 286C1134 284 1135 281 1135 280C1135 277 1137 278 1141 281C1145 285 1145 287 1141 288C1139 288 1137 290 1135 291C1132 293 1129 294 1129 291ZM322 283C317 278 316 276 321 273C326 270 328 270 328 274C327 276 328 279 329 280C330 283 330 287 329 287C328 287 325 285 322 283ZM1120 284C1120 283 1121 280 1121 277C1124 269 1121 268 1115 275C1110 282 1108 281 1109 273C1109 269 1109 267 1108 266C1105 264 1103 266 1103 272C1103 276 1102 276 1100 276C1099 276 1098 276 1098 273C1098 268 1096 266 1094 266C1092 266 1091 267 1091 272C1090 280 1088 280 1085 271C1082 262 1083 262 1097 262C1106 262 1109 262 1112 264C1115 265 1117 266 1119 266C1120 266 1122 267 1123 268C1124 269 1126 270 1127 270C1129 270 1133 274 1133 275C1133 276 1123 286 1121 286C1121 286 1120 285 1120 284ZM336 280C335 279 334 276 334 275C333 273 332 272 331 272C331 272 330 271 330 270C330 269 332 267 337 265C345 262 346 262 358 262C368 262 371 262 374 264C376 265 379 266 379 266C381 266 381 268 379 272C376 279 373 281 372 281C370 280 370 279 370 274C371 264 366 263 365 273C365 277 364 278 362 278C361 278 360 277 360 274C360 266 356 265 354 272C354 276 352 278 350 278C348 278 348 278 347 273C346 270 343 268 342 270C341 270 341 272 342 274C343 276 343 278 342 280C341 283 339 283 336 280ZM707 274C688 267 678 243 686 224C691 215 699 207 707 205C733 197 756 213 756 239C756 244 756 250 755 252C754 257 748 264 740 270L734 275L723 276C715 276 712 276 707 274ZM806 273C801 269 798 264 800 256C801 250 807 245 813 245C821 245 829 253 829 260C829 264 826 271 823 272C818 275 811 275 806 273ZM855 274C851 272 847 263 847 259C848 252 856 245 863 245C867 245 873 249 876 254L879 259L876 265C875 268 872 271 871 272C867 275 859 276 855 274ZM904 273C896 269 893 261 897 253C904 242 920 243 924 255C926 261 926 265 922 269C917 275 911 276 904 273ZM953 274C952 274 949 272 947 269C941 261 941 257 947 251C952 247 952 247 958 246C965 246 965 246 969 250C974 255 975 259 972 266C969 274 965 276 953 274ZM1233 274C1230 272 1220 262 1218 256C1213 248 1213 241 1216 237C1218 235 1219 235 1223 236C1234 239 1249 262 1244 271C1242 275 1239 276 1233 274ZM185 260C178 257 173 250 173 243C173 235 185 226 194 227C203 229 209 236 208 245C208 252 207 255 201 259C196 262 190 263 185 260ZM732 261C734 258 732 254 728 253C724 252 725 249 729 242C733 236 733 235 733 229C733 222 732 220 728 218C723 215 718 216 714 219C709 223 708 225 710 229C713 234 718 234 719 229C719 227 720 226 721 226C724 226 723 231 719 237C718 240 716 244 715 245C714 246 713 249 711 250C708 254 708 257 711 260C713 262 714 262 722 262C727 262 731 262 732 261ZM1181 229C1176 224 1171 220 1166 217C1158 213 1143 207 1139 207C1138 207 1135 206 1132 205C1129 204 1122 203 1118 202C1113 201 1107 200 1104 200C1090 197 1027 194 970 194C939 193 912 193 912 192C910 192 877 191 812 190C753 189 697 187 695 186C693 185 692 180 694 178C695 177 698 177 704 177C716 178 764 180 821 181C850 182 886 183 900 183C915 183 952 184 982 185C1065 187 1083 188 1113 193C1119 194 1125 195 1127 194C1130 194 1132 194 1134 196C1135 197 1138 198 1139 198C1140 198 1144 199 1148 201C1152 203 1156 204 1156 204C1157 204 1161 206 1166 208C1178 214 1194 229 1194 233C1193 239 1190 238 1181 229Z";
+function car(body,a2,a3){const accent=a3===undefined?a2:a3;return `<ellipse cx="100" cy="86.6" rx="90" ry="2.2" fill="${body}" opacity=".18"/><g transform="translate(-13.47 15.53) scale(0.16638)"><path d="${CARD}" fill="${body}" fill-rule="evenodd"/></g><path d="M28 90H100C106 90 108 87.4 114 87.4H186" fill="none" stroke="${accent}" stroke-width="2.2"/>`;}
+const carSvg=(b,d,a,w)=>`<svg viewBox="0 28 200 62" style="width:${w}" role="img" aria-label="Isotipo Undercut">${car(b,d,a)}</svg>`;
+let wmId=0;function wordmark(fg,accent,h){const id='wm'+(wmId++);return `<svg viewBox="0 0 400 64" style="height:${h}px" role="img" aria-label="Undercut"><defs><mask id="${id}"><rect x="0" y="0" width="400" height="64" fill="#fff"/><rect x="0" y="34" width="400" height="3" fill="#000"/></mask></defs><g transform="translate(0 -6) scale(.54)">${car(fg,"#0f0f0f",accent)}</g><text x="114" y="44" ${EXO} font-size="44" textLength="280" lengthAdjust="spacingAndGlyphs" fill="${fg}" mask="url(#${id})">UNDERCUT</text><path d="M114 54H260C266 54 268 59 274 59H394" fill="none" stroke="${accent}" stroke-width="2.6"/></svg>`;}
+document.querySelectorAll('[data-logo]').forEach(el=>el.innerHTML=wordmark(el.closest('header')?'#111111':W,R,+el.dataset.logo));
+
+/* ---------- Relojes ---------- */
+const P=(cx,cy,r,a)=>[cx+r*Math.sin(a*Dg),cy-r*Math.cos(a*Dg)];
+function defs(id){return `<defs><linearGradient id="${id}st" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".35" stop-color="#b9bdc1"/><stop offset=".6" stop-color="#e2e4e6"/><stop offset="1" stop-color="#6d7276"/></linearGradient><linearGradient id="${id}br" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7d8286"/><stop offset=".5" stop-color="#d7dadd"/><stop offset="1" stop-color="#7d8286"/></linearGradient><linearGradient id="${id}po" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa0a4"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa0a4"/></linearGradient><radialGradient id="${id}gl" cx="35%" cy="25%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient><filter id="${id}sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity=".35"/></filter></defs>`;}
+const hand=(cx,cy,a,len,w,fill,lume,tail=14)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx-w/2} ${cy+tail}L${cx-w*.42} ${cy-len}L${cx} ${cy-len-6}L${cx+w*.42} ${cy-len}L${cx+w/2} ${cy+tail}Z" fill="${fill}" stroke="#000" stroke-opacity=".4" stroke-width=".7"/>${lume?`<path d="M${cx-w*.2} ${cy-len*.25}L${cx-w*.18} ${cy-len+4}L${cx+w*.18} ${cy-len+4}L${cx+w*.2} ${cy-len*.25}Z" fill="${lume}"/>`:''}</g>`;
+const secH=(cx,cy,a,len,c)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx} ${cy+22}V${cy-len}" stroke="${c}" stroke-width="1.6"/><rect x="${cx-3}" y="${cy-len+10}" width="6" height="6" fill="${c}"/><circle cx="${cx}" cy="${cy+18}" r="3.5" fill="${c}"/></g>`;
+function subdial(x,y,r,bg,ink,ring,hc,a=40,n=30){let s=`<circle cx="${x}" cy="${y}" r="${r}" fill="${bg}"/><circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${ring}" stroke-width="1.6"/>`;for(let i=0;i<n;i++){const big=i%5===0;const[x1,y1]=P(x,y,r-2,i*360/n),[x2,y2]=P(x,y,r-(big?6:4),i*360/n);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${ink}" stroke-width="${big?1.2:.6}"/>`;}return s+`<g transform="rotate(${a} ${x} ${y})"><path d="M${x} ${y+3}V${y-r+4}" stroke="${hc}" stroke-width="1.8" stroke-linecap="round"/></g><circle cx="${x}" cy="${y}" r="2.2" fill="${hc}"/>`;}
+
+function pole(v){const id='a'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Pole Chrono, ${v.n}">${defs(id)}`;
+  for(const [y0,y1] of [[-10,118],[322,450]])for(let y=y0;y<y1;y+=19){const t=Math.abs((y<220?118-y:y-322))/130;const w=78-t*8;s+=`<rect x="${cx-w/2}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/><rect x="${cx-w/6+.5}" y="${y}" width="${w/3-1}" height="18" rx="3" fill="url(#${id}po)"/><rect x="${cx+w/6+1}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/>`;}
+  s+=`<g filter="url(#${id}sh)">`;for(const x of [cx-50,cx+28])for(const y of [108,300])s+=`<path d="M${x} ${y}h22v32h-22z" fill="url(#${id}st)"/>`;
+  s+=`<path d="M${cx+84} ${cy-22}L${cx+100} ${cy-16}V${cy+16}L${cx+84} ${cy+22}Z" fill="url(#${id}st)"/><rect x="${cx+98}" y="${cy-9}" width="12" height="18" rx="2" fill="url(#${id}st)"/>`;
+  for(const a of [-36,36])s+=`<g transform="rotate(${a} ${cx} ${cy})"><rect x="${cx+86}" y="${cy-7}" width="16" height="14" rx="2" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="90" fill="url(#${id}st)"/></g><circle cx="${cx}" cy="${cy}" r="86" fill="${v.bezel}"/>`;
+  for(const val of [400,300,250,200,170,150,130,120,110,100,90,80,75,70,65,60]){const a=(3600/val)*6%360;const[x,y]=P(cx,cy,79,a);const rot=(a>90&&a<270)?a+180:a;s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="7.2" fill="${v.bezelInk}" transform="rotate(${rot} ${x} ${y})">${val}</text>`;}
+  s+=`<circle cx="${cx}" cy="${cy}" r="71" fill="${v.dial}"/>`;
+  for(let i=0;i<300;i++){const a=i*1.2;const big=i%25===0;const[x1,y1]=P(cx,cy,70,a),[x2,y2]=P(cx,cy,big?65:67.5,a);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${big?.9:.35}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===9||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-2.6}" y="${y-(h===0?9:7)}" width="5.2" height="${h===0?18:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5"/><rect x="${x-1.2}" y="${y-(h===0?7:5)}" width="2.4" height="${h===0?14:10}" fill="#eef2e6"/></g>`;}
+  s+=subdial(cx-34,cy,18,v.sub,v.subInk,'#9aa0a4',v.subInk,210)+subdial(cx+34,cy,18,v.sub,v.subInk,R,R,60);
+  s+=`<rect x="${cx-15}" y="${cy+38}" width="30" height="13" rx="2" fill="${v.sub}" stroke="#9aa0a4"/><text x="${cx}" y="${cy+45.5}" text-anchor="middle" dominant-baseline="central" ${EXO} font-size="7.5" fill="${R}">POLE 15</text>`;
+  s+=`<text x="${cx}" y="${cy-36}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text><text x="${cx}" y="${cy-24}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.2" fill="${v.ink}" opacity=".85">AUTOMATIC CHRONOGRAPH</text>`;
+  s+=hand(cx,cy,305,40,7,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,60,5,`url(#${id}po)`,'#eef2e6')+secH(cx,cy,180,66,R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><circle cx="${cx}" cy="${cy}" r="86" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+function paddock(v){const id='b'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Paddock GT, ${v.n}">${defs(id)}<defs><radialGradient id="${id}d" cx="45%" cy="35%" r="75%"><stop offset="0" stop-color="${v.dialHi}"/><stop offset="1" stop-color="${v.dial}"/></radialGradient><pattern id="${id}tr" width="14" height="12" patternUnits="userSpaceOnUse"><path d="M0 9L7 3L14 9" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="2.2"/></pattern><clipPath id="${id}c"><circle cx="${cx}" cy="${cy}" r="72"/></clipPath></defs>`;
+  for(const [y0,y1,dir] of [[-10,130,-1],[310,450,1]])for(let y=y0;y<y1;y+=16){const t=dir<0?(130-y)/140:(y-310)/140;const w=104-t*22;s+=`<rect x="${cx-w/2}" y="${y}" width="${w}" height="15" rx="2" fill="url(#${id}br)"/><rect x="${cx-3}" y="${y}" width="6" height="15" fill="#5d6266"/>`;}
+  s+=`<g filter="url(#${id}sh)"><path d="M${cx-52} 128L${cx-70} 160H${cx+70}L${cx+52} 128Z" fill="url(#${id}st)"/><path d="M${cx-52} 312L${cx-70} 280H${cx+70}L${cx+52} 312Z" fill="url(#${id}st)"/><rect x="${cx+84}" y="${cy-9}" width="13" height="18" rx="3" fill="url(#${id}st)"/><circle cx="${cx}" cy="${cy}" r="88" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="84" fill="url(#${id}br)"/><circle cx="${cx}" cy="${cy}" r="78" fill="url(#${id}po)"/><circle cx="${cx}" cy="${cy}" r="74" fill="#3c4044"/><circle cx="${cx}" cy="${cy}" r="72" fill="url(#${id}d)"/><rect x="${cx-72}" y="${cy-72}" width="144" height="144" fill="url(#${id}tr)" clip-path="url(#${id}c)"/>`;
+  for(let i=0;i<60;i++){const[x1,y1]=P(cx,cy,71,i*6),[x2,y2]=P(cx,cy,68,i*6);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${i%5?.5:1}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);const big=h===0;s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-(big?5:2.8)}" y="${y-9}" width="${big?10:5.6}" height="18" rx="1.2" fill="url(#${id}po)" stroke="#000" stroke-opacity=".45" stroke-width=".5"/></g>`;}
+  s+=`<rect x="${cx+42}" y="${cy-8}" width="20" height="16" rx="1.5" fill="#fafafa" stroke="url(#${id}po)" stroke-width="2"/><text x="${cx+52}" y="${cy+.5}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="9" fill="#151515">15</text><circle cx="${cx}" cy="${cy+36}" r="16" fill="${v.sub}"/>`;
+  for(let i=0;i<8;i++)for(let j=0;j<2;j++)if((i+j)%2===0)s+=`<rect x="${cx-8+i*2}" y="${cy+44+j*2}" width="2" height="2" fill="${v.ink}"/>`;
+  const sc=v.n==='Rosso'?W:R;s+=`<g transform="rotate(130 ${cx} ${cy+36})"><path d="M${cx} ${cy+40}V${cy+22}" stroke="${sc}" stroke-width="1.4"/></g><circle cx="${cx}" cy="${cy+36}" r="1.8" fill="${sc}"/>`;
+  s+=`<text x="${cx}" y="${cy-34}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text><text x="${cx}" y="${cy-22}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.4" fill="${v.ink}" opacity=".85">PADDOCK GT · AUTOMATIC</text>`;
+  s+=hand(cx,cy,305,42,7.5,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,62,5.2,`url(#${id}po)`,'#eef2e6')+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><circle cx="${cx}" cy="${cy}" r="74" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+function square(v){const id='c'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Box Square, ${v.n}">${defs(id)}<defs><linearGradient id="${id}dd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>`;
+  for(const dir of [-1,1]){s+=`<path d="${dir<0?`M${cx-46} 135L${cx-40} -10H${cx+40}L${cx+46} 135Z`:`M${cx-46} 305L${cx-40} 450H${cx+40}L${cx+46} 305Z`}" fill="${v.strap}"/><path d="${dir<0?`M${cx-40} 130L${cx-35} -10M${cx+40} 130L${cx+35} -10`:`M${cx-40} 310L${cx-35} 450M${cx+40} 310L${cx+35} 450`}" stroke="${v.stitch}" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+    for(const y of (dir<0?[10,26,42,58,74,90,106]:[324,340,356,372,388,404,420]))for(const x of [-22,-11,0,11,22])s+=`<circle cx="${cx+x}" cy="${y}" r="2.6" fill="#000" opacity=".7"/>`;}
+  s+=`<g filter="url(#${id}sh)"><rect x="${cx+86}" y="${cy-10}" width="13" height="20" rx="3" fill="url(#${id}st)"/>`;for(const dy of [-52,52])s+=`<rect x="${cx+84}" y="${cy+dy-8}" width="14" height="16" rx="3" fill="url(#${id}st)"/>`;
+  s+=`<rect x="${cx-90}" y="${cy-90}" width="180" height="180" rx="38" fill="url(#${id}st)"/></g><rect x="${cx-82}" y="${cy-82}" width="164" height="164" rx="32" fill="url(#${id}br)"/><rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="#2e3236"/><rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="${v.dial}"/><rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="url(#${id}dd)"/>`;
+  s+=`<rect x="${cx-12}" y="${cy-70}" width="10" height="140" fill="${v.stripe}"/><rect x="${cx+2}" y="${cy-70}" width="10" height="140" fill="${v.stripe}" opacity=".9"/>`;
+  for(let h=0;h<12;h++){if(h===0||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,58,a);const hz=(h===3||h===9);s+=`<rect x="${x-(hz?10:2.6)}" y="${y-(hz?2.8:7)}" width="${hz?20:5.2}" height="${hz?5.6:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5" ${hz?'':`transform="rotate(${a} ${x} ${y})"`}/>`;}
+  s+=subdial(cx,cy-36,19,v.sub,v.subInk,'#8f9498',v.subInk,30)+subdial(cx,cy+36,19,v.sub,v.subInk,R,R,250);
+  s+=`<text x="${cx-40}" y="${cy-56}" text-anchor="middle" ${EXO} font-size="9" letter-spacing="1" fill="${v.ink}">UNDERCUT</text><text x="${cx+40}" y="${cy-56}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1" fill="${v.ink}" opacity=".85">BOX SQUARE</text>`;
+  s+=hand(cx,cy,305,40,7,`url(#${id}po)`,'#eef2e6')+hand(cx,cy,60,58,5,`url(#${id}po)`,'#eef2e6')+secH(cx,cy,90,62,v.stripe===R?W:R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf"/><rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="url(#${id}gl)"/>`;return s+`</svg>`;}
+
+const WATCHES={
+ pole:{view:'pole-chrono',ref:'UC-01',name:'Pole Chrono',fn:pole,price:1290000,kind:'Cronógrafo de pista',
+  lead:'El cronógrafo para marcar la vuelta más rápida. Bisel taquimétrico de cerámica, esfera tipo panda y contador de vueltas en rojo.',
+  story:'Pensado para el entusiasta que mide todo: la vuelta, el tramo, el café. Dos contadores limpios, una ventana "POLE" con la fecha y pulsadores protegidos como la jaula antivuelco de un auto de carrera.',
+  feat:[['40','mm de caja'],['62','h de reserva'],['100','m de agua']],
+  specs:[['Caja','40 mm · acero 316L · 12,4 mm'],['Bisel','Cerámica negra fija, taquímetro 60–400'],['Movimiento','Automático cronógrafo, 27 rubíes'],['Funciones','Horas, minutos, segundos, cronógrafo 30 min, fecha'],['Cristal','Zafiro antirreflejo, fondo de zafiro'],['Brazalete','Tres eslabones, cierre desplegable']],
+  v:[{n:'Panda',dot:'#f2f0eb',dial:'#f2f0eb',sub:'#151515',ink:'#151515',subInk:'#e9e7e1',bezel:'#121212',bezelInk:'#f2f0eb'},{n:'Panda invertido',dot:'#151515',dial:'#121212',sub:'#ecebe6',ink:'#ecebe6',subInk:'#151515',bezel:'#121212',bezelInk:'#ecebe6'},{n:'Rosso',dot:R,dial:'#b90912',sub:'#141414',ink:W,subInk:'#ecebe6',bezel:'#121212',bezelInk:W}]},
+ paddock:{view:'paddock-gt',ref:'UC-02',name:'Paddock GT',fn:paddock,price:890000,kind:'Deportivo de brazalete integrado',
+  lead:'El reloj para el paddock y la oficina. Caja plana, brazalete integrado y esfera con textura de neumático de lluvia.',
+  story:'Delgado para pasar bajo el puño de la camisa, firme para el fin de semana. La esfera grabada recuerda la banda de rodadura y el segundero pequeño lleva una bandera a cuadros.',
+  feat:[['39','mm de caja'],['9,2','mm de alto'],['70','h de reserva']],
+  specs:[['Caja','39 mm · acero 316L · 9,2 mm'],['Bisel','Satinado con chaflán pulido'],['Movimiento','Automático ultraplano, 25 rubíes'],['Funciones','Horas, minutos, segundero pequeño, fecha'],['Esfera','Textura de banda de rodadura, índices aplicados'],['Brazalete','Integrado, cierre oculto']],
+  v:[{n:'Rosso',dot:R,dial:'#b8070f',dialHi:'#e0222b',ink:W,sub:'#7d050a'},{n:'Carbono',dot:'#1a1a1a',dial:'#141414',dialHi:'#2c2c2c',ink:'#ecebe6',sub:'#0b0b0b'},{n:'Plata pista',dot:'#cfd2d4',dial:'#c9ccce',dialHi:'#eef0f1',ink:'#151515',sub:'#a9adb0'}]},
+ box:{view:'box-square',ref:'UC-03',name:'Box Square',fn:square,price:1090000,kind:'Cronógrafo cuadrado',
+  lead:'El reloj del muro de boxes, para quien dirige la carrera. Caja cuadrada, contadores en vertical y franja de carrera.',
+  story:'Inspirado en los años setenta, cuando las cajas cuadradas llegaron a la pista. La franja doble cruza la esfera de arriba abajo y la correa perforada recuerda el guante del piloto.',
+  feat:[['39','mm por lado'],['48','h de reserva'],['100','m de agua']],
+  specs:[['Caja','39 × 39 mm · acero cepillado · 13,8 mm'],['Esfera','Con franja de carrera, contadores en vertical'],['Movimiento','Automático cronógrafo'],['Funciones','Horas, minutos, cronógrafo 30 min, segundero pequeño'],['Cristal','Zafiro plano antirreflejo'],['Correa','Cuero perforado, costura de color, hebilla desplegable']],
+  v:[{n:'Carbono',dot:'#1a1a1a',dial:'#141414',stripe:R,ink:'#ecebe6',sub:'#d8dadc',subInk:'#151515',strap:'#151515',stitch:R},{n:'Rosso',dot:R,dial:'#b8070f',stripe:'#151515',ink:W,sub:'#151515',subInk:'#ecebe6',strap:'#151515',stitch:W},{n:'Azul de pista',dot:'#1d3d6e',dial:'#173764',stripe:R,ink:'#eef1f6',sub:'#e3e6ea',subInk:'#152038',strap:'#14223a',stitch:'#cfd6e2'}]},
+};
+WATCHES.pole.photos=['a/pole-hombre','a/pole-camisa','pole-1','pole-2','pole-3','pole-4'];
+WATCHES.paddock.photos=['a/paddock-hombre','a/paddock-muneca','a/paddock-mujer','paddock-1','paddock-3','paddock-2','paddock-4','paddock-6','paddock-5'];
+WATCHES.box.photos=['a/box-chaqueta','a/reloj-lino','box-2','box-1','box-3','box-4','box-5','box-6'];
+
+/* ---------- Ilustraciones de ropa y accesorios ---------- */
+const sh=(cx,cy,rx)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="8" fill="#000" opacity=".14"/>`;
+const ub=(x,y,s,a,b,c)=>`<g transform="translate(${x-6*s} ${y+22*s}) scale(${s*.56})">${carS(a,c)}</g>`;
+const ART={
+polo:(c=R,tip=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M95 60L125 48Q150 62 175 48L205 60L250 95L232 130L210 118V260Q150 268 90 260V118L68 130L50 95Z" fill="${c}"/><path d="M90 118V260Q100 262 112 263V130Z" fill="#000" opacity=".14"/><path d="M56 99L73 125M244 99L227 125" stroke="${tip}" stroke-width="4"/><path d="M61 96L78 122M239 96L222 122" stroke="${W}" stroke-width="2"/><rect x="144" y="66" width="12" height="46" fill="#000" opacity=".2"/><circle cx="150" cy="80" r="2.6" fill="${W}"/><circle cx="150" cy="96" r="2.6" fill="${W}"/><path d="M121 46L140 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/><path d="M179 46L160 84L150 66Z" fill="#000" opacity=".25" stroke="${tip}" stroke-width="3"/>${ub(172,88,.26,c===R?K:R,W,c===R?R:K)}</svg>`,
+jacket:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 55L128 45H172L200 55L235 80L262 235L236 242L212 130V262H88V130L64 242L38 235L65 80Z" fill="#1d1d1d"/><path d="M74 84L50 238M226 84L250 238" stroke="${R}" stroke-width="8"/><path d="M83 86L59 240M217 86L241 240" stroke="${W}" stroke-width="2.5"/><rect x="88" y="138" width="124" height="16" fill="${R}"/><path d="M128 45H172L170 28H130Z" fill="#2a2a2a" stroke="${R}" stroke-width="2"/><path d="M150 28V262" stroke="#9ea3a6" stroke-width="2.5"/>${ub(166,66,.32,R,W,K)}</svg>`,
+tee:(c='#c6c9c3',ink=K)=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L125 45Q150 52 175 45L202 55L250 92L230 126L210 114V262H90V114L70 126L50 92Z" fill="${c}"/><path d="M125 45Q150 52 175 45" fill="none" stroke="#000" stroke-opacity=".2" stroke-width="4"/>${ub(124,74,.52,R,W,K)}<text x="150" y="168" text-anchor="middle" ${EXO} font-size="26" textLength="110" lengthAdjust="spacingAndGlyphs" fill="${ink}">UNDERCUT</text><path d="M95 178H205" stroke="${ink}" stroke-width="2"/><path d="M150 178L156 184H200" fill="none" stroke="${R}" stroke-width="2"/><text x="150" y="200" text-anchor="middle" ${MONO} font-size="7" textLength="104" lengthAdjust="spacingAndGlyphs" fill="${ink}">AVANZA CON LA AYUDA DE TU BOX</text></svg>`,
+shirt:()=>`<svg viewBox="0 0 300 300">${sh(150,272,88)}<path d="M98 55L128 44L150 60L172 44L202 55L248 210L228 216L210 120V262H90V120L72 216L52 210Z" fill="#eef0f3"/><path d="M128 44L140 74L150 60L160 74L172 44" fill="#fff" stroke="#c9ced6"/><path d="M150 60V262" stroke="#c9ced6" stroke-width="2"/>${[90,120,150,180,210,240].map(y=>`<circle cx="154" cy="${y}" r="2" fill="#9aa3ad"/>`).join('')}<rect x="52" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(-16 62 208)"/><circle cx="62" cy="208" r="4" fill="${R}"/><rect x="228" y="200" width="20" height="16" fill="#fff" stroke="#c9ced6" transform="rotate(16 238 208)"/><circle cx="238" cy="208" r="4" fill="${R}"/>${ub(168,92,.2,R,"#eef0f3",K)}</svg>`,
+hoodie:()=>`<svg viewBox="0 0 300 300">${sh(150,272,100)}<path d="M100 62Q150 20 200 62L238 86L262 236L236 242L212 136V262H88V136L64 242L38 236L62 86Z" fill="${R}"/><path d="M118 60Q150 92 182 60Q170 40 150 38Q130 40 118 60Z" fill="${RD}"/><path d="M140 80V118M160 80V118" stroke="${W}" stroke-width="2"/><rect x="110" y="196" width="80" height="40" rx="6" fill="#000" opacity=".12"/>${ub(130,128,.4,K,W,R)}</svg>`,
+cap:()=>`<svg viewBox="0 0 300 300">${sh(150,232,96)}<path d="M74 176Q72 86 150 80Q228 86 226 176Z" fill="${K}"/><path d="M110 90Q100 130 104 176M190 90Q200 130 196 176" stroke="#2c2c2c" stroke-width="2" fill="none"/><circle cx="150" cy="82" r="6" fill="${R}"/><path d="M56 180Q150 150 244 180Q150 222 56 180Z" fill="#1f1f1f"/><path d="M60 180Q150 152 240 180" fill="none" stroke="${R}" stroke-width="3"/>${ub(124,100,.52,R,W,K)}</svg>`,
+wallet:()=>`<svg viewBox="0 0 300 300">${sh(150,236,100)}<defs><pattern id="dq${uid}" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="18" height="18" fill="#1a1a1a"/><path d="M0 0H18M0 0V18" stroke="#000" stroke-width="2" opacity=".6"/></pattern></defs><rect x="56" y="80" width="188" height="140" rx="12" fill="url(#dq${uid++})"/><rect x="64" y="88" width="172" height="124" rx="8" fill="none" stroke="${R}" stroke-width="1.6" stroke-dasharray="4 3"/><rect x="222" y="80" width="10" height="140" fill="${R}"/>${ub(78,160,.36,'#2a2a2a','#5b5b5b','#2a2a2a')}</svg>`,
+belt:()=>`<svg viewBox="0 0 300 300">${sh(150,206,120)}<path d="M110 132H262Q282 132 286 150Q282 168 262 168H110Z" fill="${COG}"/><path d="M112 138H260Q276 138 279 150Q276 162 260 162H112" fill="none" stroke="#e3cfa8" stroke-width="1.3" stroke-dasharray="4 3"/><circle cx="214" cy="150" r="3.4" fill="${COGD}"/><circle cx="232" cy="150" r="3.4" fill="${COGD}"/><circle cx="250" cy="150" r="3.4" fill="${COGD}"/><rect x="122" y="126" width="14" height="48" rx="3" fill="${COGD}"/><defs><linearGradient id="bk${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0f1"/><stop offset=".5" stop-color="#a8adb0"/><stop offset="1" stop-color="#6c7174"/></linearGradient></defs><rect x="18" y="114" width="98" height="72" rx="14" fill="url(#bk${uid++})"/><rect x="30" y="134" width="56" height="32" rx="6" fill="${R}"/><text x="58" y="156" text-anchor="middle" ${EXO} font-size="16" fill="${W}">BOX</text></svg>`,
+cuff:()=>{const g='cs'+(uid++);let sp='';for(let i=0;i<5;i++)sp+=`<rect x="92" y="104" width="8" height="34" rx="3" fill="#7f8487" transform="rotate(${i*72} 96 140)"/>`;return `<svg viewBox="0 0 300 300">${sh(150,206,110)}<defs><radialGradient id="${g}" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f4f5f5"/><stop offset=".6" stop-color="#a9adb0"/><stop offset="1" stop-color="#6a6f72"/></radialGradient></defs><circle cx="96" cy="140" r="50" fill="#111"/><circle cx="96" cy="140" r="38" fill="url(#${g})"/>${sp}<circle cx="96" cy="140" r="9" fill="${R}"/><circle cx="208" cy="140" r="48" fill="url(#${g})"/>${ub(183,110,.5,R,W,K)}</svg>`;},
+tie:()=>{const g='ck'+(uid++);return `<svg viewBox="0 0 300 300">${sh(150,284,46)}<defs><pattern id="${g}" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><rect width="26" height="26" fill="${R}"/><path d="M3 20C7 6 13 6 15 13S22 22 24 8" fill="none" stroke="${W}" stroke-width="1.1" opacity=".5"/></pattern></defs><path d="M133 26H167L161 62H139Z" fill="${RD}"/><path d="M139 62H161L190 236L150 276L110 236Z" fill="url(#${g})"/>${ub(138,222,.24,K,W,R)}</svg>`;},
+bag:()=>`<svg viewBox="0 0 300 300">${sh(150,250,118)}<path d="M118 118Q118 78 150 78Q182 78 182 118" fill="none" stroke="${COGD}" stroke-width="9" stroke-linecap="round"/><rect x="38" y="112" width="224" height="128" rx="48" fill="${COG}"/><rect x="124" y="112" width="16" height="128" fill="${K}"/><rect x="144" y="112" width="12" height="128" fill="${W}"/><rect x="160" y="112" width="16" height="128" fill="${R}"/><path d="M70 116H230" stroke="${COGD}" stroke-width="4"/>${ub(196,150,.4,COGD,'#e3cfa8',COGD)}</svg>`,
+pouch:()=>{const g='hb'+(uid++);return `<svg viewBox="0 0 300 300">${sh(150,246,112)}<defs><pattern id="${g}" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#9a9ea2"/><path d="M0 8L4 0L8 8" fill="none" stroke="#83878b" stroke-width="1.2"/></pattern></defs><rect x="46" y="96" width="208" height="146" rx="26" fill="url(#${g})"/><path d="M52 104Q150 86 248 104" fill="none" stroke="#2a2a2a" stroke-width="6"/><rect x="128" y="96" width="14" height="146" fill="#1d1d1d"/><rect x="142" y="96" width="14" height="146" fill="${W}"/><rect x="156" y="96" width="14" height="146" fill="${R}"/>${ub(130,150,.4,'#e9e9e6','#555','#e9e9e6')}<path d="M226 240h28v-26" fill="none" stroke="#2a2a2a" stroke-width="10"/></svg>`;},
+pen:()=>{const g='pn'+(uid++);return `<svg viewBox="0 0 300 300"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2353d"/><stop offset=".5" stop-color="${R}"/><stop offset="1" stop-color="#6e050a"/></linearGradient><linearGradient id="${g}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#8a8f93"/></linearGradient></defs><rect x="30" y="84" width="240" height="150" rx="6" fill="#262626"/><rect x="40" y="94" width="220" height="56" fill="#1b1b1b"/><text x="150" y="128" text-anchor="middle" ${EXO} font-size="18" letter-spacing="2" fill="#d9d9d6">UNDERCUT</text><rect x="40" y="160" width="220" height="64" fill="#333"/><path d="M58 192L74 186H226L238 190L238 196L226 200H74Z" fill="url(#${g})"/><path d="M58 192L48 193L58 194Z" fill="#cfd2d4"/><rect x="74" y="185" width="10" height="16" fill="url(#${g}c)"/><rect x="226" y="186" width="12" height="14" fill="url(#${g}c)"/><path d="M168 184H232" stroke="url(#${g}c)" stroke-width="3"/><rect x="146" y="176" width="22" height="34" rx="3" fill="#4a4a4a"/><circle cx="238" cy="193" r="2.5" fill="${R}"/></svg>`;},
+key:()=>`<svg viewBox="0 0 300 300">${sh(150,262,70)}<circle cx="150" cy="56" r="24" fill="none" stroke="#c7cacc" stroke-width="6"/><rect x="138" y="76" width="24" height="18" rx="4" fill="#c7cacc"/><path d="M108 96H192Q204 96 204 108V214Q204 236 150 256Q96 236 96 214V108Q96 96 108 96Z" fill="${K}"/><path d="M112 104H188Q196 104 196 112V212Q196 230 150 247Q104 230 104 212V112Q104 104 112 104Z" fill="none" stroke="${R}" stroke-width="1.4" stroke-dasharray="4 3"/>${ub(115,128,.7,R,W,K)}</svg>`,
+strap:()=>`<svg viewBox="0 0 300 300">${[[70,K,R],[150,COG,'#e3cfa8'],[230,'#1d2a44','#cfd6e2']].map(([x,c,st])=>`<rect x="${x-24}" y="40" width="48" height="220" rx="10" fill="${c}"/><rect x="${x-18}" y="46" width="36" height="208" rx="6" fill="none" stroke="${st}" stroke-width="1.3" stroke-dasharray="4 3"/>${[80,104,128,152,176,200].map(y=>`<circle cx="${x}" cy="${y}" r="3" fill="#000" opacity=".5"/>`).join('')}`).join('')}</svg>`,
+case:()=>`<svg viewBox="0 0 300 300">${sh(150,246,110)}<rect x="40" y="90" width="220" height="150" rx="14" fill="${K}"/><path d="M40 160H260" stroke="${R}" stroke-width="4"/>${[80,150,220].map(x=>`<ellipse cx="${x}" cy="200" rx="26" ry="16" fill="#2b2b2b"/><ellipse cx="${x}" cy="196" rx="20" ry="12" fill="#3a3a3a"/>`).join('')}${ub(132,104,.32,R,W,K)}</svg>`,
+};
+
+/* ---------- Catálogo ---------- */
+const PRODUCTS=[
+ {id:'polo-rosso',c:'ropa',t:'Polos',name:'Polo Rosso',sub:'Piqué de algodón · auto bordado',price:49990,img:'polo-rojo-nuevo',art:()=>ART.polo(R,K),badge:'Nuevo'},
+ {id:'polo-carbono',c:'ropa',t:'Polos',name:'Polo Carbono',sub:'Piqué de algodón · ribete rojo',price:39990,old:49990,img:'polo-negro',art:()=>ART.polo('#1c1c1c',R)},
+ {id:'chaqueta-box',c:'ropa',t:'Chaquetas',name:'Chaqueta Box',sub:'Nylon técnico · franjas rojas',price:159990,old:189990,art:()=>ART.jacket()},
+ {id:'poleron-pit',c:'ropa',t:'Polerones',name:'Polerón Pit Crew',sub:'Algodón perchado · negro con auto rojo',price:69990,img:'poleron-nuevo',art:()=>ART.hoodie(),badge:'Nuevo'},
+ {id:'camisa-gt',c:'ropa',t:'Camisas',name:'Camisa Gran Turismo',sub:'Popelina blanca · puño para colleras',price:64990,img:'camisa-nueva',art:()=>ART.shirt()},
+ {id:'polera-taller',c:'ropa',t:'Poleras',name:'Polera Taller',sub:'Algodón orgánico · negra o blanca',price:29990,img:'poleras',art:()=>ART.tee()},
+ {id:'polera-negra',c:'ropa',t:'Poleras',name:'Polera Box Negra',sub:'Algodón orgánico · auto en el pecho',price:22990,old:29990,img:'polera-negra-nueva',art:()=>ART.tee('#1c1c1c',W)},
+ {id:'camisa-oxford',c:'ropa',t:'Camisas',name:'Camisa Oxford Celeste',sub:'Oxford de algodón · auto bordado',price:59990,img:'camisa-celeste',art:()=>ART.shirt(),badge:'Nuevo'},
+ {id:'jockey-navy',c:'ropa',t:'Jockeys',name:'Jockey Navy',sub:'Algodón · auto bordado en rojo',price:24990,img:'jockey-navy',art:()=>ART.cap(),badge:'Nuevo'},
+ {id:'jockey',c:'ropa',t:'Jockeys',name:'Jockey Pista',sub:'Seis paneles · auto bordado',price:19990,old:24990,img:'jockey-nuevo',art:()=>ART.cap()},
+ {id:'cinturon',c:'accesorios',t:'Cuero',name:'Cinturón Box',sub:'Cuero negro o rojo · placa con el auto',price:59990,img:'cinturon-cuero',fit:'contain',art:()=>ART.belt(),badge:'Más vendido'},
+ {id:'cinturon-ejecutivo',c:'accesorios',t:'Cuero',name:'Cinturón Ejecutivo',sub:'Cuero café · hebilla de acero con el auto',price:69990,img:'a/cinturon-hombre',art:()=>ART.belt()},
+ {id:'cinturon-clasico',c:'accesorios',t:'Cuero',name:'Cinturón Clásico',sub:'Cuero café envejecido · hebilla de bronce',price:54990,img:'cinturon-cafe',art:()=>ART.belt()},
+ {id:'cinturon-pista',c:'accesorios',t:'Cinturones de tela',name:'Cinturón Pista',sub:'Nylon negro · hebilla de cierre rápido',price:39990,img:'cinturon-nylon',art:()=>ART.belt(),badge:'Nuevo'},
+ {id:'billetera',c:'accesorios',t:'Cuero',name:'Billetera Diamante',sub:'Cuero negro · bloqueo RFID',price:39990,old:49990,art:()=>ART.wallet()},
+ {id:'weekender',c:'accesorios',t:'Bolsos',name:'Weekender Gran Turismo',sub:'Cuero coñac · franja de carrera',price:219990,art:()=>ART.bag()},
+ {id:'neceser',c:'accesorios',t:'Bolsos',name:'Neceser Pit Lane',sub:'Tela espiga · franja tricolor',price:54990,art:()=>ART.pouch(),badge:'Nuevo'},
+ {id:'colleras',c:'accesorios',t:'Joyería',name:'Colleras Llanta y Emblema',sub:'Acero 316L y esmalte',price:44990,art:()=>ART.cuff()},
+ {id:'corbata',c:'accesorios',t:'Seda',name:'Corbata Circuito',sub:'Seda 7,5 cm',price:29990,old:39990,art:()=>ART.tie()},
+ {id:'lapicera',c:'accesorios',t:'Escritura',name:'Lapicera Rosso',sub:'Laca roja guilloché · estuche',price:89990,art:()=>ART.pen(),badge:'Nuevo'},
+ {id:'llavero',c:'accesorios',t:'Cuero',name:'Llavero Insignia',sub:'Cuero negro · argolla cromada',price:19990,art:()=>ART.key()},
+ {id:'correas',c:'accesorios',t:'Relojería',name:'Set de correas rally',sub:'Tres correas de cuero perforado · 20 mm',price:59990,art:()=>ART.strap()},
+ {id:'estuche',c:'accesorios',t:'Relojería',name:'Estuche de viaje',sub:'Para tres relojes · cuero negro',price:79990,art:()=>ART.case()},
+];
+Object.values(WATCHES).forEach(w=>PRODUCTS.push({id:w.view,c:'relojes',t:'Relojes',name:w.name,sub:w.kind,price:w.price,watch:w,tall:true}));
+const byId=id=>PRODUCTS.find(p=>p.id===id);
+
+function card(p){const off=p.old?Math.round((1-p.price/p.old)*100):0;
+  const art=p.watch?`<img src="img/${p.watch.photos[0]}.jpg" alt="${p.name}" loading="lazy">`:p.img?`<img src="img/${p.img}.jpg" alt="${p.name}" loading="lazy" style="object-fit:${p.fit||'cover'};background:#f2f2f0">`:p.art();
+  return `<article class="prod"><div class="ph ${p.tall?'tall':''}">${p.watch?`<a href="#${p.watch.view}" aria-label="Ver ${p.name}" style="display:contents">${art}</a>`:art}${p.badge?`<span class="badge">${p.badge}</span>`:off?`<span class="badge">−${off}%</span>`:''}<button class="add" data-id="${p.id}">Agregar</button></div>
+  <div><div class="name">${p.name}</div><div class="sub">${p.sub}</div></div><div class="price"><b>${fmt(p.price)}</b>${p.old?`<s>${fmt(p.old)}</s><em>−${off}%</em>`:''}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(p.price/6))}</div></article>`;}
+
+function triCard(w,dark=true){return `<a href="#${w.view}"><div class="art"><img src="img/${w.photos[0]}.jpg" alt="${w.name}" loading="lazy"></div><em>${w.ref} · ${w.kind}</em><b>${w.name}</b><span>${fmt(w.price)} · ${w.v.length} colores</span></a>`;}
+
+/* Inicio */
+if(document.getElementById('heroArt'))document.getElementById('heroArt').innerHTML='<img src="img/pole-2.jpg" alt="Reloj Undercut Pole Chrono sobre cuero negro">';
+const CATS=[{n:'Relojes',c:'3 modelos',href:'relojes',bg:'radial-gradient(90% 70% at 50% 40%,#2a2a2a,#0d0d0d)',art:'<img src="img/paddock-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover">'},
+ {n:'Ropa',c:'10 productos',href:'ropa',bg:'#222',art:'<img src="img/polo-rojo-nuevo.jpg" alt="" style="width:100%;height:100%;object-fit:cover">'},
+ {n:'Accesorios',c:'13 productos',href:'accesorios',bg:'#222',art:'<img src="img/jockey-nuevo.jpg" alt="" style="width:100%;height:100%;object-fit:contain;background:#f2f2f0">'}];
+if(document.getElementById('cats'))document.getElementById('cats').innerHTML=CATS.map(c=>`<a class="cat" href="#${c.href}" style="background:${c.bg}"><div class="art">${c.art}</div><div class="lbl"><b>${c.n}</b><span>${c.c}</span></div></a>`).join('');
+document.getElementById('tri').innerHTML=Object.values(WATCHES).map(w=>triCard(w)).join('');
+document.getElementById('newGrid').innerHTML=['polo-rosso','camisa-oxford','cinturon-pista','jockey-navy'].map(id=>card(byId(id))).join('');
+
+/* Relojes */
+document.getElementById('triAll').innerHTML=Object.values(WATCHES).map(w=>triCard(w)).join('');
+document.getElementById('triAll').style.cssText='';
+document.getElementById('triAll').classList.add('tri');
+document.getElementById('watchAcc').innerHTML=['correas','estuche','lapicera','colleras'].map(id=>card(byId(id))).join('');
+
+/* Fichas de reloj */
+document.querySelectorAll('[data-watch]').forEach(el=>{const w=WATCHES[el.dataset.watch];const others=Object.values(WATCHES).filter(o=>o!==w);
+  el.innerHTML=`<div class="pdp-hero"><div class="wrap"><div style="min-width:0"><div class="pdp-art" data-art></div><div class="thumbs" data-thumbs role="group" aria-label="Fotos del reloj"></div></div><div class="pdp-info"><div class="crumbs"><a href="#inicio">Inicio</a> / <a href="#relojes">Relojes</a> / ${w.name}</div><div class="mono" style="color:#ff8f86">${w.ref} · ${w.kind}</div><h1>${w.name}</h1><p class="lead">${w.lead}</p>
+  <div class="mono" style="color:#9a9a96">Color: <span data-vname>${w.v[0].n}</span></div><div class="swatches" role="group" aria-label="Elegir color">${w.v.map((v,i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}"><i style="background:${v.dot}"></i>${v.n}</button>`).join('')}</div>
+  <div class="pdp-price">${fmt(w.price)}</div><div class="cuotas">6 cuotas sin interés de ${fmt(Math.round(w.price/6))} · grabado de tapa incluido</div><div class="cta"><button class="btn" type="button" data-addw>Agregar al carro</button><a class="btn ghost" href="#tiendas">Probar en tienda</a></div></div></div></div>
+  <section class="wrap"><div class="feat">${w.feat.map(f=>`<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('')}</div></section>
+  <section class="wrap"><div class="specs-grid"><div><div class="mono" style="color:var(--rosso)">El diseño</div><h2 style="font-size:clamp(28px,4vw,40px);margin:8px 0 14px">${w.name}</h2><p>${w.story}</p></div><table>${w.specs.map(s=>`<tr><th>${s[0]}</th><td>${s[1]}</td></tr>`).join('')}</table></div></section>
+  <section class="wrap"><div class="head"><h2>Otros relojes</h2></div><div class="others">${others.map(o=>`<a href="#${o.view}"><img src="img/${o.photos[0]}.jpg" alt="" style="width:110px;height:90px;object-fit:cover;border-radius:3px;flex:none"><div><b>${o.name}</b><span class="muted">${o.kind} · ${fmt(o.price)}</span></div></a>`).join('')}</div></section>`;
+  let cur=0;const art=el.querySelector('[data-art]'),thumbs=el.querySelector('[data-thumbs]');
+  const mark=sel=>thumbs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',sel(b)));
+  const showPhoto=i=>{art.innerHTML=`<img src="img/${w.photos[i]}.jpg" alt="${w.name}, foto ${i+1}">`;mark(b=>b.dataset.p==String(i));};
+  const showRender=()=>{art.innerHTML=w.fn(w.v[cur]);thumbs.querySelector('[data-r]').innerHTML=w.fn(w.v[cur]);mark(b=>!!b.dataset.r);};
+  thumbs.innerHTML=w.photos.map((ph,i)=>`<button type="button" data-p="${i}" aria-label="Ver foto ${i+1}"><img src="img/${ph}.jpg" alt=""></button>`).join('')+`<button type="button" data-r="1" aria-label="Ver el reloj en el color elegido">${w.fn(w.v[0])}</button>`;
+  thumbs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;b.dataset.r?showRender():showPhoto(+b.dataset.p);});
+  showPhoto(0);
+  el.querySelector('.swatches').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;el.querySelectorAll('.swatches button').forEach(x=>x.setAttribute('aria-pressed',x===b));showRender();el.querySelector('[data-vname]').textContent=w.v[cur].n;});
+  el.querySelector('[data-addw]').addEventListener('click',()=>addToCart(w.view,w.v[cur].n));
+});
+
+/* Catálogos con filtros */
+const state={ropa:{t:'Todo',sort:'new'},accesorios:{t:'Todo',sort:'new'}};
+function renderGrid(c){const st=state[c];let list=PRODUCTS.filter(p=>p.c===c&&(st.t==='Todo'||p.t===st.t));
+  if(st.sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);if(st.sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);
+  document.getElementById('grid-'+c).innerHTML=list.map(card).join('');}
+document.querySelectorAll('[data-grid]').forEach(box=>{const c=box.dataset.grid;const types=['Todo',...new Set(PRODUCTS.filter(p=>p.c===c).map(p=>p.t))];
+  box.innerHTML=types.map(t=>`<button class="tab" type="button" aria-pressed="${t==='Todo'}" data-t="${t}">${t}</button>`).join('');
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state[c].t=b.dataset.t;box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderGrid(c);});renderGrid(c);});
+document.querySelectorAll('[data-sort]').forEach(s=>s.addEventListener('change',()=>{state[s.dataset.sort].sort=s.value;renderGrid(s.dataset.sort);}));
+
+/* Nuevo y Sale */
+document.getElementById('grid-nuevo').innerHTML=PRODUCTS.filter(p=>p.badge==='Nuevo'||p.watch).map(card).join('');
+document.getElementById('grid-sale').innerHTML=PRODUCTS.filter(p=>p.old).map(card).join('');
+
+/* Historia */
+document.getElementById('storyArt').innerHTML=`<svg viewBox="0 0 400 300" role="img" aria-label="Esquema del undercut: el auto rojo entra a boxes antes y sale adelante"><path d="M30 210H370" stroke="#3a3a3a" stroke-width="34" stroke-linecap="round"/><path d="M30 210H370" stroke="#555" stroke-width="2" stroke-dasharray="10 10"/><path d="M90 210C120 210 130 250 160 250H260C290 250 300 210 330 210" fill="none" stroke="${R}" stroke-width="5"/><text x="210" y="276" text-anchor="middle" ${MONO} font-size="11" fill="#9a9a96" letter-spacing="2">PIT LANE</text><g transform="translate(300 196)"><rect width="44" height="22" rx="6" fill="${R}"/><rect x="34" y="4" width="10" height="14" fill="${W}"/></g><g transform="translate(200 196)"><rect width="44" height="22" rx="6" fill="#8a8a86"/></g><text x="322" y="182" text-anchor="middle" ${EXO} font-size="14" fill="${W}">P1</text><text x="222" y="182" text-anchor="middle" ${EXO} font-size="14" fill="#8a8a86">P2</text><text x="30" y="60" ${EXO} font-size="34" fill="${W}">UNDER<tspan fill="${R}">CUT</tspan></text><text x="30" y="88" ${MONO} font-size="9.5" fill="#9a9a96" letter-spacing="1">AVANZA CON LA AYUDA DE TU BOX</text>${ub(320,26,.5,R,W,K)}</svg>`;
+
+document.getElementById('isoArt').innerHTML=carSvg(W,'#0f0f0f',R,'100%');
+
+/* Carro */
+const cart=[];const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim');let tt;
+function say(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2200);}
+function addToCart(id,variant){const p=byId(id);const key=id+(variant?'|'+variant:'');const l=cart.find(x=>x.key===key);if(l)l.q++;else cart.push({key,id,variant,q:1});renderCart();say(`${p.name}${variant?' '+variant:''} agregado al carro`);}
+function renderCart(){const n=cart.reduce((a,l)=>a+l.q,0);document.getElementById('cartCount').textContent=n;
+  const lines=document.getElementById('lines');
+  if(!cart.length){lines.innerHTML='<p class="empty">Tu carro está vacío. Agrega un reloj, una prenda o un accesorio.</p>';}
+  else lines.innerHTML=cart.map((l,i)=>{const p=byId(l.id);const th=p.watch?p.watch.fn(p.watch.v.find(v=>v.n===l.variant)||p.watch.v[0]):p.img?`<img src="img/${p.img}.jpg" alt="" style="width:64px;height:64px;object-fit:cover">`:p.art();
+    return `<div class="line"><div class="th">${th}</div><div><div style="font-weight:600">${p.name}</div><div class="muted" style="font-size:13px">${l.variant||p.sub}</div><div class="qty"><button type="button" data-q="${i}" data-d="-1" aria-label="Quitar uno">−</button><span>${l.q}</span><button type="button" data-q="${i}" data-d="1" aria-label="Agregar uno">+</button></div></div><b style="font-variant-numeric:tabular-nums">${fmt(p.price*l.q)}</b></div>`;}).join('');
+  const sub=cart.reduce((a,l)=>a+byId(l.id).price*l.q,0);document.getElementById('subtotal').textContent=fmt(sub);
+  document.getElementById('shipNote').textContent=!cart.length?'Agrega productos para ver el despacho':sub>=59990?'Despacho gratis a todo Chile':`Te faltan ${fmt(59990-sub)} para el despacho gratis`;}
+document.getElementById('lines').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(!b)return;const l=cart[+b.dataset.q];l.q+=+b.dataset.d;if(l.q<=0)cart.splice(+b.dataset.q,1);renderCart();});
+function openCart(o){drawer.hidden=!o;scrim.hidden=!o;if(o)document.getElementById('closeCart').focus();}
+document.getElementById('cartBtn').addEventListener('click',()=>openCart(true));
+document.getElementById('closeCart').addEventListener('click',()=>openCart(false));
+scrim.addEventListener('click',()=>openCart(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')openCart(false);});
+document.getElementById('checkout').addEventListener('click',()=>say(cart.length?'Este es un prototipo: el pago aún no está conectado.':'Tu carro está vacío.'));
+document.addEventListener('click',e=>{const b=e.target.closest('.add');if(b)addToCart(b.dataset.id);});
+renderCart();
+
+/* Club */
+document.getElementById('clubForm').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('email').value.trim();
+  document.getElementById('clubMsg').textContent=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)?'Listo. Esta es una versión de prueba: el correo no se guarda.':'Escribe un correo válido, por ejemplo nombre@correo.cl.';});
+
+/* Menú móvil */
+const mnav=document.getElementById('mnav'),menuBtn=document.getElementById('menuBtn');
+menuBtn.addEventListener('click',()=>{const o=mnav.hidden;mnav.hidden=!o;menuBtn.setAttribute('aria-expanded',o);});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.go;}));
+
+/* Rutas */
+const VIEWS=[...document.querySelectorAll('.view')].map(v=>v.dataset.view);
+function route(){const h=location.hash.slice(1);const v=VIEWS.includes(h)?h:'inicio';
+  document.querySelectorAll('.view').forEach(el=>el.classList.toggle('on',el.dataset.view===v));
+  document.querySelectorAll('nav.main a').forEach(a=>{const t=a.getAttribute('href').slice(1);a.toggleAttribute('aria-current',t===v||(t==='relojes'&&['pole-chrono','paddock-gt','box-square'].includes(v)));if(a.hasAttribute('aria-current'))a.setAttribute('aria-current','page');});
+  mnav.hidden=true;menuBtn.setAttribute('aria-expanded','false');
+  if(h&&!VIEWS.includes(h)){const el=document.getElementById(h);if(el){el.scrollIntoView();return;}}
+  window.scrollTo(0,0);}
+addEventListener('hashchange',route);route();
+</script>

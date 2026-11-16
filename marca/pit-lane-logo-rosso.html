@@ -1,0 +1,226 @@
+<title>Pit Lane Rosso</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: banda roja de escudería con el logo principal; luego propuestas y aplicaciones sobre fondo de estudio */
+:root{
+  --bg:#f3f2ef; --fg:#141414; --muted:#5f5f5c; --line:#dcdad5; --surface:#ffffff;
+  --rosso:#cc0a14; --rosso-deep:#a10810; --carbon:#141414; --silver:#c7cacc; --ivory:#f6f4ef;
+  --stage-a:#f4f4f2; --stage-b:#dddcd8;
+  --display:"Exo 2","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101010; --fg:#ecebe8; --muted:#a3a29d; --line:#2b2b2a; --surface:#181818;
+  --stage-a:#d6d5d1; --stage-b:#b3b2ae; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101010; --fg:#ecebe8; --muted:#a3a29d; --line:#2b2b2a; --surface:#181818;
+  --stage-a:#d6d5d1; --stage-b:#b3b2ae; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-style:italic;text-wrap:balance;margin:0;line-height:1.05}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.hero{background:var(--rosso);color:var(--ivory);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,var(--carbon) 0 10px,var(--ivory) 10px 20px)}
+.hero .wrap{padding-block:52px 62px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:center}
+.hero .eyebrow{color:#ffd7d3}
+.hero-lockup{width:100%;max-width:640px;display:block;margin-top:16px}
+.hero p{margin:0;max-width:46ch;font-size:16px;color:#ffe9e6}
+.hero p strong{color:var(--ivory)}
+
+section{padding-block:48px 8px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:end;margin-bottom:24px;border-bottom:2px solid var(--fg);padding-bottom:14px}
+.sec-head h2{font-size:clamp(32px,5vw,48px);font-weight:900;text-transform:uppercase}
+.sec-head p{margin:0;color:var(--muted);max-width:60ch}
+
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card.pick{outline:3px solid var(--rosso);outline-offset:-1px}
+.duo{display:grid;grid-template-rows:1fr 1fr}
+.duo div{display:grid;place-items:center;padding:24px;min-height:170px}
+.duo .light{background:var(--ivory)}
+.duo .dark{background:var(--carbon)}
+.duo .red{background:var(--rosso)}
+.duo svg{max-width:100%;max-height:130px}
+.meta{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.meta h3{font-size:22px;font-weight:800;text-transform:uppercase}
+.meta p{margin:0;color:var(--muted);font-size:14px}
+.tag{align-self:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--rosso);color:var(--ivory);padding:3px 8px;border-radius:3px}
+
+.stage{background:radial-gradient(120% 90% at 50% 25%,var(--stage-a),var(--stage-b));aspect-ratio:1/1;display:grid;place-items:center}
+.stage svg{width:100%;height:100%;display:block}
+
+.palette{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.chip{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.chip i{display:block;height:88px}
+.chip div{padding:10px 14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.chip b{display:block;font-family:var(--body);font-size:14px;color:var(--fg)}
+
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+footer .wrap{border-top:1px solid var(--line);padding-top:20px}
+
+@media (max-width:980px){
+  .hero .wrap,.sec-head{grid-template-columns:1fr}
+  .g3{grid-template-columns:1fr}
+  .g4,.palette{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){.g4,.palette{grid-template-columns:1fr}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Identidad v2 · Rosso Pit · Nov 2026</div>
+      <div id="heroLockup"></div>
+    </div>
+    <p><strong>Rojo de escudería, cromo y fibra de carbono.</strong> Tomamos de la tradición de los grandes equipos y relojeros del automovilismo el color, la insignia y la precisión, con símbolos propios: placa de número de carrera, bandera a cuadros y la línea que entra a boxes y vuelve a la pista.</p>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>Tres propuestas</h2>
+      <p>Cada una se muestra sobre marfil, negro carbono o rojo. Recomiendo la insignia como logo principal; las otras dos sirven como versión horizontal y sello para relojes.</p>
+    </div>
+    <div class="grid g3" id="proposals"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>En producto</h2>
+      <p>La insignia bordada en ropa, en la esfera de un reloj y repujada en cuero.</p>
+    </div>
+    <div class="grid g4" id="apps"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head">
+      <h2>Paleta</h2>
+      <p>El rojo manda; el negro carbono y el plata lo acompañan. El marfil reemplaza al blanco puro para dar calidez de cuero y papel.</p>
+    </div>
+    <div class="palette">
+      <div class="chip"><i style="background:#cc0a14"></i><div><b>Rosso Pit</b>#CC0A14</div></div>
+      <div class="chip"><i style="background:#141414"></i><div><b>Carbono</b>#141414</div></div>
+      <div class="chip"><i style="background:#c7cacc"></i><div><b>Plata cromo</b>#C7CACC</div></div>
+      <div class="chip"><i style="background:#f6f4ef"></i><div><b>Marfil</b>#F6F4EF</div></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Diseño original inspirado en el estilo del automovilismo italiano y la relojería de carreras. No usa símbolos, escudos ni tipografías de otras marcas; antes de registrarlo conviene una búsqueda de anterioridad en INAPI.</div></footer>
+
+<script>
+const R='#cc0a14',RD='#a10810',K='#141414',W='#f6f4ef',S='#c7cacc',COG='#8e5126',COGD='#5f3417';
+const EXO=`font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+let uid=0;
+
+function checks(x,y,w,rows,n,c){let s='';const q=w/n;for(let r=0;r<rows;r++)for(let i=0;i<n;i++)if((i+r)%2===0)s+=`<rect x="${x+i*q}" y="${y+r*q}" width="${q}" height="${q}" fill="${c}"/>`;return s;}
+
+/* A · Insignia (100 x 120) */
+function badge(bg=R,fg=W,ink=K){
+  return `<path d="M18 3H82L97 18V66Q97 95 50 117Q3 95 3 66V18Z" fill="${bg}"/>
+  <path d="M20 8H80L92 20V65Q92 91 50 111Q8 91 8 65V20Z" fill="none" stroke="${fg}" stroke-width="2"/>
+  <rect x="22" y="16" width="56" height="10" fill="${fg}"/>${checks(22,16,56,2,14,ink)}
+  <text x="51" y="78" text-anchor="middle" ${EXO} font-size="50" fill="${fg}">PL</text>
+  <path d="M26 91H74" stroke="${fg}" stroke-width="2.5"/>
+  <path d="M40 91C45 91 46 98 51 98H59C64 98 65 91 70 91" fill="none" stroke="${fg}" stroke-width="2.5"/>`;
+}
+const badgeSvg=(bg,fg,ink)=>`<svg viewBox="0 0 100 120" role="img" aria-label="Insignia Pit Lane">${badge(bg,fg,ink)}</svg>`;
+
+/* Lockup principal: insignia + nombre */
+function lockup(text,badgeBg,badgeFg,accent,sub=true){
+  return `<svg viewBox="0 0 470 130" role="img" aria-label="Pit Lane"><g transform="translate(0 5)">${badge(badgeBg,badgeFg,K)}</g>
+  <text x="120" y="76" ${EXO} font-size="70" textLength="340" lengthAdjust="spacingAndGlyphs" fill="${text}">PIT LANE</text>
+  <path d="M122 94H462" stroke="${text}" stroke-width="3"/>
+  <path d="M262 94C274 94 276 103 288 103H392C404 103 406 94 418 94" fill="none" stroke="${accent}" stroke-width="3"/>
+  ${sub?`<text x="122" y="124" ${MONO} font-size="11.5" letter-spacing="3.4" fill="${text}" opacity=".85">VESTIDO PARA LA RUTA · EST. 2026</text>`:''}</svg>`;
+}
+
+/* B · Placa de carrera horizontal */
+function plate(text,accent,plateInk){
+  return `<svg viewBox="0 0 430 100" role="img" aria-label="Pit Lane horizontal"><path d="M20 12H104L86 82H2Z" fill="${accent}"/>
+  <text x="52" y="66" text-anchor="middle" ${EXO} font-size="50" fill="${plateInk}">PL</text>
+  <text x="114" y="66" ${EXO} font-size="64" textLength="310" lengthAdjust="spacingAndGlyphs" fill="${text}">PIT LANE</text>
+  <path d="M112 82H426" stroke="${text}" stroke-width="3"/>
+  <path d="M250 82C262 82 264 91 276 91H366C378 91 380 82 392 82" fill="none" stroke="${accent}" stroke-width="3"/></svg>`;
+}
+
+/* C · Sello circular */
+function seal(ring=R,fg=W,core=K){
+  const id='sp'+(uid++);
+  return `<svg viewBox="0 0 120 120" role="img" aria-label="Sello Pit Lane"><circle cx="60" cy="60" r="58" fill="${ring}"/><circle cx="60" cy="60" r="54" fill="none" stroke="${fg}" stroke-width="1.2"/>
+  <defs><path id="${id}" d="M60 15A45 45 0 1 1 59.99 15"/></defs>
+  <text ${MONO} font-weight="500" font-size="9.4" fill="${fg}"><textPath href="#${id}" textLength="276">PIT LANE · RACING GARAGE · SANTIAGO · EST. 2026 ·</textPath></text>
+  <circle cx="60" cy="60" r="34" fill="${core}" stroke="${fg}" stroke-width="1.2"/>
+  <text x="61" y="66" text-anchor="middle" ${EXO} font-size="30" fill="${fg}">PL</text>
+  <rect x="42" y="72" width="36" height="7.2" fill="${fg}"/>${checks(42,72,36,2,10,ring)}</svg>`;
+}
+
+const P=[
+  {pick:true,tag:'Recomendado',name:'A · Insignia de carrera',desc:'Placa con esquinas cortadas como un número de carrera, bandera a cuadros arriba y la línea de boxes abajo. Funciona sola, bordada o grabada.',
+   a:badgeSvg(R,W,K),b:badgeSvg(R,W,K),bClass:'dark'},
+  {name:'B · Placa horizontal',desc:'Monograma en una placa inclinada, como el número de un auto, junto al nombre. Para letreros de tienda, web y bolsas.',
+   a:plate(K,R,W),b:plate(W,R,W),bClass:'dark'},
+  {name:'C · Sello cronógrafo',desc:'Circular como un bisel de reloj, con el texto en el anillo. Para esferas, tapas de reloj, botones y packaging.',
+   a:seal(R,W,K),b:seal(K,W,R),bClass:'red'},
+];
+document.getElementById('proposals').innerHTML=P.map(p=>`<article class="card ${p.pick?'pick':''}"><div class="duo"><div class="light">${p.a}</div><div class="${p.bClass}">${p.b}</div></div>
+<div class="meta">${p.tag?`<span class="tag">${p.tag}</span>`:''}<h3>${p.name}</h3><p>${p.desc}</p></div></article>`).join('');
+
+document.getElementById('heroLockup').innerHTML=lockup(W,K,W,K).replace('<svg ','<svg class="hero-lockup" ');
+
+/* Aplicaciones */
+const sh=(cx,cy,rx)=>`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="9" fill="#000" opacity=".16"/>`;
+const g=(x,y,s,inner)=>`<g transform="translate(${x} ${y}) scale(${s})">${inner}</g>`;
+
+function watchApp(){
+  const cx=150,cy=160,Rd=74;const pt=(r,a)=>[cx+r*Math.sin(a*Math.PI/180),cy-r*Math.cos(a*Math.PI/180)];
+  let s=`<svg viewBox="0 0 300 300"><defs><radialGradient id="wc" cx="38%" cy="32%" r="78%"><stop offset="0" stop-color="#f6f7f7"/><stop offset=".55" stop-color="#a9adb0"/><stop offset="1" stop-color="#555a5d"/></radialGradient>
+  <radialGradient id="wd" cx="45%" cy="35%" r="80%"><stop offset="0" stop-color="#2a2a2a"/><stop offset="1" stop-color="#0d0d0d"/></radialGradient></defs>`;
+  for(const y of [-30,240]){s+=`<rect x="108" y="${y}" width="84" height="100" rx="8" fill="#151515"/>`;
+    for(let yy=y+(y<0?44:16);yy<y+(y<0?92:80);yy+=11)for(let xx=124;xx<=176;xx+=13)s+=`<circle cx="${xx}" cy="${yy}" r="2.2" fill="#000"/>`;
+    s+=`<rect x="114" y="${y+(y<0?36:6)}" width="72" height="58" rx="4" fill="none" stroke="${R}" stroke-width="1.2" stroke-dasharray="4 3"/>`;}
+  s+=`<rect x="${cx+88}" y="${cy-11}" width="13" height="22" rx="3" fill="url(#wc)"/><circle cx="${cx}" cy="${cy}" r="92" fill="url(#wc)"/><circle cx="${cx}" cy="${cy}" r="86" fill="${R}"/><circle cx="${cx}" cy="${cy}" r="${Rd}" fill="url(#wd)"/>`;
+  for(let v of [300,200,150,120,100,80,70,60]){const a=(3600/v)*6%360;const[x,y]=pt(80,a);const rot=(a>90&&a<270)?a+180:a;
+    s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" ${MONO} font-size="7.5" font-weight="500" fill="${W}" transform="rotate(${rot} ${x} ${y})">${v}</text>`;}
+  for(let i=0;i<60;i++){const maj=i%5===0;const[x1,y1]=pt(Rd-3,i*6),[x2,y2]=pt(Rd-(maj?12:6),i*6);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${W}" stroke-width="${maj?3:1}"/>`;}
+  s+=g(cx-11,cy-52,.22,badge(R,W,K));
+  s+=`<text x="${cx}" y="${cy+36}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="2" fill="${W}">PIT LANE</text>`;
+  const hand=(a,len,w)=>`<path d="M${cx-w/2} ${cy+10}L${cx-w*.38} ${cy-len}L${cx} ${cy-len-5}L${cx+w*.38} ${cy-len}L${cx+w/2} ${cy+10}Z" fill="${W}" transform="rotate(${a} ${cx} ${cy})"/>`;
+  s+=hand(305,40,8)+hand(60,60,5.5)+`<g transform="rotate(140 ${cx} ${cy})"><path d="M${cx} ${cy+16}V${cy-Rd+6}" stroke="${R}" stroke-width="1.8"/></g><circle cx="${cx}" cy="${cy}" r="4.5" fill="${R}"/>`;
+  return s+`</svg>`;
+}
+
+const APPS=[
+ {name:'Polo Scuderia',desc:'Piqué rojo, ribetes carbono y marfil, insignia bordada.',svg:`<svg viewBox="0 0 300 300">${sh(150,272,88)}
+  <path d="M95 60L125 48Q150 62 175 48L205 60L250 95L232 130L210 118V260Q150 268 90 260V118L68 130L50 95Z" fill="${R}"/>
+  <path d="M90 118V260Q100 262 112 263V130Z" fill="#000" opacity=".12"/>
+  <path d="M56 99L73 125M244 99L227 125" stroke="${K}" stroke-width="4"/><path d="M61 96L78 122M239 96L222 122" stroke="${W}" stroke-width="2"/>
+  <rect x="144" y="66" width="12" height="46" fill="${RD}"/><circle cx="150" cy="80" r="2.6" fill="${W}"/><circle cx="150" cy="96" r="2.6" fill="${W}"/>
+  <path d="M121 46L140 84L150 66Z" fill="${RD}" stroke="${K}" stroke-width="3" stroke-linejoin="round"/><path d="M179 46L160 84L150 66Z" fill="${RD}" stroke="${K}" stroke-width="3" stroke-linejoin="round"/>
+  ${g(172,88,.26,badge(K,W,R))}</svg>`},
+ {name:'Jockey Carbono',desc:'Negro con visera de borde rojo e insignia bordada en 3D.',svg:`<svg viewBox="0 0 300 300">${sh(150,232,96)}
+  <path d="M74 176Q72 86 150 80Q228 86 226 176Z" fill="${K}"/>
+  <path d="M150 80V112M110 90Q100 130 104 176M190 90Q200 130 196 176" stroke="#2c2c2c" stroke-width="2" fill="none"/>
+  <circle cx="150" cy="82" r="6" fill="${R}"/>
+  <path d="M56 180Q150 150 244 180Q150 222 56 180Z" fill="#1f1f1f"/><path d="M60 180Q150 152 240 180" fill="none" stroke="${R}" stroke-width="3"/>
+  ${g(124,100,.52,badge(R,W,K))}</svg>`},
+ {name:'Reloj Rosso Tacómetro',desc:'Bisel rojo con taquímetro, esfera negra, insignia a las 12.',svg:watchApp()},
+ {name:'Llavero de cuero',desc:'Cuero coñac con la insignia repujada y argolla cromada.',svg:`<svg viewBox="0 0 300 300">${sh(150,262,70)}
+  <circle cx="150" cy="56" r="24" fill="none" stroke="${S}" stroke-width="6"/><rect x="138" y="76" width="24" height="18" rx="4" fill="${S}"/>
+  <path d="M108 96H192Q204 96 204 108V214Q204 236 150 256Q96 236 96 214V108Q96 96 108 96Z" fill="${COG}"/>
+  <path d="M112 104H188Q196 104 196 112V212Q196 230 150 247Q104 230 104 212V112Q104 104 112 104Z" fill="none" stroke="#e1c39a" stroke-width="1.4" stroke-dasharray="4 3"/>
+  ${g(115,128,.7,badge(COGD,'#c88d5c',COGD))}</svg>`},
+];
+document.getElementById('apps').innerHTML=APPS.map(a=>`<article class="card"><div class="stage">${a.svg}</div><div class="meta"><h3>${a.name}</h3><p>${a.desc}</p></div></article>`).join('');
+</script>

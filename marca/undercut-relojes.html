@@ -1,0 +1,319 @@
+<title>Undercut Trilogía</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,700;1,800;1,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ficha de diseño relojero — cada modelo en una banda con render grande a un lado y especificaciones técnicas al otro */
+:root{
+  --bg:#f3f2ef; --fg:#131313; --muted:#62615d; --line:#dcdad5; --surface:#ffffff;
+  --rosso:#cc0a14; --carbon:#111111; --ivory:#f6f4ef;
+  --stage-a:#fafaf8; --stage-b:#dddcd8;
+  --display:"Exo 2","Arial Black",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e0e0e; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#161616; --stage-a:#2a2a2a; --stage-b:#141414; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e0e0e; --fg:#ecebe8; --muted:#a3a29d; --line:#2a2a29; --surface:#161616; --stage-a:#2a2a2a; --stage-b:#141414; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-style:italic;font-weight:900;text-transform:uppercase;text-wrap:balance;margin:0;line-height:1.02}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.hero{background:var(--carbon);color:var(--ivory);border-bottom:8px solid var(--rosso)}
+.hero .wrap{padding-block:48px 44px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero .mono{color:#ff8f86}
+.hero h1{font-size:clamp(42px,7vw,88px);margin-top:10px}
+.hero p{margin:0;color:#c9c9c4;max-width:48ch}
+.trio{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.trio a{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:var(--ivory);border:1px solid #444;padding:8px 12px;border-radius:2px}
+.trio a:hover{border-color:var(--rosso)}
+
+.model{padding-block:56px;border-bottom:1px solid var(--line)}
+.model .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:start}
+.model:nth-of-type(even) .render{order:2}
+.render{background:radial-gradient(90% 70% at 50% 40%,var(--stage-a),var(--stage-b));border-radius:6px;border:1px solid var(--line);padding:18px;position:sticky;top:16px}
+.render svg{width:100%;height:auto;display:block;max-height:640px}
+.variants{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.variants button{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:20px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.variants button i{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.25)}
+.variants button[aria-pressed="true"]{border-color:var(--rosso);box-shadow:inset 0 0 0 1px var(--rosso)}
+.variants button:focus-visible{outline:2px solid var(--rosso);outline-offset:2px}
+
+.info{display:flex;flex-direction:column;gap:16px;min-width:0}
+.ref{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.ref b{font-family:var(--mono);font-weight:500;font-size:13px;background:var(--rosso);color:var(--ivory);padding:3px 8px;border-radius:2px}
+.info h2{font-size:clamp(34px,4.6vw,56px)}
+.info .lead{font-size:17px;margin:0;max-width:56ch}
+.price{font-family:var(--display);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums}
+.price span{font-family:var(--body);font-weight:400;font-size:13px;color:var(--muted);margin-left:8px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:14px 16px;min-width:0}
+.box h3{font-size:14px;letter-spacing:.06em;margin-bottom:8px}
+.box ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted);display:grid;gap:4px}
+.box.from h3{color:var(--muted)} .box.own h3{color:var(--rosso)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:38%;padding-right:12px}
+td{font-variant-numeric:tabular-nums}
+
+.compare{padding-block:56px 24px}
+.compare h2{font-size:clamp(28px,4vw,42px);margin-bottom:18px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.scroll table{min-width:640px}
+.scroll th,.scroll td{padding:12px 16px}
+.scroll thead th{color:var(--fg);font-family:var(--display);font-style:italic;font-weight:800;font-size:15px;width:auto}
+.note{margin-top:28px;border-left:4px solid var(--rosso);padding:4px 0 4px 16px;color:var(--muted);max-width:80ch;font-size:14px}
+.note b{color:var(--fg)}
+footer{padding-block:24px 56px;color:var(--muted);font-size:13px}
+
+@media (max-width:900px){
+  .hero .wrap,.model .wrap{grid-template-columns:1fr}
+  .model:nth-of-type(even) .render{order:0}
+  .render{position:static}
+}
+@media (max-width:520px){.cols{grid-template-columns:1fr}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="mono">Undercut · Colección de relojes 2027</div>
+      <h1>La trilogía</h1>
+      <div class="trio"><a href="#pole">01 · Pole Chrono</a><a href="#paddock">02 · Paddock GT</a><a href="#box">03 · Box Square</a></div>
+    </div>
+    <p>Tres relojes para tres momentos de la carrera: la pole, el paddock y el box. Toman las tipologías de tres íconos de la relojería deportiva —el cronógrafo de pista, el deportivo de brazalete integrado y el cronógrafo cuadrado— y las llevan al lenguaje Undercut: rojo de escudería, bandera a cuadros y la línea que entra a boxes y sale adelante.</p>
+  </div>
+</header>
+
+<main>
+  <section class="model" id="pole"><div class="wrap">
+    <div class="render"><div id="r1"></div><div class="variants" data-m="1"></div></div>
+    <div class="info">
+      <div class="ref"><b>UC-01</b><span class="mono">Cronógrafo de pista</span></div>
+      <h2>Pole Chrono</h2>
+      <p class="lead">El cronógrafo para marcar la vuelta más rápida. Bisel taquimétrico de cerámica, esfera tipo panda y dos contadores, con el contador de vueltas en rojo.</p>
+      <div class="price">$1.290.000 <span>precio objetivo</span></div>
+      <div class="cols">
+        <div class="box from"><h3>Idea base: Daytona</h3><ul><li>Cronógrafo redondo de pista</li><li>Bisel taquimétrico fijo</li><li>Contraste esfera y contadores</li><li>Brazalete de tres eslabones</li></ul></div>
+        <div class="box own"><h3>Lo que lo hace Undercut</h3><ul><li>Dos contadores (3 y 9), no tres</li><li>Ventana "POLE" con fecha a las 6</li><li>Contador de vueltas en rojo escudería</li><li>Pulsadores con protector tipo jaula antivuelco</li></ul></div>
+      </div>
+      <table>
+        <tr><th>Caja</th><td>40 mm · acero 316L pulido y satinado · 12,4 mm de alto</td></tr>
+        <tr><th>Bisel</th><td>Cerámica negra fija, escala taquimétrica 60–400</td></tr>
+        <tr><th>Movimiento</th><td>Automático cronógrafo, 27 rubíes, reserva 62 h</td></tr>
+        <tr><th>Funciones</th><td>Horas, minutos, segundos, cronógrafo 30 min, fecha</td></tr>
+        <tr><th>Cristal</th><td>Zafiro antirreflejo · fondo de zafiro con rotor en forma de llanta</td></tr>
+        <tr><th>Hermeticidad</th><td>100 m</td></tr>
+        <tr><th>Brazalete</th><td>Tres eslabones, centro pulido, cierre desplegable con ajuste rápido</td></tr>
+        <tr><th>Edición</th><td>Numerada en la tapa, como el chasis de un auto</td></tr>
+      </table>
+    </div>
+  </div></section>
+
+  <section class="model" id="paddock"><div class="wrap">
+    <div class="render"><div id="r2"></div><div class="variants" data-m="2"></div></div>
+    <div class="info">
+      <div class="ref"><b>UC-02</b><span class="mono">Deportivo de brazalete integrado</span></div>
+      <h2>Paddock GT</h2>
+      <p class="lead">El reloj para el paddock y la oficina. Caja plana con brazalete integrado y una esfera con textura de banda de rodadura de neumático.</p>
+      <div class="price">$890.000 <span>precio objetivo</span></div>
+      <div class="cols">
+        <div class="box from"><h3>Idea base: Land-Dweller</h3><ul><li>Caja delgada de uso diario</li><li>Brazalete integrado a la caja</li><li>Esfera texturizada</li><li>Tres agujas de lectura limpia</li></ul></div>
+        <div class="box own"><h3>Lo que lo hace Undercut</h3><ul><li>Textura de neumático de lluvia, no panal</li><li>Bisel liso con bisel pulido, sin estrías</li><li>Segundero pequeño a las 6 con bandera a cuadros</li><li>Eslabones con ranura central tipo carril de pit lane</li></ul></div>
+      </div>
+      <table>
+        <tr><th>Caja</th><td>39 mm · acero 316L · 9,2 mm de alto</td></tr>
+        <tr><th>Bisel</th><td>Acero satinado con chaflán pulido</td></tr>
+        <tr><th>Movimiento</th><td>Automático ultraplano, 25 rubíes, reserva 70 h</td></tr>
+        <tr><th>Funciones</th><td>Horas, minutos, segundero pequeño, fecha a las 3</td></tr>
+        <tr><th>Esfera</th><td>Textura de banda de rodadura grabada, índices aplicados</td></tr>
+        <tr><th>Hermeticidad</th><td>100 m</td></tr>
+        <tr><th>Brazalete</th><td>Integrado, eslabones planos satinados, cierre oculto</td></tr>
+        <tr><th>Colores</th><td>Rosso, Carbono, Plata pista</td></tr>
+      </table>
+    </div>
+  </div></section>
+
+  <section class="model" id="box"><div class="wrap">
+    <div class="render"><div id="r3"></div><div class="variants" data-m="3"></div></div>
+    <div class="info">
+      <div class="ref"><b>UC-03</b><span class="mono">Cronógrafo cuadrado</span></div>
+      <h2>Box Square</h2>
+      <p class="lead">El reloj del box, para quien dirige la carrera. Caja cuadrada con esquinas redondeadas, contadores en vertical y una franja de carrera de arriba abajo.</p>
+      <div class="price">$1.090.000 <span>precio objetivo</span></div>
+      <div class="cols">
+        <div class="box from"><h3>Idea base: Monaco</h3><ul><li>Cronógrafo de caja cuadrada</li><li>Estética de los años setenta</li><li>Correa de cuero de piloto</li><li>Esfera de color intenso</li></ul></div>
+        <div class="box own"><h3>Lo que lo hace Undercut</h3><ul><li>Contadores redondos en vertical (12 y 6)</li><li>Corona a la derecha, con pulsadores a los lados</li><li>Franja de carrera vertical sobre la esfera</li><li>Cristal plano con marco tipo pantalla de telemetría</li></ul></div>
+      </div>
+      <table>
+        <tr><th>Caja</th><td>39 × 39 mm · acero cepillado · 13,8 mm de alto</td></tr>
+        <tr><th>Esfera</th><td>Negro carbono con franja roja, contadores plateados</td></tr>
+        <tr><th>Movimiento</th><td>Automático cronógrafo, reserva 48 h</td></tr>
+        <tr><th>Funciones</th><td>Horas, minutos, cronógrafo 30 min, segundero pequeño</td></tr>
+        <tr><th>Cristal</th><td>Zafiro plano con tratamiento antirreflejo</td></tr>
+        <tr><th>Hermeticidad</th><td>100 m</td></tr>
+        <tr><th>Correa</th><td>Cuero perforado tipo guante de piloto, costura roja, hebilla desplegable</td></tr>
+        <tr><th>Colores</th><td>Carbono, Rosso, Azul de pista</td></tr>
+      </table>
+    </div>
+  </div></section>
+
+  <section class="compare wrap">
+    <h2>Comparación</h2>
+    <div class="scroll"><table>
+      <thead><tr><th></th><th>Pole Chrono</th><th>Paddock GT</th><th>Box Square</th></tr></thead>
+      <tbody>
+        <tr><th>Momento</th><td>La vuelta rápida</td><td>El paddock y la oficina</td><td>El muro de boxes</td></tr>
+        <tr><th>Caja</th><td>Redonda 40 mm</td><td>Redonda plana 39 mm</td><td>Cuadrada 39 × 39 mm</td></tr>
+        <tr><th>Complicación</th><td>Cronógrafo + fecha</td><td>Tres agujas + fecha</td><td>Cronógrafo</td></tr>
+        <tr><th>Pulsera</th><td>Brazalete tres eslabones</td><td>Brazalete integrado</td><td>Correa de cuero perforado</td></tr>
+        <tr><th>Cliente</th><td>Entusiasta de pista</td><td>Ejecutivo, uso diario</td><td>Coleccionista, estilo retro</td></tr>
+        <tr><th>Precio objetivo</th><td>$1.290.000</td><td>$890.000</td><td>$1.090.000</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note"><b>Nota legal.</b> Daytona y Land-Dweller son marcas de Rolex; Monaco es marca de TAG Heuer. Usamos solo las tipologías generales, que son de uso común en relojería. Los nombres, logos, coronas y rasgos distintivos de esos modelos no se usan. Antes de fabricar, conviene que un abogado de propiedad intelectual revise los diseños finales. Precios y especificaciones son objetivos de diseño, sujetos a cotización con el fabricante.</p>
+  </section>
+</main>
+<footer class="wrap">Undercut · Renders conceptuales generados en SVG.</footer>
+
+<script>
+const R='#cc0a14',K='#141414',W='#f6f4ef';
+const EXO=`font-family="'Exo 2',sans-serif" font-style="italic" font-weight="900"`;
+const MONO=`font-family="IBM Plex Mono,monospace"`;
+const D=Math.PI/180;
+let uid=0;
+const P=(cx,cy,r,a)=>[cx+r*Math.sin(a*D),cy-r*Math.cos(a*D)];
+function defs(id){return `<defs>
+<linearGradient id="${id}st" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".35" stop-color="#b9bdc1"/><stop offset=".6" stop-color="#e2e4e6"/><stop offset="1" stop-color="#6d7276"/></linearGradient>
+<linearGradient id="${id}br" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7d8286"/><stop offset=".5" stop-color="#d7dadd"/><stop offset="1" stop-color="#7d8286"/></linearGradient>
+<linearGradient id="${id}po" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa0a4"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa0a4"/></linearGradient>
+<radialGradient id="${id}gl" cx="35%" cy="25%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<filter id="${id}sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity=".35"/></filter>
+</defs>`;}
+const hand=(cx,cy,a,len,w,fill,lume,tail=14)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx-w/2} ${cy+tail}L${cx-w*.42} ${cy-len}L${cx} ${cy-len-6}L${cx+w*.42} ${cy-len}L${cx+w/2} ${cy+tail}Z" fill="${fill}" stroke="#000" stroke-opacity=".4" stroke-width=".7"/>${lume?`<path d="M${cx-w*.2} ${cy-len*.25}L${cx-w*.18} ${cy-len+4}L${cx+w*.18} ${cy-len+4}L${cx+w*.2} ${cy-len*.25}Z" fill="${lume}"/>`:''}</g>`;
+const secH=(cx,cy,a,len,c)=>`<g transform="rotate(${a} ${cx} ${cy})"><path d="M${cx} ${cy+22}V${cy-len}" stroke="${c}" stroke-width="1.6"/><rect x="${cx-3}" y="${cy-len+10}" width="6" height="6" fill="${c}"/><circle cx="${cx}" cy="${cy+18}" r="3.5" fill="${c}"/></g>`;
+function subdial(x,y,r,bg,ink,ring,hc,a=40,n=30){let s=`<circle cx="${x}" cy="${y}" r="${r}" fill="${bg}"/><circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${ring}" stroke-width="1.6"/>`;
+  for(let i=0;i<n;i++){const big=i%5===0;const[x1,y1]=P(x,y,r-2,i*360/n),[x2,y2]=P(x,y,r-(big?6:4),i*360/n);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${ink}" stroke-width="${big?1.2:.6}"/>`;}
+  s+=`<g transform="rotate(${a} ${x} ${y})"><path d="M${x} ${y+3}V${y-r+4}" stroke="${hc}" stroke-width="1.8" stroke-linecap="round"/></g><circle cx="${x}" cy="${y}" r="2.2" fill="${hc}"/>`;return s;}
+
+/* ---------- UC-01 Pole Chrono ---------- */
+const V1=[{n:'Panda',dot:'#f2f0eb',dial:'#f2f0eb',sub:'#151515',ink:'#151515',subInk:'#e9e7e1',bezel:'#121212',bezelInk:'#f2f0eb'},
+          {n:'Panda invertido',dot:'#151515',dial:'#121212',sub:'#ecebe6',ink:'#ecebe6',subInk:'#151515',bezel:'#121212',bezelInk:'#ecebe6'},
+          {n:'Rosso',dot:R,dial:'#b90912',sub:'#141414',ink:'#f6f4ef',subInk:'#ecebe6',bezel:'#121212',bezelInk:'#f6f4ef'}];
+function pole(v){
+  const id='a'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Render del Pole Chrono, variante ${v.n}">${defs(id)}`;
+  // brazalete tres eslabones
+  for(const [y0,y1] of [[-10,118],[322,450]]){
+    for(let y=y0;y<y1;y+=19){const t=Math.abs((y<220?118-y:y-322))/130;const w=78-t*8;
+      s+=`<rect x="${cx-w/2}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/><rect x="${cx-w/6+.5}" y="${y}" width="${w/3-1}" height="18" rx="3" fill="url(#${id}po)"/><rect x="${cx+w/6+1}" y="${y}" width="${w/3-1}" height="18" rx="2" fill="url(#${id}br)"/>`;}
+  }
+  s+=`<g filter="url(#${id}sh)">`;
+  for(const x of [cx-50,cx+28])for(const y of [108,300])s+=`<path d="M${x} ${y}h22v32h-22z" fill="url(#${id}st)"/>`;
+  // corona con protectores y pulsadores
+  s+=`<path d="M${cx+84} ${cy-22}L${cx+100} ${cy-16}V${cy+16}L${cx+84} ${cy+22}Z" fill="url(#${id}st)"/><rect x="${cx+98}" y="${cy-9}" width="12" height="18" rx="2" fill="url(#${id}st)"/>`;
+  for(const a of [-36,36])s+=`<g transform="rotate(${a} ${cx} ${cy})"><rect x="${cx+86}" y="${cy-7}" width="16" height="14" rx="2" fill="url(#${id}st)"/><path d="M${cx+92} ${cy-7}v14M${cx+96} ${cy-7}v14" stroke="#555" stroke-width=".8"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="90" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="86" fill="${v.bezel}"/><circle cx="${cx}" cy="${cy}" r="86" fill="none" stroke="#000" stroke-opacity=".5"/>`;
+  for(const val of [400,300,250,200,170,150,130,120,110,100,90,80,75,70,65,60]){const a=(3600/val)*6%360;const[x,y]=P(cx,cy,79,a);const rot=(a>90&&a<270)?a+180:a;
+    s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="7.2" fill="${v.bezelInk}" transform="rotate(${rot} ${x} ${y})">${val}</text>`;}
+  {const[x,y]=P(cx,cy,79,300);s+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" ${MONO} font-size="5.6" fill="${R}" transform="rotate(300 ${x} ${y})">TACHYMETRE</text>`;}
+  s+=`<circle cx="${cx}" cy="${cy}" r="71" fill="${v.dial}"/>`;
+  for(let i=0;i<300;i++){const a=i*1.2;const big=i%25===0;const[x1,y1]=P(cx,cy,70,a),[x2,y2]=P(cx,cy,big?65:67.5,a);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${big?.9:.35}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===9||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);
+    s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-2.6}" y="${y-(h===0?9:7)}" width="5.2" height="${h===0?18:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5"/><rect x="${x-1.2}" y="${y-(h===0?7:5)}" width="2.4" height="${h===0?14:10}" fill="#eef2e6"/></g>`;}
+  s+=subdial(cx-34,cy,18,v.sub,v.subInk,'#9aa0a4',v.subInk,210);
+  s+=subdial(cx+34,cy,18,v.sub,v.subInk,R,R,60);
+  s+=`<rect x="${cx-15}" y="${cy+38}" width="30" height="13" rx="2" fill="${v.sub}" stroke="#9aa0a4" stroke-width="1"/><text x="${cx}" y="${cy+45.5}" text-anchor="middle" dominant-baseline="central" ${EXO} font-size="7.5" fill="${R}">POLE 15</text>`;
+  s+=`<text x="${cx}" y="${cy-36}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text>`;
+  s+=`<path d="M${cx-18} ${cy-31}H${cx-2}L${cx+3} ${cy-28}H${cx+18}" fill="none" stroke="${R}" stroke-width="1.2"/>`;
+  s+=`<text x="${cx}" y="${cy-20}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.2" fill="${v.ink}" opacity=".85">AUTOMATIC CHRONOGRAPH</text>`;
+  s+=`<text x="${cx}" y="${cy+30}" text-anchor="middle" ${MONO} font-size="4.6" letter-spacing="1" fill="${v.ink}" opacity=".75">100 M · 330 FT</text>`;
+  s+=hand(cx,cy,305,40,7,'url(#'+id+'po)','#eef2e6')+hand(cx,cy,60,60,5,'url(#'+id+'po)','#eef2e6')+secH(cx,cy,180,66,R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf" stroke="#000" stroke-opacity=".4"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="86" fill="url(#${id}gl)"/>`;
+  return s+`</svg>`;
+}
+
+/* ---------- UC-02 Paddock GT ---------- */
+const V2=[{n:'Rosso',dot:R,dial:'#b8070f',dialHi:'#e0222b',ink:'#f6f4ef',sub:'#7d050a'},
+          {n:'Carbono',dot:'#1a1a1a',dial:'#141414',dialHi:'#2c2c2c',ink:'#ecebe6',sub:'#0b0b0b'},
+          {n:'Plata pista',dot:'#cfd2d4',dial:'#c9ccce',dialHi:'#eef0f1',ink:'#151515',sub:'#a9adb0'}];
+function paddock(v){
+  const id='b'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Render del Paddock GT, variante ${v.n}">${defs(id)}
+  <defs><radialGradient id="${id}d" cx="45%" cy="35%" r="75%"><stop offset="0" stop-color="${v.dialHi}"/><stop offset="1" stop-color="${v.dial}"/></radialGradient>
+  <pattern id="${id}tr" width="14" height="12" patternUnits="userSpaceOnUse"><path d="M0 9L7 3L14 9" fill="none" stroke="#000" stroke-opacity=".28" stroke-width="2.2"/><path d="M0 10L7 4L14 10" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width=".8"/></pattern>
+  <clipPath id="${id}c"><circle cx="${cx}" cy="${cy}" r="72"/></clipPath></defs>`;
+  // brazalete integrado
+  for(const [y0,y1,dir] of [[-10,130,-1],[310,450,1]]){
+    for(let y=y0;y<y1;y+=16){const t=dir<0?(130-y)/140:(y-310)/140;const w=104-t*22;
+      s+=`<rect x="${cx-w/2}" y="${y}" width="${w}" height="15" rx="2" fill="url(#${id}br)"/><rect x="${cx-3}" y="${y}" width="6" height="15" fill="#5d6266"/><path d="M${cx-w/2+3} ${y+.8}H${cx+w/2-3}" stroke="#fff" stroke-opacity=".5"/>`;}
+  }
+  s+=`<g filter="url(#${id}sh)"><path d="M${cx-52} 128L${cx-70} 160H${cx+70}L${cx+52} 128Z" fill="url(#${id}st)"/><path d="M${cx-52} 312L${cx-70} 280H${cx+70}L${cx+52} 312Z" fill="url(#${id}st)"/>
+  <rect x="${cx+84}" y="${cy-9}" width="13" height="18" rx="3" fill="url(#${id}st)"/><circle cx="${cx}" cy="${cy}" r="88" fill="url(#${id}st)"/></g>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="84" fill="url(#${id}br)"/><circle cx="${cx}" cy="${cy}" r="78" fill="url(#${id}po)"/><circle cx="${cx}" cy="${cy}" r="74" fill="#3c4044"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="72" fill="url(#${id}d)"/><rect x="${cx-72}" y="${cy-72}" width="144" height="144" fill="url(#${id}tr)" clip-path="url(#${id}c)"/>`;
+  for(let i=0;i<60;i++){const[x1,y1]=P(cx,cy,71,i*6),[x2,y2]=P(cx,cy,68,i*6);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width="${i%5?.5:1}"/>`;}
+  for(let h=0;h<12;h++){if(h===3||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,56,a);const big=h===0;
+    s+=`<g transform="rotate(${a} ${x} ${y})"><rect x="${x-(big?5:2.8)}" y="${y-9}" width="${big?10:5.6}" height="18" rx="1.2" fill="url(#${id}po)" stroke="#000" stroke-opacity=".45" stroke-width=".5"/>${big?`<path d="M${x} ${y-9}V${y+9}" stroke="#000" stroke-opacity=".4"/>`:''}</g>`;}
+  // fecha y segundero pequeño
+  s+=`<rect x="${cx+42}" y="${cy-8}" width="20" height="16" rx="1.5" fill="#fafafa" stroke="url(#${id}po)" stroke-width="2"/><text x="${cx+52}" y="${cy+.5}" text-anchor="middle" dominant-baseline="central" ${MONO} font-weight="500" font-size="9" fill="#151515">15</text>`;
+  s+=`<circle cx="${cx}" cy="${cy+36}" r="16" fill="${v.sub}"/>`;
+  for(let i=0;i<8;i++)for(let j=0;j<2;j++)if((i+j)%2===0)s+=`<rect x="${cx-8+i*2}" y="${cy+44+j*2}" width="2" height="2" fill="${v.ink}"/>`;
+  for(let i=0;i<12;i++){const[x1,y1]=P(cx,cy+36,15,i*30),[x2,y2]=P(cx,cy+36,12,i*30);s+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${v.ink}" stroke-width=".8"/>`;}
+  s+=`<g transform="rotate(130 ${cx} ${cy+36})"><path d="M${cx} ${cy+40}V${cy+22}" stroke="${v.n==='Rosso'?W:R}" stroke-width="1.4"/></g><circle cx="${cx}" cy="${cy+36}" r="1.8" fill="${v.n==='Rosso'?W:R}"/>`;
+  s+=`<text x="${cx}" y="${cy-34}" text-anchor="middle" ${EXO} font-size="11" letter-spacing="1.5" fill="${v.ink}">UNDERCUT</text>`;
+  s+=`<text x="${cx}" y="${cy-22}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1.4" fill="${v.ink}" opacity=".85">PADDOCK GT · AUTOMATIC</text>`;
+  s+=hand(cx,cy,305,42,7.5,'url(#'+id+'po)','#eef2e6')+hand(cx,cy,60,62,5.2,'url(#'+id+'po)','#eef2e6')+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf" stroke="#000" stroke-opacity=".4"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="74" fill="url(#${id}gl)"/>`;
+  return s+`</svg>`;
+}
+
+/* ---------- UC-03 Box Square ---------- */
+const V3=[{n:'Carbono',dot:'#1a1a1a',dial:'#141414',stripe:R,ink:'#ecebe6',sub:'#d8dadc',subInk:'#151515',strap:'#151515',stitch:R},
+          {n:'Rosso',dot:R,dial:'#b8070f',stripe:'#151515',ink:'#f6f4ef',sub:'#151515',subInk:'#ecebe6',strap:'#151515',stitch:'#f6f4ef'},
+          {n:'Azul de pista',dot:'#1d3d6e',dial:'#173764',stripe:R,ink:'#eef1f6',sub:'#e3e6ea',subInk:'#152038',strap:'#14223a',stitch:'#cfd6e2'}];
+function square(v){
+  const id='c'+(uid++),cx=160,cy=220;let s=`<svg viewBox="0 0 320 440" role="img" aria-label="Render del Box Square, variante ${v.n}">${defs(id)}
+  <defs><linearGradient id="${id}dd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${v.dial}" stop-opacity=".75"/><stop offset=".5" stop-color="${v.dial}"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient></defs>`;
+  // correa perforada
+  for(const [y0,dir] of [[-10,-1],[300,1]]){
+    s+=`<path d="${dir<0?`M${cx-46} 135L${cx-40} -10H${cx+40}L${cx+46} 135Z`:`M${cx-46} 305L${cx-40} 450H${cx+40}L${cx+46} 305Z`}" fill="${v.strap}"/>`;
+    s+=`<path d="${dir<0?`M${cx-40} 130L${cx-35} -10M${cx+40} 130L${cx+35} -10`:`M${cx-40} 310L${cx-35} 450M${cx+40} 310L${cx+35} 450`}" stroke="${v.stitch}" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+    const ys=dir<0?[10,26,42,58,74,90,106]:[324,340,356,372,388,404,420];
+    for(const y of ys)for(const x of [-22,-11,0,11,22])s+=`<circle cx="${cx+x}" cy="${y}" r="2.6" fill="#000" opacity=".7"/>`;
+  }
+  s+=`<g filter="url(#${id}sh)">`;
+  s+=`<rect x="${cx+86}" y="${cy-10}" width="13" height="20" rx="3" fill="url(#${id}st)"/>`;
+  for(const dy of [-52,52])s+=`<rect x="${cx+84}" y="${cy+dy-8}" width="14" height="16" rx="3" fill="url(#${id}st)"/>`;
+  s+=`<rect x="${cx-90}" y="${cy-90}" width="180" height="180" rx="38" fill="url(#${id}st)"/></g>`;
+  s+=`<rect x="${cx-82}" y="${cy-82}" width="164" height="164" rx="32" fill="url(#${id}br)"/>`;
+  s+=`<rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="#2e3236"/>`;
+  s+=`<rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="${v.dial}"/><rect x="${cx-70}" y="${cy-70}" width="140" height="140" rx="20" fill="url(#${id}dd)"/>`;
+  s+=`<rect x="${cx-12}" y="${cy-70}" width="10" height="140" fill="${v.stripe}"/><rect x="${cx+2}" y="${cy-70}" width="10" height="140" fill="${v.stripe}" opacity=".9"/>`;
+  // marcadores minuteros en el borde cuadrado
+  for(let i=0;i<60;i++){const a=i*6;const big=i%5===0;const[x,y]=P(cx,cy,big?62:64,a);s+=`<circle cx="${x}" cy="${y}" r="${big?0:0}" fill="none"/>`;}
+  const hrs=[[0,-60,'v'],[90,60,'h'],[180,60,'v'],[270,-60,'h']];
+  for(let h=0;h<12;h++){if(h===0||h===6)continue;const a=h*30;const[x,y]=P(cx,cy,58,a);
+    const horiz=(h===3||h===9);s+=`<rect x="${x-(horiz?10:2.6)}" y="${y-(horiz?2.8:7)}" width="${horiz?20:5.2}" height="${horiz?5.6:14}" rx="1" fill="url(#${id}po)" stroke="#000" stroke-opacity=".5" stroke-width=".5" ${horiz?'':`transform="rotate(${a} ${x} ${y})"`}/>`;}
+  s+=subdial(cx,cy-36,19,v.sub,v.subInk,'#8f9498',v.subInk,30);
+  s+=subdial(cx,cy+36,19,v.sub,v.subInk,R,R,250);
+  s+=`<text x="${cx-40}" y="${cy-56}" text-anchor="middle" ${EXO} font-size="9" letter-spacing="1" fill="${v.ink}">UNDERCUT</text>`;
+  s+=`<text x="${cx+40}" y="${cy-56}" text-anchor="middle" ${MONO} font-size="5" letter-spacing="1" fill="${v.ink}" opacity=".85">BOX SQUARE</text>`;
+  s+=`<text x="${cx+40}" y="${cy+60}" text-anchor="middle" ${MONO} font-size="4.6" letter-spacing="1" fill="${v.ink}" opacity=".75">CHRONOGRAPH</text>`;
+  s+=`<text x="${cx-40}" y="${cy+60}" text-anchor="middle" ${MONO} font-size="4.6" letter-spacing="1" fill="${v.ink}" opacity=".75">AUTOMATIC</text>`;
+  s+=hand(cx,cy,305,40,7,'url(#'+id+'po)','#eef2e6')+hand(cx,cy,60,58,5,'url(#'+id+'po)','#eef2e6')+secH(cx,cy,90,62,v.stripe===R?'#f6f4ef':R)+`<circle cx="${cx}" cy="${cy}" r="4" fill="#d9dcdf" stroke="#000" stroke-opacity=".4"/>`;
+  s+=`<rect x="${cx-74}" y="${cy-74}" width="148" height="148" rx="24" fill="url(#${id}gl)"/>`;
+  return s+`</svg>`;
+}
+
+const M={1:{fn:pole,v:V1,el:'r1'},2:{fn:paddock,v:V2,el:'r2'},3:{fn:square,v:V3,el:'r3'}};
+document.querySelectorAll('.variants').forEach(box=>{
+  const m=M[box.dataset.m];
+  box.innerHTML=m.v.map((v,i)=>`<button type="button" aria-pressed="${i===0}" data-i="${i}"><i style="background:${v.dot}"></i>${v.n}</button>`).join('');
+  document.getElementById(m.el).innerHTML=m.fn(m.v[0]);
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.getElementById(m.el).innerHTML=m.fn(m.v[+b.dataset.i]);});
+});
+</script>
